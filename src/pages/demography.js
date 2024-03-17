@@ -1,21 +1,16 @@
 import { useNavigate } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
+
 import Image from 'react-bootstrap/Image';
-import NavBar from '../components/NavBar';
+import NavBar from '../components/Nav/TopNavbar';
 import CardsGrid from '../components/CardsGrid';
 import Graphic from '../components/Graphic';
 import Sidebar from "../components/Sidebar";
 import { faHouseUser, faUsers, faBuilding } from '@fortawesome/free-solid-svg-icons';
 
 const Demografia = () => {
-    const navigate = useNavigate();
-
-    const handleClick = (path) => {
-        navigate(path);
-    }
-
+ 
     const column1Styles = {
         backgroundColor: '#138A92',
         padding: '20px',
@@ -46,11 +41,12 @@ const Demografia = () => {
 
     return (
         <>
-            <NavBar />
-            <Row>
-                <Col sm={2} style={column1Styles}>
-                    <Sidebar />
-                </Col>
+        <NavBar />
+      
+        <Row style={{ marginTop: '70px' }}> {/* Agrega marginTop aquí */}
+          <Col sm={2} style={column1Styles}>
+            <Sidebar />
+          </Col>
                 <Col sm={5}>
                     <Image src="/img/FotoMapa.jpg" rounded />
                 </Col>
