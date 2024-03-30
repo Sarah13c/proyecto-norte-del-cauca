@@ -19,7 +19,7 @@ const AccessibilitySection = () => {
 };
 
 const column2Styles = {
-    marginRight: '10px', // Espacio entre las columnas
+    marginRight: '10px', 
 };
   useEffect(() => {
     applyStyles();
@@ -125,11 +125,11 @@ const column2Styles = {
     <>
       <NavBar />
     
-      <Row style={{ marginTop: '70px' }}> {/* Agrega marginTop aquí */}
+      <Row style={{ marginTop: '70px' }}> 
         <Col sm={2} style={column1Styles}>
           <Sidebar />
         </Col>
-        <Col sm={9} className="column-2" style={column2Styles}> {/* Añade la clase column-2 y el estilo de margen */}
+        <Col sm={9} className="column-2" style={column2Styles}> 
           <div className="container mt-5">
             <div className="row">
               <div className="col-lg-12 d-flex justify-content-between align-items-center">

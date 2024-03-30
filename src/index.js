@@ -11,6 +11,7 @@ import Salud from "./pages/health";
 import Security from "./pages/security";
 import Information from "./pages/information";
 import Accessibility from './pages/accessibility';
+import Admin from './pages/adminDashboard';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./styles/flexboxgrid.min.css";
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
   {
     path: "accessibility",
     element: <Accessibility />,
+  },
+  {
+    path: "admin",
+    element: <Admin />,
   },
   
 ]);

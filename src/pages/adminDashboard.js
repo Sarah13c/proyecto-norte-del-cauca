@@ -1,157 +1,147 @@
 import React from 'react';
-import { Container, Row, Col, Card } from 'react-bootstrap';
-import { LineChart, Line, BarChart, Bar, PieChart, Pie, AreaChart, Area, ScatterChart, Scatter, Tooltip, Legend, XAxis, YAxis, CartesianGrid } from 'recharts';
+import Grid from '@mui/material/Unstable_Grid2';
+import dayjs from 'dayjs';
+
+import { Container, Row } from 'react-bootstrap';
+
+import { Budget } from '../components/dashboard/budget';
+import { LatestOrders } from '../components/dashboard/latest-orders';
+import { LatestProducts } from '../components/dashboard/latest-products';
+import { Sales } from '../components/dashboard/sales';
+import { TotalCustomers } from '../components/dashboard/total-customers';
+import { TotalProfit } from '../components/dashboard/total-profit';
+import { Traffic } from '../components/dashboard/traffic';
 import NavBar from '../components/Nav/TopNavbar';
 
+function AdminDashboard() {
+  return (
+    <>
+      <NavBar />
+      <Row style={{ marginTop: '90px' }}>
 
+        <Container >
+          <Row style={{ display: 'flex', justifyContent: 'center' }}>
+            <h1 style={{ textAlign: 'center', margin: '20px 0' }}>DASHBOARD DE ADMINISTRADOR</h1>
+          </Row>
 
-const AdminDashboard = () => {
-    const lineChartColor = '#8884d8';
-    const barChartColor = '#82ca9d';
-    const pieChartColors = ['#FFA726', '#FFD54F', '#FFB74D', '#FF8A65', '#FFCC80'];
-    const areaChartColors = ['#8884d8', '#82ca9d'];
-    const scatterChartColor = '#8884d8';
+          <Grid container spacing={3} style={{ fontFamily: 'Khula, sans-serif' }}>
+            <Grid lg={3} sm={6} xs={12}>
+              <Budget diff={12} trend="up" sx={{ height: '100%' }} value="$24k" />
+            </Grid>
+            <Grid lg={3} sm={6} xs={12}>
+              <TotalCustomers diff={16} trend="down" sx={{ height: '100%' }} value="1.6k" />
+            </Grid>
 
+            <Grid lg={3} sm={6} xs={12}>
+              <TotalProfit sx={{ height: '100%' }} value="$15k" />
+            </Grid>
+            <Grid lg={3} sm={6} xs={12}>
+              <TotalProfit sx={{ height: '100%' }} value="$15k" />
+            </Grid>
+            <Grid lg={8} xs={12}>
+              <Sales
+                chartSeries={[
+                  { name: 'This year', data: [18, 16, 5, 8, 3, 14, 14, 16, 17, 19, 18, 20] },
+                  { name: 'Last year', data: [12, 11, 4, 6, 2, 9, 9, 10, 11, 12, 13, 13] },
+                ]}
+                sx={{ height: '100%' }}
+              />
+            </Grid>
+            <Grid lg={4} md={6} xs={12}>
+              <Traffic chartSeries={[63, 15, 22]} labels={['Desktop', 'Tablet', 'Phone']} sx={{ height: '100%' }} />
+            </Grid>
+            <Grid lg={4} md={6} xs={12}>
+              <LatestProducts
+                products={[
+                  {
+                    id: 'PRD-005',
+                    name: 'Soja & Co. Eucalyptus',
+                    image: '/assets/product-5.png',
+                    updatedAt: dayjs().subtract(18, 'minutes').subtract(5, 'hour').toDate(),
+                  },
+                  {
+                    id: 'PRD-004',
+                    name: 'Necessaire Body Lotion',
+                    image: '/assets/product-4.png',
+                    updatedAt: dayjs().subtract(41, 'minutes').subtract(3, 'hour').toDate(),
+                  },
+                  {
+                    id: 'PRD-003',
+                    name: 'Ritual of Sakura',
+                    image: '/assets/product-3.png',
+                    updatedAt: dayjs().subtract(5, 'minutes').subtract(3, 'hour').toDate(),
+                  },
+                  {
+                    id: 'PRD-002',
+                    name: 'Lancome Rouge',
+                    image: '/assets/product-2.png',
+                    updatedAt: dayjs().subtract(23, 'minutes').subtract(2, 'hour').toDate(),
+                  },
+                  {
+                    id: 'PRD-001',
+                    name: 'Erbology Aloe Vera',
+                    image: '/assets/product-1.png',
+                    updatedAt: dayjs().subtract(10, 'minutes').toDate(),
+                  },
+                ]}
+                sx={{ height: '100%' }}
+              />
+            </Grid>
+            <Grid lg={8} md={12} xs={12}>
+              <LatestOrders
+                orders={[
+                  {
+                    id: 'ORD-007',
+                    customer: { name: 'Ekaterina Tankova' },
+                    amount: 30.5,
+                    status: 'pending',
+                    createdAt: dayjs().subtract(10, 'minutes').toDate(),
+                  },
+                  {
+                    id: 'ORD-006',
+                    customer: { name: 'Cao Yu' },
+                    amount: 25.1,
+                    status: 'delivered',
+                    createdAt: dayjs().subtract(10, 'minutes').toDate(),
+                  },
+                  {
+                    id: 'ORD-004',
+                    customer: { name: 'Alexa Richardson' },
+                    amount: 10.99,
+                    status: 'refunded',
+                    createdAt: dayjs().subtract(10, 'minutes').toDate(),
+                  },
+                  {
+                    id: 'ORD-003',
+                    customer: { name: 'Anje Keizer' },
+                    amount: 96.43,
+                    status: 'pending',
+                    createdAt: dayjs().subtract(10, 'minutes').toDate(),
+                  },
+                  {
+                    id: 'ORD-002',
+                    customer: { name: 'Clarke Gillebert' },
+                    amount: 32.54,
+                    status: 'delivered',
+                    createdAt: dayjs().subtract(10, 'minutes').toDate(),
+                  },
+                  {
+                    id: 'ORD-001',
+                    customer: { name: 'Adam Denisov' },
+                    amount: 16.76,
+                    status: 'delivered',
+                    createdAt: dayjs().subtract(10, 'minutes').toDate(),
+                  },
+                ]}
+                sx={{ height: '100%' }}
+              />
+            </Grid>
+          </Grid>
 
-    const lineChartData = [
-        { name: 'Enero', visits: 200 },
-        { name: 'Febrero', visits: 350 },
-        { name: 'Marzo', visits: 400 },
-        { name: 'Abril', visits: 450 },
-        { name: 'Mayo', visits: 600 },
-    ];
-
-    const barChartData = [
-        { name: 'Página 1', visits: 100 },
-        { name: 'Página 2', visits: 200 },
-        { name: 'Página 3', visits: 300 },
-        { name: 'Página 4', visits: 400 },
-        { name: 'Página 5', visits: 500 },
-    ];
-
-    const pieChartData = [
-        { name: 'Página 1', visits: 100 },
-        { name: 'Página 2', visits: 200 },
-        { name: 'Página 3', visits: 300 },
-        { name: 'Página 4', visits: 400 },
-        { name: 'Página 5', visits: 500 },
-    ];
-
-    const areaChartData = [
-        { name: 'Enero', visits: 200, sales: 100 },
-        { name: 'Febrero', visits: 350, sales: 200 },
-        { name: 'Marzo', visits: 400, sales: 300 },
-        { name: 'Abril', visits: 450, sales: 400 },
-        { name: 'Mayo', visits: 600, sales: 500 },
-    ];
-
-    const scatterChartData = [
-        { x: 10, y: 30 },
-        { x: 20, y: 40 },
-        { x: 30, y: 50 },
-        { x: 40, y: 60 },
-        { x: 50, y: 70 },
-    ];
-
-    return (
-        <>
-        
-            <NavBar />
-            
-            <Col className="text-center">
-          <h1>DASHBOARD ADMIN</h1>
-            </Col>
-            
-                <Row className="mb-4">
-                    
-                    <Col md={3}> {/* Cambiado a md={3} para la barra lateral */}
-                        
-                    </Col>
-                    <Col md={9}> {/* Cambiado a md={9} para el contenido */}
-                        <Row>
-                            <Col md={6}>
-                                <Card>
-                                    <Card.Header className="text-center">Gráfica de Línea</Card.Header>
-                                    <Card.Body>
-                                        <LineChart width={400} height={300} data={lineChartData}>
-                                            <XAxis dataKey="name" />
-                                            <YAxis />
-                                            <CartesianGrid stroke="#eee" />
-                                            <Tooltip />
-                                            <Legend />
-                                            <Line type="monotone" dataKey="visits" stroke={lineChartColor} />
-                                        </LineChart>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                            <Col md={6}>
-                                <Card>
-                                    <Card.Header className="text-center">Gráfica de Barras</Card.Header>
-                                    <Card.Body>
-                                        <BarChart width={400} height={300} data={barChartData}>
-                                            <XAxis dataKey="name" />
-                                            <YAxis />
-                                            <CartesianGrid stroke="#ccc" />
-                                            <Tooltip />
-                                            <Legend />
-                                            <Bar dataKey="visits" fill={barChartColor} />
-                                        </BarChart>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col md={6}>
-                                <Card>
-                                    <Card.Header className="text-center">Gráfica de Pastel</Card.Header>
-                                    <Card.Body>
-                                        <PieChart width={400} height={300}>
-                                            <Pie data={pieChartData} dataKey="visits" nameKey="name" cx="50%" cy="50%" outerRadius={80} label fill={pieChartColors} />
-                                            <Tooltip />
-                                            <Legend />
-                                        </PieChart>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                            <Col md={6}>
-                                <Card>
-                                    <Card.Header className="text-center">Gráfica de Área</Card.Header>
-                                    <Card.Body>
-                                        <AreaChart width={400} height={300} data={areaChartData}>
-                                            <XAxis dataKey="name" />
-                                            <YAxis />
-                                            <CartesianGrid stroke="#ccc" />
-                                            <Tooltip />
-                                            <Legend />
-                                            <Area type="monotone" dataKey="visits" fill={areaChartColors[0]} />
-                                            <Area type="monotone" dataKey="sales" fill={areaChartColors[1]} />
-                                        </AreaChart>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col md={6}>
-                                <Card>
-                                    <Card.Header className="text-center">Gráfica de Dispersión</Card.Header>
-                                    <Card.Body>
-                                        <ScatterChart width={400} height={300}>
-                                            <XAxis type="number" dataKey="x" name="stature" unit="cm" />
-                                            <YAxis type="number" dataKey="y" name="weight" unit="kg" />
-                                            <CartesianGrid />
-                                            <Tooltip cursor={{ strokeDasharray: '3 3' }} />
-                                            <Legend />
-                                            <Scatter name="A scatter" data={scatterChartData} fill={scatterChartColor} />
-                                        </ScatterChart>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                        </Row>
-                    </Col>
-                </Row>
-            
-        </>
-    );
-};
+        </Container>
+      </Row>
+    </>
+  );
+}
 
 export default AdminDashboard;
