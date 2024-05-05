@@ -1,10 +1,8 @@
-import { useNavigate } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MapComponent from '../components/MapComponents/MapComponent';
 import 'leaflet/dist/leaflet.css';
-import Image from 'react-bootstrap/Image';
 import NavBar from '../components/Nav/TopNavbar';
 import CardsGrid from '../components/CardsGrid';
 import Graphic from '../components/Graphic';
@@ -14,11 +12,38 @@ import { faHouseUser, faUsers, faBuilding } from '@fortawesome/free-solid-svg-ic
 const Demografia = () => {
     const center = [2.283333, -76.85];
     const [mousePosition, setMousePosition] = useState(null);
+    const [totalPoblacion, setTotalPoblacion] = useState(null); // Estado para almacenar el total de población
+    const [error, setError] = useState(null); // Estado para almacenar el error
+    const [municipiosData, setMunicipiosData] = useState(null); // Estado para almacenar los datos de los municipios
 
     const column1Styles = {
         backgroundColor: '#138A92',
-
     };
+
+    // Obtener el total de población y los datos de los municipios desde el backend
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const totalPoblacionResponse = await fetch('http://localhost:3001/total2022Poblacion');
+                if (!totalPoblacionResponse.ok) {
+                    throw new Error('Error al obtener los datos del servidor');
+                }
+                const totalPoblacionData = await totalPoblacionResponse.json();
+                setTotalPoblacion(totalPoblacionData[0].total_poblacion);
+
+                const municipiosResponse = await fetch('http://localhost:3001/datos2022Poblacion');
+                if (!municipiosResponse.ok) {
+                    throw new Error('Error al obtener los datos de los municipios del servidor');
+                }
+                const municipiosData = await municipiosResponse.json();
+                setMunicipiosData(municipiosData);
+            } catch (error) {
+                console.error('Error al obtener los datos:', error);
+                setError(error.message); // Establecer el error en el estado
+            }
+        };
+        fetchData();
+    }, []);
 
     // Define el arreglo de cartas aquí
     const cardTexts = [
@@ -30,7 +55,7 @@ const Demografia = () => {
         },
         {
             icon: faUsers,
-            title: '281.029',
+            title: totalPoblacion !== null ? totalPoblacion : 'Cargando...', // Mostrar el total de población o "Cargando..." si aún no se ha cargado
             description: 'Total de Habitantes ',
             bg: '#139218',
         },
@@ -40,7 +65,6 @@ const Demografia = () => {
             description: 'Descripción del otro valor',
             bg: '#924113',
         },
-
     ];
 
     return (
@@ -70,7 +94,7 @@ const Demografia = () => {
                     </Row>
                     <Row>
                         Gráfica
-                        <Graphic />
+                        {municipiosData && <Graphic data={municipiosData} />}
                     </Row>
                 </Col>
             </Row>

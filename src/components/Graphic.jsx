@@ -1,62 +1,9 @@
 import React, { useState } from 'react';
-import { BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend, LineChart, Line, ComposedChart, Area,Scatter  } from 'recharts';
+import { BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend, LineChart, Line, ComposedChart, Area, Scatter } from 'recharts';
 import { PieChart, Pie, Legend as PieLegend, Cell, Tooltip as PieTooltip } from 'recharts';
 import { Navbar, Nav } from 'react-bootstrap';
 
-const Graphic = () => {
-  const data = [
-    { name: 'Page A', value: 4000 },
-    { name: 'Page B', value: 3000 },
-    { name: 'Page C', value: 2000 },
-    { name: 'Page D', value: 2780 },
-    { name: 'Page E', value: 1890 },
-  ];
-
-  const dataDos = [
-    {
-      name: 'Page A',
-      uv: 590,
-      pv: 800,
-      amt: 1400,
-      cnt: 490,
-    },
-    {
-      name: 'Page B',
-      uv: 868,
-      pv: 967,
-      amt: 1506,
-      cnt: 590,
-    },
-    {
-      name: 'Page C',
-      uv: 1397,
-      pv: 1098,
-      amt: 989,
-      cnt: 350,
-    },
-    {
-      name: 'Page D',
-      uv: 1480,
-      pv: 1200,
-      amt: 1228,
-      cnt: 480,
-    },
-    {
-      name: 'Page E',
-      uv: 1520,
-      pv: 1108,
-      amt: 1100,
-      cnt: 460,
-    },
-    {
-      name: 'Page F',
-      uv: 1400,
-      pv: 680,
-      amt: 1700,
-      cnt: 380,
-    },
-  ];
-
+const Graphic = ({ data }) => {
   const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AD40AF'];
 
   const [chartType, setChartType] = useState('bar');
@@ -76,11 +23,11 @@ const Graphic = () => {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
+          <XAxis dataKey="MunicipioAS" />
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="value" fill="#8884d8" />
+          <Bar dataKey="Poblacion_DANE" fill="#8884d8" name="Población" />
         </BarChart>
       );
     } else if (chartType === 'pie') {
@@ -95,7 +42,8 @@ const Graphic = () => {
             outerRadius={140}
             fill="#8884d8"
             paddingAngle={5}
-            dataKey="value"
+            dataKey="Poblacion_DANE"
+            nameKey="Municipio"
           >
             {data.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -118,11 +66,11 @@ const Graphic = () => {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
+          <XAxis dataKey="MunicipioAS" />
           <YAxis />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="value" stroke="#8884d8" activeDot={{ r: 8 }} />
+          <Line type="monotone" dataKey="Poblacion_DANE" stroke="#8884d8" activeDot={{ r: 8 }} name="Población" />
         </LineChart>
       );
     } else if (chartType === 'linearea') {
@@ -130,7 +78,7 @@ const Graphic = () => {
         <ComposedChart
           width={500}
           height={400}
-          data={dataDos}
+          data={data}
           margin={{
             top: 20,
             right: 20,
@@ -139,14 +87,14 @@ const Graphic = () => {
           }}
         >
           <CartesianGrid stroke="#f5f5f5" />
-          <XAxis dataKey="name" scale="band" />
+          <XAxis dataKey="Municipio" scale="band" />
           <YAxis />
           <Tooltip />
           <Legend />
-          <Area type="monotone" dataKey="amt" fill="#8884d8" stroke="#8884d8" />
-          <Bar dataKey="pv" barSize={20} fill="#413ea0" />
-          <Line type="monotone" dataKey="uv" stroke="#ff7300" />
-          <Scatter dataKey="cnt" fill="red" />
+          <Area type="monotone" dataKey="Poblacion_DANE" fill="#8884d8" stroke="#8884d8" name="Población" />
+          <Bar dataKey="Poblacion_DANE" barSize={20} fill="#413ea0" name="Población" />
+          <Line type="monotone" dataKey="Poblacion_DANE" stroke="#ff7300" name="Población" />
+          <Scatter dataKey="Poblacion_DANE" fill="red" name="Población" />
         </ComposedChart>
       );
     }
@@ -167,8 +115,7 @@ const Graphic = () => {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      
-    
+
       {renderChart()}
     </div>
   );

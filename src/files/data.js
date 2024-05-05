@@ -34732,7 +34732,7 @@ export const statesData =
         },
         "id": "1b60a1eb-c64d-499e-9104-11a6fa7d15e7",
         "properties": {
-          "text": "Guapi",
+          "text": "Guapí",
           "personas": 20400
         }
       },
@@ -118657,7 +118657,7 @@ export const statesData =
         },
         "id": "e5540b67-f9dc-49ba-a58b-69a5b3c8fa89",
         "properties": {
-          "text": "López"
+          "text": "López De Micay"
         }
       },
       {
