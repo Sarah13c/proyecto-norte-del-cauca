@@ -112,5 +112,5 @@ export default (props = {}) => {
 
 // Agrega un componente de estilo para el texto de la barra lateral
 const SidebarText = styled.span`
-  font-size: 14px; // Tamaño de fuente más pequeño
+  font-size: 12px; // Tamaño de fuente más pequeño
 `;

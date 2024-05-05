@@ -43,19 +43,19 @@ const Salud = () => {
         <>
         <NavBar />
       
-        <Row style={{ marginTop: '90px' }}> {/* Agrega marginTop aquí */}
+        <Row style={{ marginTop: '100px' }}> 
           <Col sm={2} style={column1Styles}>
             <Sidebar />
           </Col>
-                <Col sm={5}>
+                <Col sm={6}>
                     <Image src="/img/FotoMapa.jpg" rounded />
                 </Col>
-                <Col sm={5}>
+                <Col sm={4}>
                     <Row>
                         <h2>SALUD</h2>
                     </Row>
-                    <Row>
-                        {/* Pasa el arreglo de cartas y el número de columnas como propiedades al componente CardsGrid */}
+                    <Row style={{ marginBottom: '20px' }}> 
+                       
                         <CardsGrid cardTexts={cardTexts} columns={cardTexts.length} />
                     </Row>
                     <Row>
