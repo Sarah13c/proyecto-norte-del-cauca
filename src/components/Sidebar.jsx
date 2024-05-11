@@ -23,7 +23,7 @@ export default (props = {}) => {
     return (
       <Accordion as={Nav.Item} defaultActiveKey={defaultKey}>
         <Accordion.Item eventKey={eventKey} style={{ border: 'none' }}>
-          <Accordion.Button as={Nav.Link} className="d-flex justify-content-between align-items-center" style={{ backgroundColor: '#138A92', color: 'white', border: 'none' }}>
+          <Accordion.Button as={Nav.Link} className="d-flex justify-content-between align-items-center" style={{ backgroundColor: '#0E77C8', color: 'white', border: 'none' }}>
             <span>
               <span className="sidebar-icon"><FontAwesomeIcon icon={icon} /></span>
               <SidebarText className="sidebar-text">{title}</SidebarText> {/* Agrega el estilo de texto aquí */}
@@ -78,7 +78,7 @@ export default (props = {}) => {
         </Navbar.Collapse>
       </Navbar>
       <CSSTransition timeout={300} in={show} classNames="sidebar-transition">
-        <SimpleBar className={`collapse ${showClass} sidebar d-md-block`} style={{ backgroundColor: '#138A92', color: 'white' }}>
+        <SimpleBar className={`collapse ${showClass} sidebar d-md-block`} style={{ backgroundColor: '#0E77C8', color: 'white' }}>
           <div className="sidebar-inner px-4 pt-3">
             <div className="user-card d-flex d-md-none align-items-center justify-content-between justify-content-md-center pb-4">
 
@@ -88,7 +88,6 @@ export default (props = {}) => {
             </div>
             <Nav className="flex-column pt-3 pt-md-0 custom-text-white" style={{ width: '100%' }}> {/* Ajusta el ancho del contenido al 100% del Sidebar */}
               <NavItem title="Inicio" icon={faHouse} link="/" />
-              <NavItem title="Gráficas" icon={faChartPie} link="/graficas" />
               <CollapsableNavItem eventKey="documentation/" title="Indicadores" icon={faChartSimple}>
                 <NavItem title="Demografía" icon={faUserFriends} link="/demography" />
                 <NavItem title="Salud" icon={faHeart} link="/health" />
@@ -112,5 +111,5 @@ export default (props = {}) => {
 
 // Agrega un componente de estilo para el texto de la barra lateral
 const SidebarText = styled.span`
-  font-size: 12px; // Tamaño de fuente más pequeño
+  font-size: 15px; // Tamaño de fuente más pequeño
 `;

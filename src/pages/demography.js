@@ -17,7 +17,7 @@ const Demografia = () => {
     const [municipiosData, setMunicipiosData] = useState(null); // Estado para almacenar los datos de los municipios
 
     const column1Styles = {
-        backgroundColor: '#138A92',
+        backgroundColor: '#0E77C8',
     };
 
     // Obtener el total de población y los datos de los municipios desde el backend
@@ -51,7 +51,7 @@ const Demografia = () => {
             icon: faHouseUser,
             title: '8.023',
             description: 'Densidad Urbana (km2)',
-            bg: '#138A92',
+            bg: '#0E77C8',
         },
         {
             icon: faUsers,
