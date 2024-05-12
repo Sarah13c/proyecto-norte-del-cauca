@@ -1,70 +1,53 @@
 import React from "react";
-import { MdPerson,MdHome,MdBarChart, MdGroups, MdOutlineHealthAndSafety, MdOutlineMenuBook, MdOutlineMonetizationOn, MdOutlineEco } from "react-icons/md";
+import { MdPerson, MdHome } from "react-icons/md";
 
 import MainDashboard from "./pages/admin/default";
-import Profile from "./pages/admin/profile/";
-import Salud from "./pages/admin/profile";
-import Demografia from "./pages/admin/profile";
+import Profile from "./pages/admin/profile";
+
 
 const routes = [
   {
     name: "Inicio",
     layout: "/admin",
-    path: "/",
+    path: "/default",
     icon: MdHome,
     component: MainDashboard,
   },
   {
-    name: "Profile",
+    name: "Perfil",
     layout: "/admin",
     path: "/profile",
-    icon: MdPerson,
+    icon: MdPerson ,
     component: Profile,
   },
   {
     name: "Indicadores",
     layout: "/admin",
-    icon: MdBarChart,
-    path: "/",
-    children: [
+    category: true,
+    items: [
       {
         name: "Demografía",
         layout: "/admin",
-        icon: MdGroups,
-        path: "/demografia",
-        component: Demografia,
+        path: "/demography",
+        icon: MdPerson,
+        component: Profile,
       },
       {
         name: "Salud",
         layout: "/admin",
-        icon: MdOutlineHealthAndSafety,
-        path: "/salud",
-        component: Salud,
+        path: "/health",
+        icon: MdHome,
+        component: MainDashboard,
       },
       {
         name: "Educación",
         layout: "/admin",
-        icon: MdOutlineMenuBook,
-        path: "/educacion",
-        component: Salud,
-      },
-      {
-        name: "Finanzas",
-        layout: "/admin",
-        icon: MdOutlineMonetizationOn,
-        path: "/finanzas",
-        component: Salud,
-      },
-      {
-        name: "Medio Ambiente",
-        layout: "/admin",
-        icon: MdOutlineEco,
-        path: "/ambiental",
-        component: Salud,
+        path: "/education",
+        icon: MdPerson,
+        component: Profile,
       },
     ],
   },
 ];
-
 
 export default routes;
