@@ -1,12 +1,14 @@
 // Chakra imports
 import { Portal, Box, useDisclosure} from '@chakra-ui/react';
 // Layout components
-import Navbar from 'components/navbar/NavbarAdmin.js';
-import Sidebar from 'components/sidebar/Sidebar.js';
-import { SidebarContext } from 'contexts/SidebarContext';
+import Navbar from '../../components/navbar/NavbarAdmin.js';
+import Sidebar from '../../components/sidebar/Sidebar.js';
+import { SidebarContext } from '../../contexts/SidebarContext.js';
 import React, { useState } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
-import routes from 'routes.js';
+import { Routes, Route, Navigate } from 'react-router-dom'
+import routes from '../../routes.js';
+import Admin from '../../pages/admin/default/index.jsx';
+import Profile from '../../pages/admin/profile/index.jsx';
 
 // Custom Chakra theme
 export default function Dashboard(props) {
@@ -100,6 +102,8 @@ export default function Dashboard(props) {
 	const { onOpen } = useDisclosure();
 	document.documentElement.dir = 'ltr';
 	return (
+
+
 		<Box>
 			<Box>
 				<SidebarContext.Provider
@@ -137,10 +141,12 @@ export default function Dashboard(props) {
 
 						{getRoute() ? (
 							<Box mx='auto' p={{ base: '20px', md: '30px' }} pe='20px' minH='100vh' pt='50px'>
-								<Switch>
+								<Routes>
 									{getRoutes(routes)}
-									<Redirect from='/' to='/admin/default' />
-								</Switch>
+									<Route path="/admin/profile" element={<Profile />} />
+									<Route  from='/' to='/admin' />
+								</Routes>
+								<Admin />
 							</Box>
 						) : null}
 					</Box>

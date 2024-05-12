@@ -34732,7 +34732,7 @@ export const statesData =
         },
         "id": "1b60a1eb-c64d-499e-9104-11a6fa7d15e7",
         "properties": {
-          "text": "Guapí",
+          "text": "Guapi",
           "personas": 20400
         }
       },

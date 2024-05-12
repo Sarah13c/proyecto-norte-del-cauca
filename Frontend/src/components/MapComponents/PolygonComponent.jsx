@@ -5,8 +5,8 @@ import '../../styles/PopupStyles.css';
 const PolygonComponent = ({ state, mousePosition, setMousePosition }) => {
   const coordinates = state.geometry.coordinates[0].map((item) => [item[1], item[0]]);
   const stateName = state.properties.text;
-  const [totalPoblacion, setTotalPoblacion] = useState(null); // Estado para almacenar el total de población
-  const [maxPoblacion, setMaxPoblacion] = useState(0); // Estado para almacenar el valor máximo de población
+  const [totalPoblacion, setTotalPoblacion] = useState(null); 
+  const [maxPoblacion, setMaxPoblacion] = useState(0); 
 
   useEffect(() => {
     const fetchTotalPoblacion = async () => {
@@ -30,19 +30,18 @@ const PolygonComponent = ({ state, mousePosition, setMousePosition }) => {
   const mapPolygonColorToDensity = (density) => {
     // Calcular el porcentaje de población con respecto al máximo
     const percentage = (density / maxPoblacion) * 100;
-    console.log(percentage);
     // Asignar el color en función del porcentaje
     return percentage > 80
-      ? '#97060C'
+      ? '#7c1d6f'
       : percentage > 60
-      ? '#a50f15'
+      ? '#b9257a'
       : percentage > 40
-      ? '#C4282E'
+      ? '#dc3977'
       : percentage > 20
-      ? '#DF4047'
+      ? '#e34f6f'
       : percentage > 10
-      ? '#FCB29C'
-      : '#FFDBD1';
+      ? '#f0746e'
+      : '#faa476';
   };
 
   // Función para encontrar el valor de población correspondiente al nombre del municipio
@@ -126,7 +125,7 @@ const findPopulationByMunicipality = (municipalityName) => {
             <strong>{stateName}</strong>
           </div>
           <div>Personas: {findPopulationByMunicipality(stateName)}</div>
-        </Popup>  
+        </Popup>
       )}
     </Polygon>
   );

@@ -26,12 +26,12 @@ export default function TopNavbar() {
       {sidebarOpen && <Backdrop toggleSidebar={toggleSidebar} />}
       <Wrapper className="flexCenter animate whiteBg" style={y > 100 ? { height: "60px" } : { height: "80px" }}>
         <NavInner className="container flexSpaceCenter">
-          <Link className="pointer flexNullCenter" to="home" smooth={true}>
+          
             <LogoIcon />
-            <h1 style={{ marginLeft: "12px" }} className="font20 extraBold">
+            <a href="/" style={{ marginLeft: "12px" }} className="font20 extraBold">
               Norte Del Cauca <span style={{ color: "#0E77C8" }}>Como</span> Vamos
-            </h1>
-          </Link>
+            </a>
+          
           <BurderWrapper className="pointer" onClick={() => toggleSidebar(!sidebarOpen)}>
             <BurgerIcon />
           </BurderWrapper>
@@ -76,7 +76,7 @@ export default function TopNavbar() {
               </a>
             </li>
             <li className="semiBold font15 pointer flexCenter">
-              <a href="/" className="radius8 lightBg" style={{ padding: "10px 15px" }}>
+              <a href="/demography" className="radius8 lightBg" style={{ padding: "10px 15px" }}>
                 Empezar sin cuenta
               </a>
             </li>
