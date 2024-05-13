@@ -19,6 +19,8 @@ class PieChart extends React.Component {
   }
 
   render() {
+    console.log("ChartData:", this.state.chartData);
+    console.log("ChartOptions:", this.state.chartOptions);
     return (
       <ReactApexChart
         options={this.state.chartOptions}

@@ -24,6 +24,18 @@ app.get('/afiliaciones', async (req, res, next) => {
       next(error);
     }
   });
+
+  app.get('/piramidePoblacional', async (req, res, next) => {
+    try {
+      const result = await client.query(`
+        SELECT grupo_edad, hombres_2022, mujeres_2022, municipio
+    FROM public.piramide_poblacional
+        `);
+      res.status(200).json(result.rows);
+    } catch (error) {
+      next(error);
+    }
+  });
   
   app.get('/datos2022Poblacion', async (req, res, next) => {
     try {
@@ -50,7 +62,6 @@ app.get('/afiliaciones', async (req, res, next) => {
       next(error);
     }
   });
-  
 
 // Ruta de prueba
 app.get('/', (req, res) => {
