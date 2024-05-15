@@ -54,22 +54,6 @@ export default function DailyTraffic(props) {
                 Barra de {dataDb && dataDb.length > 0 ? Object.keys(dataDb[0])[1] : "Columna1"} por {dataDb && dataDb.length > 0 ? Object.keys(dataDb[0])[0] : "Columna2"}
             </Text>
           </Flex>
-          <Flex align='end'>
-            <Text
-              color={textColor}
-              fontSize='34px'
-              fontWeight='700'
-              lineHeight='100%'>
-              2.579
-            </Text>
-            <Text
-              ms='6px'
-              color='secondaryGray.600'
-              fontSize='sm'
-              fontWeight='500'>
-              Visitors
-            </Text>
-          </Flex>
         </Flex>
       </Flex>
       <Box h='240px' mt='auto'>
