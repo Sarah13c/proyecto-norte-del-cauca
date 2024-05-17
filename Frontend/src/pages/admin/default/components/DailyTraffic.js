@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 
 // Chakra imports
 import { Box, Flex, Text, useColorModeValue } from "@chakra-ui/react";
@@ -46,20 +46,16 @@ export default function DailyTraffic(props) {
       <Flex justify='space-between' align='start' px='10px' pt='5px'>
         <Flex flexDirection='column' align='start' me='20px'>
           <Flex w='100%'>
-            <Text
-              me='auto'
-              color='secondaryGray.600'
-              fontSize='sm'
-              fontWeight='500'>
-                Barra de {dataDb && dataDb.length > 0 ? Object.keys(dataDb[0])[1] : "Columna1"} por {dataDb && dataDb.length > 0 ? Object.keys(dataDb[0])[0] : "Columna2"}
+            <Text color={textColor} fontSize='md' fontWeight='600' mt='4px'>
+              Barra de {dataDb && dataDb.length > 0 ? Object.keys(dataDb[0])[1] : "Columna1"} por {dataDb && dataDb.length > 0 ? Object.keys(dataDb[0])[0] : "Columna2"}
             </Text>
           </Flex>
         </Flex>
       </Flex>
       <Box h='240px' mt='auto'>
-        
-      <CustomBarChart data={dataDb} xAxisDataKey="MunicipioAS" barDataKey="Poblacion_DANE" />
-      
+
+        <CustomBarChart data={dataDb} xAxisDataKey="MunicipioAS" barDataKey="Poblacion_DANE" />
+
       </Box>
     </Card>
   );
