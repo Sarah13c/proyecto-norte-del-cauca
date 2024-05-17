@@ -1,11 +1,10 @@
 // Chakra imports
-import { Box, Flex, Text, Select, useColorModeValue } from "@chakra-ui/react";
+import {  Flex, Text,  useColorModeValue } from "@chakra-ui/react";
 // Custom components
 import Card from "../../../../components/card/Card.js";
 import { PieChart, Pie, Legend as PieLegend, Cell, Tooltip as PieTooltip, ResponsiveContainer } from 'recharts';
-import { Tooltip, Legend } from 'recharts';
+import { Tooltip } from 'recharts';
 
-import { VSeparator } from "../../../../components/separator/Separator";
 import React from "react";
 
 export default function Conversion({ data }) {
@@ -29,18 +28,8 @@ export default function Conversion({ data }) {
         w='100%'
         mb='8px'>
         <Text color={textColor} fontSize='md' fontWeight='600' mt='4px'>
-          Your Pie Chart
+          Grafica de Pastel
         </Text>
-        <Select
-          fontSize='sm'
-          variant='subtle'
-          defaultValue='monthly'
-          width='unset'
-          fontWeight='700'>
-          <option value='daily'>Daily</option>
-          <option value='monthly'>Monthly</option>
-          <option value='yearly'>Yearly</option>
-        </Select>
       </Flex>
 
       {data ? (
@@ -87,7 +76,7 @@ export default function Conversion({ data }) {
           </PieChart>
         </ResponsiveContainer>
       ) : (
-        <div>Loading...</div>
+        <div>Cargando...</div>
       )}
 
     </Card>
