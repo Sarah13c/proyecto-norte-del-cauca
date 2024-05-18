@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   Box,
-  Flex,
   Icon,
-  Select,
   SimpleGrid,
   useColorModeValue,
   AspectRatio,
@@ -12,11 +10,9 @@ import '../../../assets/css/App.css';
 import MiniStatistics from "../../../components/card/MiniStatistics";
 import IconBox from "../../../components/icons/IconBox";
 import {
-  MdAttachMoney,
   MdBarChart,
   MdFace3,
   MdFace6,
-  MdFileCopy,
 } from "react-icons/md";
 import DailyTraffic from "./components/DailyTraffic";
 import PieCard from "./components/PieCard";
@@ -37,6 +33,7 @@ export default function UserReports() {
   const [selectedArea, setSelectedArea] = useState("Total");
   const [dataDbPoblacion, setDataDbPoblacion] = useState(null);
   const [mousePosition, setMousePosition] = useState(null);
+  const [totalPoblacionMunicipio, setTotalPoblacionMunicipio] = useState(null); // Nuevo estado para el total de población del municipio seleccionado
 
   // Constants
   const center = [2.283333, -76.85];
@@ -137,8 +134,21 @@ export default function UserReports() {
   };
 
   const handleMunicipioChange = (event) => {
-    setSelectedMunicipio(event.target.value);
+    const selectedMunicipio = event.target.value;
+    setSelectedMunicipio(selectedMunicipio);
+  
+    // Transformar el nombre del municipio seleccionado para que coincida con el formato del gráfico piramidal
+    const formattedSelectedMunicipio = selectedMunicipio.replace("Santander de Quilichao", "Santander De Quilichao");
+  
+    // Actualizar totalPoblacionMunicipio
+    const selectedMunicipioData = dataDb.find(entry => entry.MunicipioAS === formattedSelectedMunicipio);
+    if (selectedMunicipioData) {
+      setTotalPoblacionMunicipio(selectedMunicipioData.Poblacion_DANE);
+    } else {
+      setTotalPoblacionMunicipio(null);
+    }
   };
+  
 
   const totalHombres = pyramidDataMunicipio ? pyramidDataMunicipio.reduce((acc, curr) => acc + parseInt(curr.hombres), 0) : 'Cargando...';
   const totalMujeres = pyramidDataMunicipio ? pyramidDataMunicipio.reduce((acc, curr) => acc + parseInt(curr.mujeres), 0) : 'Cargando...';
@@ -146,18 +156,19 @@ export default function UserReports() {
   const filteredData = dataDb
     ? dataDb.filter(
       entry =>
-        entry.MunicipioAS === "Santander De Quilichao" ||
-        entry.MunicipioAS === "Guachené" ||
-        entry.MunicipioAS === "Puerto Tejada"
+        entry.MunicipioAS.includes("Santander De Quilichao") ||
+        entry.MunicipioAS.includes("Guachené") ||
+        entry.MunicipioAS.includes("Puerto Tejada")
     )
     : [];
 
   const uniqueFilteredData = Array.from(
     new Set(filteredData.map(entry => entry.MunicipioAS))
-  ).map(municipio => {
+  ).map(municipio=> {
     return filteredData.find(entry => entry.MunicipioAS === municipio);
   });
 
+  
 
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
@@ -165,20 +176,23 @@ export default function UserReports() {
         columns={{ base: 1, md: 2, lg: 3, "2xl": 3 }}
         gap='20px'
         mb='20px'>
-        <MiniStatistics
-          startContent={
-            <IconBox
-              w='56px'
-              h='56px'
-              bg={boxBg}
-              icon={
-                <Icon w='32px' h='32px' as={MdBarChart} color={brandColor} />
-              }
-            />
-          }
-          name='Total Población'
-          value={totalPoblacion ? totalPoblacion[0].total_poblacion : 'Cargando...'}
-        />
+        {totalPoblacion && (
+          <MiniStatistics
+            startContent={
+              <IconBox
+                w='56px'
+                h='56px'
+                bg={boxBg}
+                icon={
+                  <Icon w='32px' h='32px' as={MdBarChart} color={brandColor} />
+                }
+              />
+            }
+            name='Total Población'
+            value={selectedMunicipio ? totalPoblacionMunicipio || 'Cargando...' : totalPoblacion[0].total_poblacion}
+          />
+        )}
+
         <MiniStatistics
           startContent={
             <IconBox
@@ -228,10 +242,15 @@ export default function UserReports() {
           />
         </AspectRatio>
         <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap="20px">
-          <DailyTraffic dataDbPoblacion={dataDbPoblacion} />
+          <DailyTraffic
+            dataDbPoblacion={dataDbPoblacion}
+            setSelectedMunicipio={setSelectedMunicipio} //Cuando selecciono los municipios, a ratos no se actualiza en las cardrds
+            //además de que Santander De Quilichao genera error y se daña hasta la piramide poblacional por lo de la D mayúscula
+          />
           <PieCard data={uniqueFilteredData} />
         </SimpleGrid>
       </SimpleGrid>
     </Box>
   );
 }
+

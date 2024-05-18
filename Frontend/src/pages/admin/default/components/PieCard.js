@@ -24,7 +24,7 @@ export default function Conversion({ data }) {
       </Flex>
 
       {data ? (
-        <PieChart data={data} /> // Usa el nuevo componente PieChart
+        <PieChart data={data} /> 
       ) : (
         <div>Cargando...</div>
       )}
