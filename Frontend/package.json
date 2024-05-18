@@ -13,6 +13,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@hypertheme-editor/chakra-ui": "^0.1.6-rc.0",
+    "@maptiler/sdk": "^2.0.3",
     "@mui/icons-material": "^5.15.10",
     "@mui/material": "^5.15.10",
     "@phosphor-icons/react": "^2.1.5",
