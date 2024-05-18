@@ -106,7 +106,7 @@ const PolygonComponent = ({ state, mousePosition, setMousePosition }) => {
         )}
       </Polygon>
       {['Santander de Quilichao', 'Guachené', 'Puerto Tejada'].includes(stateName) && (
-        <CircleMarker center={centerCoordinates} fillColor="#4B4B4B" color= "#4B4B4B"radius={5} eventHandlers={{ click: () => setMousePosition(centerCoordinates) }}></CircleMarker>
+        <CircleMarker center={centerCoordinates} fillColor="#4B4B4B" color= "#4B4B4B"radius={3} eventHandlers={{ click: () => setMousePosition(centerCoordinates) }}></CircleMarker>
       )}
     </>
   );
