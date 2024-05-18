@@ -1,40 +1,23 @@
-.legend-container {
-  position: absolute;
-  top: 10px; /* Ajusta la distancia desde la parte superior */
-  right: 10px; /* Ajusta la distancia desde el lado derecho */
-  z-index: 1000;
-  padding: 10px;
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  max-height: 80vh; /* Ajusta la altura máxima al 80% de la altura de la ventana del navegador */
-  overflow-y: auto;
-  max-width: 200px; /* Ajusta el ancho máximo según sea necesario */
-}
-  
-  .legend-container h4 {
-    margin: 0;
-    margin-bottom: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
+/* LegendStyles.css */
+.legend {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background-color: white;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    z-index: 1000; /* Ajusta el valor de z-index según sea necesario */
   }
   
-  .legend-container ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  .legend h4 {
+    margin-bottom: 5px;
   }
   
-  .legend-container ul li {
-    font-size: 16px;
-    margin-bottom: 8px;
-  }
-  
-  .legend-container ul li .legend-color {
+  .legend-item {
     display: inline-block;
-    width: 16px;
-    height: 16px;
-    margin-right: 8px;
-    border-radius: 50%;
+    width: 20px;
+    height: 10px;
+    margin-right: 5px;
   }
+  
