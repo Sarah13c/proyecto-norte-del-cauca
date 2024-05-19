@@ -28,6 +28,7 @@ export default function MapComponent({ center, mousePosition, setMousePosition }
             setMousePosition={setMousePosition}
           />
         ))}
+        {/* Agrega el LegendDrawer aquÃ­ */}
         <LegendDrawer />
       </MapContainer>
     </div>

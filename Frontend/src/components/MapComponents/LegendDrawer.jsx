@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Drawer, Button } from 'antd';
 
 const LegendDrawer = () => {
   const [visible, setVisible] = useState(false);
+  const [legendData, setLegendData] = useState([]);
 
   const showDrawer = () => {
     setVisible(true);
@@ -12,15 +13,36 @@ const LegendDrawer = () => {
     setVisible(false);
   };
 
-  const legendData = [
-    { municipio: 'Santander de Quilichao', poblacion: 123456 },
-    { municipio: 'Guachené', poblacion: 78901 },
-    { municipio: 'Puerto Tejada', poblacion: 45678 },
-  ];
+  const removeDuplicates = (arr, prop) =>
+    arr.filter(
+      (obj, index) =>
+        arr.map((mapObj) => mapObj[prop]).indexOf(obj[prop]) === index
+    );
+
+  useEffect(() => {
+    const fetchLegendData = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/datos2022Poblacion');
+        if (!response.ok) {
+          throw new Error('Error al obtener los datos de la leyenda del servidor');
+        }
+        const data = await response.json();
+        // Filtra los datos para incluir solo los municipios deseados
+        const filteredData = data.filter(item =>
+          ["Santander De Quilichao", "Guachené", "Puerto Tejada"].includes(item.MunicipioAS)
+        );
+        // Elimina los duplicados
+        const uniqueData = removeDuplicates(filteredData, "MunicipioAS");
+        setLegendData(uniqueData);
+      } catch (error) {
+        console.error('Error al obtener los datos de la leyenda:', error);
+      }
+    };
+    fetchLegendData();
+  }, []);
 
   return (
     <div className="legend-drawer">
-      {/* Coloca el botón dentro del div */}
       <Button type="primary" onClick={showDrawer}>
         Ver
       </Button>
@@ -33,8 +55,8 @@ const LegendDrawer = () => {
       >
         {legendData.map((item, index) => (
           <div key={index}>
-            <h4>{item.municipio}</h4>
-            <p>Población: {item.poblacion}</p>
+            <h4>{item.MunicipioAS}</h4>
+            <p>Población: {item.Poblacion_DANE}</p>
           </div>
         ))}
       </Drawer>

@@ -20,6 +20,7 @@ import TotalSpent from "./components/TotalSpent";
 import WeeklyRevenue from "./components/WeeklyRevenue";
 import MapComponent from "../../../components/MapComponents/MapComponent";
 
+
 export default function UserReports() {
   // State variables
   const [totalPoblacion, setTotalPoblacion] = useState(null);
