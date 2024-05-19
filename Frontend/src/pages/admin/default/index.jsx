@@ -136,10 +136,10 @@ export default function UserReports() {
   const handleMunicipioChange = (event) => {
     const selectedMunicipio = event.target.value;
     setSelectedMunicipio(selectedMunicipio);
-  
+
     // Transformar el nombre del municipio seleccionado para que coincida con el formato del gráfico piramidal
-    
-    
+
+
     // Actualizar totalPoblacionMunicipio
     const selectedMunicipioData = dataDb.find(entry => entry.MunicipioAS === formattedSelectedMunicipio);
     if (selectedMunicipioData) {
@@ -151,7 +151,7 @@ export default function UserReports() {
 
   const formattedSelectedMunicipio = selectedMunicipio === "Santander De Quilichao" ? "Santander de Quilichao" : selectedMunicipio;
 
-  
+
 
   const totalHombres = pyramidDataMunicipio ? pyramidDataMunicipio.reduce((acc, curr) => acc + parseInt(curr.hombres), 0) : 'Cargando...';
   const totalMujeres = pyramidDataMunicipio ? pyramidDataMunicipio.reduce((acc, curr) => acc + parseInt(curr.mujeres), 0) : 'Cargando...';
@@ -167,11 +167,11 @@ export default function UserReports() {
 
   const uniqueFilteredData = Array.from(
     new Set(filteredData.map(entry => entry.MunicipioAS))
-  ).map(municipio=> {
+  ).map(municipio => {
     return filteredData.find(entry => entry.MunicipioAS === municipio);
   });
 
-  
+
 
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
@@ -248,7 +248,7 @@ export default function UserReports() {
           <DailyTraffic
             dataDbPoblacion={dataDbPoblacion}
             setSelectedMunicipio={setSelectedMunicipio} //Cuando selecciono los municipios, a ratos no se actualiza en las cardrds
-            //además de que Santander De Quilichao genera error y se daña hasta la piramide poblacional por lo de la D mayúscula
+          //además de que Santander De Quilichao genera error y se daña hasta la piramide poblacional por lo de la D mayúscula
           />
           <PieCard data={uniqueFilteredData} />
         </SimpleGrid>

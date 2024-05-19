@@ -4,12 +4,12 @@ import BarChartComponent from "../../../../components/charts/BarChart.js";
 import Card from "../../../../components/card/Card.js";
 
 export default function DailyTraffic({ dataDbPoblacion, setSelectedMunicipio, ...rest }) {
- 
+
 
   const textColor = useColorModeValue("secondaryGray.900", "white");
 
   const handleBarClick = (municipio) => {
-    setSelectedMunicipio(municipio); 
+    setSelectedMunicipio(municipio);
   };
 
   return (
