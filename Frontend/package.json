@@ -24,6 +24,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@themesberg/react-bootstrap": "^1.4.1",
     "@types/howler": "^2.2.11",
+    "antd": "^5.17.3",
     "axios": "^1.6.5",
     "bootstrap": "^5.3.3",
     "chart.js": "^4.4.2",
