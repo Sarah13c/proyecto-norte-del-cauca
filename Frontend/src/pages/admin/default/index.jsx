@@ -1,26 +1,19 @@
+import React, { useEffect, useState } from "react";
 import {
   Box,
-  Flex,
   Icon,
-  Select,
   SimpleGrid,
   useColorModeValue,
   AspectRatio,
 } from "@chakra-ui/react";
-// Assets
 import '../../../assets/css/App.css';
-// Custom components
 import MiniStatistics from "../../../components/card/MiniStatistics";
 import IconBox from "../../../components/icons/IconBox";
-import React, { useEffect, useState } from "react";
 import {
-  MdAttachMoney,
   MdBarChart,
   MdFace3,
   MdFace6,
-  MdFileCopy,
 } from "react-icons/md";
-import CheckTable from "./components/CheckTable";
 import DailyTraffic from "./components/DailyTraffic";
 import PieCard from "./components/PieCard";
 import TotalSpent from "./components/TotalSpent";
@@ -28,129 +21,154 @@ import WeeklyRevenue from "./components/WeeklyRevenue";
 import MapComponent from "../../../components/MapComponents/MapComponent";
 
 export default function UserReports() {
-  // Chakra Color Mode
-
-  const center = [2.283333, -76.85];
+  // State variables
+  const [totalPoblacion, setTotalPoblacion] = useState(null);
+  const [pyramidData, setPyramidData] = useState(null);
+  const [selectedMunicipio, setSelectedMunicipio] = useState(null);
+  const [pyramidDataMunicipio, setPyramidDataMunicipio] = useState(null);
+  const [dataDb, setDataDb] = useState(null);
+  const [totalSpentData, setTotalSpentData] = useState(null);
+  const [areas, setAreas] = useState([]);
+  const [lineChartData, setLineChartData] = useState(null);
+  const [selectedArea, setSelectedArea] = useState("Total");
+  const [dataDbPoblacion, setDataDbPoblacion] = useState(null);
   const [mousePosition, setMousePosition] = useState(null);
+  const [totalPoblacionMunicipio, setTotalPoblacionMunicipio] = useState(null); // Nuevo estado para el total de población del municipio seleccionado
+
+  // Constants
+  const center = [2.283333, -76.85];
   const brandColor = useColorModeValue("brand.500", "white");
   const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
 
-  const [totalPoblacion, setTotalPoblacion] = useState(null); // Estado para almacenar el total de población
-
-
-  const [pyramidData, setPyramidData] = useState(null);
-  const [selectedMunicipio, setSelectedMunicipio] = useState(null);
-
-  const [pyramidDataMunicipio, setPyramidDataMunicipio] = useState(null);
-
-  // Obtener la suma de hombres o mujeres de los tres municipios
-  const totalHombres = pyramidDataMunicipio ? pyramidDataMunicipio.reduce((acc, curr) => acc + parseInt(curr.hombres), 0) : 'Cargando...';
-  const totalMujeres = pyramidDataMunicipio ? pyramidDataMunicipio.reduce((acc, curr) => acc + parseInt(curr.mujeres), 0) : 'Cargando...';
-  
+  // Effect to fetch data for DailyTraffic component
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:3001/piramidePoblacional');
-        if (!response.ok) {
-          throw new Error("Error al obtener los datos del servidor");
-        }
-        const data = await response.json();
-        setPyramidData(data);
-      } catch (error) {
-        console.error("Error al obtener los datos de la pirámide poblacional:", error);
-      }
-    };
-    fetchData();
-  }, []);
-
-  //Piramide total de población de mujres y hombres
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:3001/piramidePoblacionalTotal');
-        if (!response.ok) {
-          throw new Error("Error al obtener los datos del servidor");
-        }
-        const data = await response.json();
-        setPyramidDataMunicipio(data);
-        
-      } catch (error) {
-        console.error("Error al obtener los datos de la pirámide poblacional:", error);
-      }
-    };
-    fetchData();
-  }, []);
-
-  
-
-
-  const handleMunicipioChange = (event) => {
-    setSelectedMunicipio(event.target.value);
-  };
-
-  //Total Población:
-  useEffect(() => {
-    const fetchTotalPoblacion = async () => {
-        try {
-          const response = await fetch('http://localhost:3001/total2022Poblacion');
-          if (!response.ok) {
-            throw new Error('Error al obtener los datos del servidor');
-          }
-          const data = await response.json();
-          setTotalPoblacion(data);
-        } catch (error) {
-          console.error('Error al obtener el total de población:', error);
-         
-        }
-      };
-    fetchTotalPoblacion();
-}, []);
-
-
-//Datos de Municipios
-
-  const [dataDb, setDataDb] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
+    const fetchDataPoblacion = async () => {
       try {
         const response = await fetch('http://localhost:3001/datos2022Poblacion');
         if (!response.ok) {
           throw new Error("Error al obtener los datos del servidor");
         }
         const data = await response.json();
-        setDataDb(data);
+        setDataDbPoblacion(data);
       } catch (error) {
         console.error("Error al obtener los datos de la base de datos:", error);
+      }
+    };
+
+    fetchDataPoblacion();
+  }, []);
+
+  // Main effect to fetch data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch data for Total Spent
+        const responseSpent = await fetch('http://localhost:3001/proyeccionHogares');
+        if (!responseSpent.ok) {
+          throw new Error("Error al obtener los datos del servidor");
+        }
+        const dataSpent = await responseSpent.json();
+        setTotalSpentData(dataSpent);
+        setAreas([...new Set(dataSpent.map(d => d.Area))]);
+        transformData(dataSpent, "Total");
+
+        // Fetch data for Pyramid Data
+        const responsePyramid = await fetch('http://localhost:3001/piramidePoblacional');
+        if (!responsePyramid.ok) {
+          throw new Error("Error al obtener los datos del servidor");
+        }
+        const dataPyramid = await responsePyramid.json();
+        setPyramidData(dataPyramid);
+
+        // Fetch data for Total Poblacion
+        const responseTotalPoblacion = await fetch('http://localhost:3001/total2022Poblacion');
+        if (!responseTotalPoblacion.ok) {
+          throw new Error('Error al obtener los datos del servidor');
+        }
+        const dataTotalPoblacion = await responseTotalPoblacion.json();
+        setTotalPoblacion(dataTotalPoblacion);
+
+        // Fetch data for Data Db
+        const responseDataDb = await fetch('http://localhost:3001/datos2022Poblacion');
+        if (!responseDataDb.ok) {
+          throw new Error("Error al obtener los datos del servidor");
+        }
+        const dataDbResponse = await responseDataDb.json();
+        setDataDb(dataDbResponse);
+
+        // Fetch data for Total Pyramid Data
+        const responseTotalPyramidData = await fetch('http://localhost:3001/piramidePoblacionalTotal');
+        if (!responseTotalPyramidData.ok) {
+          throw new Error("Error al obtener los datos del servidor");
+        }
+        const dataTotalPyramid = await responseTotalPyramidData.json();
+        setPyramidDataMunicipio(dataTotalPyramid);
+      } catch (error) {
+        console.error("Error al obtener los datos:", error);
       }
     };
 
     fetchData();
   }, []);
 
+  const transformData = (data, area) => {
+    const transformedData = [];
+    const years = Object.keys(data[0]).filter(key => key.match(/^\d{4}$/));
+    years.forEach(year => {
+      const entry = { year: parseInt(year) };
+      data.forEach(d => {
+        if (d[year] && d.Area === area) {
+          entry[d.Nombre_Municipio] = d[year];
+        }
+      });
+      transformedData.push(entry);
+    });
+    setLineChartData(transformedData);
+  };
 
+  const handleAreaChange = (newArea) => {
+    setSelectedArea(newArea);
+    if (totalSpentData) {
+      transformData(totalSpentData, newArea);
+    }
+  };
 
+  const handleMunicipioChange = (event) => {
+    const selectedMunicipio = event.target.value;
+    setSelectedMunicipio(selectedMunicipio);
+  
+    // Transformar el nombre del municipio seleccionado para que coincida con el formato del gráfico piramidal
+    const formattedSelectedMunicipio = selectedMunicipio.replace("Santander de Quilichao", "Santander De Quilichao");
+  
+    // Actualizar totalPoblacionMunicipio
+    const selectedMunicipioData = dataDb.find(entry => entry.MunicipioAS === formattedSelectedMunicipio);
+    if (selectedMunicipioData) {
+      setTotalPoblacionMunicipio(selectedMunicipioData.Poblacion_DANE);
+    } else {
+      setTotalPoblacionMunicipio(null);
+    }
+  };
+  
 
+  const totalHombres = pyramidDataMunicipio ? pyramidDataMunicipio.reduce((acc, curr) => acc + parseInt(curr.hombres), 0) : 'Cargando...';
+  const totalMujeres = pyramidDataMunicipio ? pyramidDataMunicipio.reduce((acc, curr) => acc + parseInt(curr.mujeres), 0) : 'Cargando...';
 
-  // Filtrar datos para Santander de Quilichao, Guachené y Puerto Tejada
   const filteredData = dataDb
     ? dataDb.filter(
       entry =>
-        entry.MunicipioAS === "Santander De Quilichao" ||
-        entry.MunicipioAS === "Guachené" ||
-        entry.MunicipioAS === "Puerto Tejada"
+        entry.MunicipioAS.includes("Santander De Quilichao") ||
+        entry.MunicipioAS.includes("Guachené") ||
+        entry.MunicipioAS.includes("Puerto Tejada")
     )
     : [];
 
-  // Eliminar duplicados
   const uniqueFilteredData = Array.from(
     new Set(filteredData.map(entry => entry.MunicipioAS))
-  ).map(municipio => {
+  ).map(municipio=> {
     return filteredData.find(entry => entry.MunicipioAS === municipio);
   });
-  //fin del piechart
 
+  
 
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
@@ -158,20 +176,23 @@ export default function UserReports() {
         columns={{ base: 1, md: 2, lg: 3, "2xl": 3 }}
         gap='20px'
         mb='20px'>
-        <MiniStatistics
-          startContent={
-            <IconBox
-              w='56px'
-              h='56px'
-              bg={boxBg}
-              icon={
-                <Icon w='32px' h='32px' as={MdBarChart} color={brandColor} />
-              }
-            />
-          }
-          name='Total Población'
-          value= {totalPoblacion ? totalPoblacion[0].total_poblacion : 'Cargando...'}
-        />
+        {totalPoblacion && (
+          <MiniStatistics
+            startContent={
+              <IconBox
+                w='56px'
+                h='56px'
+                bg={boxBg}
+                icon={
+                  <Icon w='32px' h='32px' as={MdBarChart} color={brandColor} />
+                }
+              />
+            }
+            name='Total Población'
+            value={selectedMunicipio ? totalPoblacionMunicipio || 'Cargando...' : totalPoblacion[0].total_poblacion}
+          />
+        )}
+
         <MiniStatistics
           startContent={
             <IconBox
@@ -187,26 +208,30 @@ export default function UserReports() {
           value={selectedMunicipio ? (pyramidDataMunicipio ? pyramidDataMunicipio.find(data => data.municipio === selectedMunicipio)?.hombres : 'Cargando...') : totalHombres}
         />
         <MiniStatistics
-        startContent={
-          <IconBox
-            w='56px'
-            h='56px'
-            bg={boxBg}
-            icon={
-              <Icon w='32px' h='32px' as={MdFace3} color={brandColor} />
-            }
-          />
-        }name='Cantidad de Mujeres' 
-        value={selectedMunicipio ? (pyramidDataMunicipio ? pyramidDataMunicipio.find(data => data.municipio === selectedMunicipio)?.mujeres : 'Cargando...') : totalMujeres} /> 
+          startContent={
+            <IconBox
+              w='56px'
+              h='56px'
+              bg={boxBg}
+              icon={
+                <Icon w='32px' h='32px' as={MdFace3} color={brandColor} />
+              }
+            />
+          } name='Cantidad de Mujeres'
+          value={selectedMunicipio ? (pyramidDataMunicipio ? pyramidDataMunicipio.find(data => data.municipio === selectedMunicipio)?.mujeres : 'Cargando...') : totalMujeres} />
       </SimpleGrid>
 
       <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px' mb='20px'>
-        <TotalSpent />
+        <TotalSpent
+          data={lineChartData}
+          areas={areas}
+          onAreaChange={handleAreaChange}
+        />
         <WeeklyRevenue
-        pyramidData={pyramidData}
-        selectedMunicipio={selectedMunicipio}
-        handleMunicipioChange={handleMunicipioChange}
-      />
+          pyramidData={pyramidData}
+          selectedMunicipio={selectedMunicipio}
+          handleMunicipioChange={handleMunicipioChange}
+        />
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap="20px" mb="20px">
         <AspectRatio ratio={16 / 9}>
@@ -217,10 +242,15 @@ export default function UserReports() {
           />
         </AspectRatio>
         <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap="20px">
-          <DailyTraffic />
+          <DailyTraffic
+            dataDbPoblacion={dataDbPoblacion}
+            setSelectedMunicipio={setSelectedMunicipio} //Cuando selecciono los municipios, a ratos no se actualiza en las cardrds
+            //además de que Santander De Quilichao genera error y se daña hasta la piramide poblacional por lo de la D mayúscula
+          />
           <PieCard data={uniqueFilteredData} />
         </SimpleGrid>
       </SimpleGrid>
     </Box>
   );
 }
+
