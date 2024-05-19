@@ -3,8 +3,14 @@ import { BarChart, CartesianGrid, Legend, XAxis, YAxis, Tooltip, Bar, Responsive
 
 const PyramidChart = ({ data, selectedMunicipio }) => {
   // Filtrar los datos por el municipio seleccionado
-  const filteredData = selectedMunicipio ? data.filter(entry => entry.municipio === selectedMunicipio) : data;
-
+  const filteredData = selectedMunicipio 
+    ? data.filter(entry => {
+        const match = entry.municipio.toLowerCase() === selectedMunicipio.toLowerCase();
+        console.log(`Comparando: ${entry.municipio.toLowerCase()} con ${selectedMunicipio.toLowerCase()} => ${match}`);
+        return match;
+      }) 
+    : data;
+  
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart data={filteredData} layout="vertical">

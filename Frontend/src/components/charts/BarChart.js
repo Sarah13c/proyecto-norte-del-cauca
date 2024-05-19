@@ -1,7 +1,7 @@
 import React from "react";
 import { BarChart, CartesianGrid, Legend, XAxis, YAxis, Tooltip, Bar, ResponsiveContainer } from 'recharts';
 
-const municipiosOfInterest = ['Santander De Quilichao', 'Puerto Tejada', 'Guachené'];
+const municipiosOfInterest = ['Santander de Quilichao', 'Puerto Tejada', 'Guachené'];
 
 const BarChartComponent = ({ data, xAxisDataKey, barDataKey, onClick }) => {
   const handleClick = (municipio) => {
@@ -14,12 +14,20 @@ const BarChartComponent = ({ data, xAxisDataKey, barDataKey, onClick }) => {
         arr.map((mapObj) => mapObj[prop]).indexOf(obj[prop]) === index
     );
 
-  const filteredData = data
+   const filteredData = data
     ? removeDuplicates(
-        data.filter((item) => municipiosOfInterest.includes(item.MunicipioAS)),
+        data.filter((item) => {
+          const matched = municipiosOfInterest.some(municipio =>
+            item.MunicipioAS.toLowerCase().includes(municipio.toLowerCase())
+          );
+          
+          return matched;
+        }),
         "MunicipioAS"
       )
     : [];
+
+  console.log(filteredData);
 
   return (
     <ResponsiveContainer width="100%" height="100%">
@@ -34,7 +42,7 @@ const BarChartComponent = ({ data, xAxisDataKey, barDataKey, onClick }) => {
           fill="#8884d8"
           onClick={(data, index) =>
             handleClick(filteredData[index].MunicipioAS)
-          } // Manejador de eventos onClick en las barras
+          }
         />
       </BarChart>
     </ResponsiveContainer>
