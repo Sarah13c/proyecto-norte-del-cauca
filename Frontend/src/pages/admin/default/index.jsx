@@ -139,18 +139,20 @@ export default function UserReports() {
     fetchPoblacionMunicipio(selectedMunicipio);
   };
 
-  const fetchPoblacionMunicipio = (municipio) => {
-    // Transformar el nombre del municipio seleccionado para que coincida con el formato del gráfico piramidal
-    const formattedSelectedMunicipio = municipio.replace("Santander de Quilichao", "Santander De Quilichao");
-
+    const fetchPoblacionMunicipio = (municipio) => {
+      const formattedSelectedMunicipio = municipio.replace("Santander de Quilichao", "Santander De Quilichao");
+      const selectedMunicipioData = dataDb ? dataDb.find(entry => entry.MunicipioAS === formattedSelectedMunicipio) : null;
     // Actualizar totalPoblacionMunicipio
-    const selectedMunicipioData = dataDb ? dataDb.find(entry => entry.MunicipioAS === formattedSelectedMunicipio) : null;
     if (selectedMunicipioData) {
       setTotalPoblacionMunicipio(selectedMunicipioData.Poblacion_DANE);
     } else {
       setTotalPoblacionMunicipio(null);
     }
   };
+
+  const formattedSelectedMunicipio = selectedMunicipio === "Santander De Quilichao" ? "Santander de Quilichao" : selectedMunicipio;
+
+
 
   const totalHombres = pyramidDataMunicipio ? pyramidDataMunicipio.reduce((acc, curr) => acc + parseInt(curr.hombres), 0) : 'Cargando...';
   const totalMujeres = pyramidDataMunicipio ? pyramidDataMunicipio.reduce((acc, curr) => acc + parseInt(curr.mujeres), 0) : 'Cargando...';
@@ -169,6 +171,8 @@ export default function UserReports() {
   ).map(municipio => {
     return filteredData.find(entry => entry.MunicipioAS === municipio);
   });
+
+
 
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
@@ -205,7 +209,7 @@ export default function UserReports() {
             />
           }
           name='Cantidad de Hombres'
-          value={selectedMunicipio ? (pyramidDataMunicipio ? pyramidDataMunicipio.find(data => data.municipio === selectedMunicipio)?.hombres : 'Cargando...') : totalHombres}
+          value={formattedSelectedMunicipio ? (pyramidDataMunicipio ? pyramidDataMunicipio.find(data => data.municipio === formattedSelectedMunicipio)?.hombres : 'Cargando...') : totalHombres}
         />
         <MiniStatistics
           startContent={
@@ -217,10 +221,8 @@ export default function UserReports() {
                 <Icon w='32px' h='32px' as={MdFace3} color={brandColor} />
               }
             />
-          }
-          name='Cantidad de Mujeres'
-          value={selectedMunicipio ? (pyramidDataMunicipio ? pyramidDataMunicipio.find(data => data.municipio === selectedMunicipio)?.mujeres : 'Cargando...') : totalMujeres}
-        />
+          } name='Cantidad de Mujeres'
+          value={formattedSelectedMunicipio ? (pyramidDataMunicipio ? pyramidDataMunicipio.find(data => data.municipio === formattedSelectedMunicipio)?.mujeres : 'Cargando...') : totalMujeres} />
       </SimpleGrid>
 
       <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px' mb='20px'>
@@ -257,3 +259,4 @@ export default function UserReports() {
     </Box>
   );
 }
+

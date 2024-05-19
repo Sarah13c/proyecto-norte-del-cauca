@@ -12,12 +12,12 @@ import PyramidChart from "../../../../components/charts/PyramidChart.js";
 export default function WeeklyRevenue({ pyramidData, selectedMunicipio, handleMunicipioChange, ...rest }) {
   // Lista de municipios disponibles
   const municipios = pyramidData ? [...new Set(pyramidData.map(entry => entry.municipio))] : [];
-  
+
   // Chakra Color Mode
   const textColor = useColorModeValue("secondaryGray.900", "white");
 
   // Log the selected municipio
-  console.log('Selected Municipio:', selectedMunicipio);  
+  console.log('Selected Municipio:', selectedMunicipio);
 
   // Convertir "Santander De Quilichao" a "Santander de Quilichao"
   const formattedSelectedMunicipio = selectedMunicipio === "Santander De Quilichao" ? "Santander de Quilichao" : selectedMunicipio;

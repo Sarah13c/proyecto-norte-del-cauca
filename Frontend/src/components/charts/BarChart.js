@@ -14,17 +14,17 @@ const BarChartComponent = ({ data, xAxisDataKey, barDataKey, onClick }) => {
         arr.map((mapObj) => mapObj[prop]).indexOf(obj[prop]) === index
     );
 
-   const filteredData = data
+  const filteredData = data
     ? removeDuplicates(
-        data.filter((item) => {
-          const matched = municipiosOfInterest.some(municipio =>
-            item.MunicipioAS.toLowerCase().includes(municipio.toLowerCase())
-          );
-          
-          return matched;
-        }),
-        "MunicipioAS"
-      )
+      data.filter((item) => {
+        const matched = municipiosOfInterest.some(municipio =>
+          item.MunicipioAS.toLowerCase().includes(municipio.toLowerCase())
+        );
+
+        return matched;
+      }),
+      "MunicipioAS"
+    )
     : [];
 
   console.log(filteredData);
