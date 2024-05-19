@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Polygon, Popup } from 'react-leaflet';
+import { Polygon, Popup, Marker, CircleMarker } from 'react-leaflet'; // Importa CircleMarker
 import '../../styles/PopupStyles.css';
+import { Icon } from 'leaflet';
 
 const PolygonComponent = ({ state, mousePosition, setMousePosition }) => {
   const coordinates = state.geometry.coordinates[0].map((item) => [item[1], item[0]]);
   const stateName = state.properties.text;
-  const [totalPoblacion, setTotalPoblacion] = useState(null); 
-  const [maxPoblacion, setMaxPoblacion] = useState(0); 
+  const [totalPoblacion, setTotalPoblacion] = useState(null);
+  const [maxPoblacion, setMaxPoblacion] = useState(0);
 
   useEffect(() => {
     const fetchTotalPoblacion = async () => {
@@ -17,7 +18,6 @@ const PolygonComponent = ({ state, mousePosition, setMousePosition }) => {
         }
         const data = await response.json();
         setTotalPoblacion(data);
-        // Calcular el valor máximo de población
         const maxPoblacionValue = Math.max(...data.map(item => item.Poblacion_DANE));
         setMaxPoblacion(maxPoblacionValue);
       } catch (error) {
@@ -28,106 +28,87 @@ const PolygonComponent = ({ state, mousePosition, setMousePosition }) => {
   }, []);
 
   const mapPolygonColorToDensity = (density) => {
-    // Calcular el porcentaje de población con respecto al máximo
     const percentage = (density / maxPoblacion) * 100;
-    // Asignar el color en función del porcentaje
     return percentage > 80
       ? '#7c1d6f'
       : percentage > 60
-      ? '#b9257a'
-      : percentage > 40
-      ? '#dc3977'
-      : percentage > 20
-      ? '#e34f6f'
-      : percentage > 10
-      ? '#f0746e'
-      : '#faa476';
+        ? '#b9257a'
+        : percentage > 40
+          ? '#dc3977'
+          : percentage > 20
+            ? '#e34f6f'
+            : percentage > 10
+              ? '#f0746e'
+              : '#faa476';
   };
 
-  // Función para encontrar el valor de población correspondiente al nombre del municipio
-  // Función para normalizar y comparar nombres de municipios
   const normalizeAndCompare = (name1, name2) => {
-    // Convertir ambos nombres a minúsculas y quitar acentos
     const normalizedName1 = name1.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     const normalizedName2 = name2.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  
-    // Comparar los nombres normalizados
     if (normalizedName1 === normalizedName2) {
-      return true; // Si los nombres normalizados son iguales, son considerados iguales
+      return true;
     }
-  
-    // Separar los nombres en palabras
     const words1 = normalizedName1.split(/\s+/);
     const words2 = normalizedName2.split(/\s+/);
-  
-    // Eliminar términos adicionales como "de" o "del"
-    const cleanedWords1 = words1.filter(word => !["de", "del","De", "Del"].includes(word));
-    const cleanedWords2 = words2.filter(word => !["de", "del","De", "Del"].includes(word));
-  
-    // Comparar los nombres normalizados y limpios
+    const cleanedWords1 = words1.filter(word => !["de", "del", "De", "Del"].includes(word));
+    const cleanedWords2 = words2.filter(word => !["de", "del", "De", "Del"].includes(word));
     return cleanedWords1.join(" ") === cleanedWords2.join(" ");
   };
-  
 
-// Función para encontrar el valor de población correspondiente al nombre del municipio
-const findPopulationByMunicipality = (municipalityName) => {
-  if (totalPoblacion) {
-    const municipalityData = totalPoblacion.find((item) => normalizeAndCompare(item.MunicipioAS, municipalityName));
-    if (municipalityData) {
-      return municipalityData.Poblacion_DANE;
+  const findPopulationByMunicipality = (municipalityName) => {
+    if (totalPoblacion) {
+      const municipalityData = totalPoblacion.find((item) => normalizeAndCompare(item.MunicipioAS, municipalityName));
+      if (municipalityData) {
+        return municipalityData.Poblacion_DANE;
+      }
     }
-  }
-  return null;
-};
+    return null;
+  };
+
+  const getCenterCoordinates = () => {
+    if (coordinates.length > 0) {
+      let sumLat = 0;
+      let sumLng = 0;
+      coordinates.forEach(([lat, lng]) => {
+        sumLat += lat;
+        sumLng += lng;
+      });
+      const centerLat = sumLat / coordinates.length;
+      const centerLng = sumLng / coordinates.length;
+      return [centerLat, centerLng];
+    }
+    return null;
+  };
+
+  const centerCoordinates = getCenterCoordinates();
 
   return (
-    <Polygon
-      key={state.id}
-      pathOptions={{
-        fillColor: mapPolygonColorToDensity(findPopulationByMunicipality(stateName)),
-        fillOpacity: 0.7,
-        weight: 2,
-        opacity: 1,
-        dashArray: 3,
-        color: 'white',
-      }}
-      positions={coordinates}
-      eventHandlers={{
-        mouseover: (e) => {
-          const layer = e.target;
-          layer.setStyle({
-            dashArray: '',
-            fillColor: mapPolygonColorToDensity(findPopulationByMunicipality(stateName)),
-            fillOpacity: 0.5,
-            weight: 2,
-            opacity: 1,
-            color: 'white',
-          });
-          const { lat, lng } = e.latlng;
-          setMousePosition({ lat, lng });
-        },
-        mouseout: (e) => {
-          const layer = e.target;
-          layer.setStyle({
-            fillOpacity: 0.7,
-            weight: 2,
-            dashArray: '3',
-            color: 'white',
-            fillColor: mapPolygonColorToDensity(findPopulationByMunicipality(stateName)),
-          });
-          setMousePosition(null);
-        },
-      }}
-    >
-      {mousePosition && (
-        <Popup className="custom-popup">
-          <div className="popup-header">
-            <strong>{stateName}</strong>
-          </div>
-          <div>Personas: {findPopulationByMunicipality(stateName)}</div>
-        </Popup>
+    <>
+      <Polygon
+        key={state.id}
+        pathOptions={{
+          fillColor: mapPolygonColorToDensity(findPopulationByMunicipality(stateName)),
+          fillOpacity: 0.7,
+          weight: 2,
+          opacity: 1,
+          dashArray: 3,
+          color: 'white',
+        }}
+        positions={coordinates}
+      >
+        {(mousePosition || centerCoordinates) && (
+          <Popup className="custom-popup" position={mousePosition || centerCoordinates}>
+            <div className="popup-header">
+              <strong>{stateName}</strong>
+            </div>
+            <div>Personas: {findPopulationByMunicipality(stateName)}</div>
+          </Popup>
+        )}
+      </Polygon>
+      {['Santander de Quilichao', 'Guachené', 'Puerto Tejada'].includes(stateName) && (
+        <CircleMarker center={centerCoordinates} fillColor="#4B4B4B" color= "#4B4B4B"radius={5} eventHandlers={{ click: () => setMousePosition(centerCoordinates) }}></CircleMarker>
       )}
-    </Polygon>
+    </>
   );
 };
 

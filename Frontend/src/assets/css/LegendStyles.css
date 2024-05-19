@@ -1,0 +1,23 @@
+/* LegendStyles.css */
+.legend {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background-color: white;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    z-index: 1000; /* Ajusta el valor de z-index según sea necesario */
+  }
+  
+  .legend h4 {
+    margin-bottom: 5px;
+  }
+  
+  .legend-item {
+    display: inline-block;
+    width: 20px;
+    height: 10px;
+    margin-right: 5px;
+  }
+  
