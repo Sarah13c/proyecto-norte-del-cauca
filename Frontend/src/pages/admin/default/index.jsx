@@ -136,12 +136,13 @@ export default function UserReports() {
   const handleMunicipioChange = (event) => {
     const selectedMunicipio = event.target.value;
     setSelectedMunicipio(selectedMunicipio);
+    fetchPoblacionMunicipio(selectedMunicipio);
+  };
 
-    // Transformar el nombre del municipio seleccionado para que coincida con el formato del gráfico piramidal
-
-
+    const fetchPoblacionMunicipio = (municipio) => {
+      const formattedSelectedMunicipio = municipio.replace("Santander de Quilichao", "Santander De Quilichao");
+      const selectedMunicipioData = dataDb ? dataDb.find(entry => entry.MunicipioAS === formattedSelectedMunicipio) : null;
     // Actualizar totalPoblacionMunicipio
-    const selectedMunicipioData = dataDb.find(entry => entry.MunicipioAS === formattedSelectedMunicipio);
     if (selectedMunicipioData) {
       setTotalPoblacionMunicipio(selectedMunicipioData.Poblacion_DANE);
     } else {
@@ -247,8 +248,10 @@ export default function UserReports() {
         <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap="20px">
           <DailyTraffic
             dataDbPoblacion={dataDbPoblacion}
-            setSelectedMunicipio={setSelectedMunicipio} //Cuando selecciono los municipios, a ratos no se actualiza en las cardrds
-          //además de que Santander De Quilichao genera error y se daña hasta la piramide poblacional por lo de la D mayúscula
+            setSelectedMunicipio={(municipio) => {
+              setSelectedMunicipio(municipio);
+              fetchPoblacionMunicipio(municipio); // Trae los datos de la población del municipio seleccionado
+            }}
           />
           <PieCard data={uniqueFilteredData} />
         </SimpleGrid>
