@@ -1,15 +1,13 @@
-.map-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
+map-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
-
-  /* MapStyles.css */
 .legend-drawer {
-  position: absolute;
-  top: 20px; /* Ajusta la posición superior según sea necesario */
-  right: 20px; /* Ajusta la posición derecha según sea necesario */
-  z-index: 1000; /* Asegúrate de que el z-index sea mayor que el del mapa */
+position: absolute;
+top: 20px; 
+right: 20px; 
+z-index: 1000;
 }

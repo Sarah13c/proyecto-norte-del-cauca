@@ -1,4 +1,3 @@
-// MapComponent.jsx
 import React from 'react';
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 import PolygonComponent from './PolygonComponent.jsx';
@@ -29,7 +28,7 @@ export default function MapComponent({ center, mousePosition, setMousePosition }
             setMousePosition={setMousePosition}
           />
         ))}
-        {/* Agrega el LegendDrawer aquí */}
+        {/* Agrega el LegendDrawer aquÃ­ */}
         <LegendDrawer />
       </MapContainer>
     </div>
