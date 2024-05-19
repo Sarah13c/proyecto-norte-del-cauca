@@ -13,10 +13,14 @@ export default function WeeklyRevenue({ pyramidData, selectedMunicipio, handleMu
   // Lista de municipios disponibles
   const municipios = pyramidData ? [...new Set(pyramidData.map(entry => entry.municipio))] : [];
   
-
-
   // Chakra Color Mode
   const textColor = useColorModeValue("secondaryGray.900", "white");
+
+  // Log the selected municipio
+  console.log('Selected Municipio:', selectedMunicipio);  
+
+  // Convertir "Santander De Quilichao" a "Santander de Quilichao"
+  const formattedSelectedMunicipio = selectedMunicipio === "Santander De Quilichao" ? "Santander de Quilichao" : selectedMunicipio;
 
   return (
     <Card align='center' direction='column' w='100%' {...rest}>
@@ -36,7 +40,7 @@ export default function WeeklyRevenue({ pyramidData, selectedMunicipio, handleMu
           <Flex justify='center'>
             <Select
               placeholder="Todos los municipios"
-              value={selectedMunicipio}
+              value={formattedSelectedMunicipio}
               onChange={handleMunicipioChange}
               bg="white"
               color={textColor}
@@ -60,3 +64,4 @@ export default function WeeklyRevenue({ pyramidData, selectedMunicipio, handleMu
     </Card>
   );
 }
+

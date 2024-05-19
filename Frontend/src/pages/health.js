@@ -5,7 +5,6 @@ import React, { useState, useEffect } from 'react';
 import MapComponent from '../components/MapComponents/MapComponent';
 import NavBar from '../components/Nav/TopNavbar';
 import CardsGrid from '../components/CardsGrid';
-import Graphic from '../components/Graphic';
 import Sidebar from "../components/Sidebar";
 import { faSkullCrossbones } from '@fortawesome/free-solid-svg-icons';
 
