@@ -9,7 +9,7 @@ export default function DailyTraffic({ dataDbPoblacion, setSelectedMunicipio, ..
   const textColor = useColorModeValue("secondaryGray.900", "white");
 
   const handleBarClick = (municipio) => {
-    setSelectedMunicipio(municipio); // Actualiza el estado con el municipio seleccionado
+    setSelectedMunicipio(municipio); 
   };
 
   return (

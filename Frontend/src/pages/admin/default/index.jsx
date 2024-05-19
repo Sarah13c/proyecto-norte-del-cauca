@@ -138,8 +138,8 @@ export default function UserReports() {
     setSelectedMunicipio(selectedMunicipio);
   
     // Transformar el nombre del municipio seleccionado para que coincida con el formato del gráfico piramidal
-    const formattedSelectedMunicipio = selectedMunicipio.replace("Santander de Quilichao", "Santander De Quilichao");
-  
+    
+    
     // Actualizar totalPoblacionMunicipio
     const selectedMunicipioData = dataDb.find(entry => entry.MunicipioAS === formattedSelectedMunicipio);
     if (selectedMunicipioData) {
@@ -148,6 +148,9 @@ export default function UserReports() {
       setTotalPoblacionMunicipio(null);
     }
   };
+
+  const formattedSelectedMunicipio = selectedMunicipio === "Santander De Quilichao" ? "Santander de Quilichao" : selectedMunicipio;
+
   
 
   const totalHombres = pyramidDataMunicipio ? pyramidDataMunicipio.reduce((acc, curr) => acc + parseInt(curr.hombres), 0) : 'Cargando...';
@@ -205,7 +208,7 @@ export default function UserReports() {
             />
           }
           name='Cantidad de Hombres'
-          value={selectedMunicipio ? (pyramidDataMunicipio ? pyramidDataMunicipio.find(data => data.municipio === selectedMunicipio)?.hombres : 'Cargando...') : totalHombres}
+          value={formattedSelectedMunicipio ? (pyramidDataMunicipio ? pyramidDataMunicipio.find(data => data.municipio === formattedSelectedMunicipio)?.hombres : 'Cargando...') : totalHombres}
         />
         <MiniStatistics
           startContent={
@@ -218,7 +221,7 @@ export default function UserReports() {
               }
             />
           } name='Cantidad de Mujeres'
-          value={selectedMunicipio ? (pyramidDataMunicipio ? pyramidDataMunicipio.find(data => data.municipio === selectedMunicipio)?.mujeres : 'Cargando...') : totalMujeres} />
+          value={formattedSelectedMunicipio ? (pyramidDataMunicipio ? pyramidDataMunicipio.find(data => data.municipio === formattedSelectedMunicipio)?.mujeres : 'Cargando...') : totalMujeres} />
       </SimpleGrid>
 
       <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px' mb='20px'>
