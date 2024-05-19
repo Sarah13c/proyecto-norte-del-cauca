@@ -136,19 +136,21 @@ export default function UserReports() {
   const handleMunicipioChange = (event) => {
     const selectedMunicipio = event.target.value;
     setSelectedMunicipio(selectedMunicipio);
-  
+    fetchPoblacionMunicipio(selectedMunicipio);
+  };
+
+  const fetchPoblacionMunicipio = (municipio) => {
     // Transformar el nombre del municipio seleccionado para que coincida con el formato del gráfico piramidal
-    const formattedSelectedMunicipio = selectedMunicipio.replace("Santander de Quilichao", "Santander De Quilichao");
-  
+    const formattedSelectedMunicipio = municipio.replace("Santander de Quilichao", "Santander De Quilichao");
+
     // Actualizar totalPoblacionMunicipio
-    const selectedMunicipioData = dataDb.find(entry => entry.MunicipioAS === formattedSelectedMunicipio);
+    const selectedMunicipioData = dataDb ? dataDb.find(entry => entry.MunicipioAS === formattedSelectedMunicipio) : null;
     if (selectedMunicipioData) {
       setTotalPoblacionMunicipio(selectedMunicipioData.Poblacion_DANE);
     } else {
       setTotalPoblacionMunicipio(null);
     }
   };
-  
 
   const totalHombres = pyramidDataMunicipio ? pyramidDataMunicipio.reduce((acc, curr) => acc + parseInt(curr.hombres), 0) : 'Cargando...';
   const totalMujeres = pyramidDataMunicipio ? pyramidDataMunicipio.reduce((acc, curr) => acc + parseInt(curr.mujeres), 0) : 'Cargando...';
@@ -164,11 +166,9 @@ export default function UserReports() {
 
   const uniqueFilteredData = Array.from(
     new Set(filteredData.map(entry => entry.MunicipioAS))
-  ).map(municipio=> {
+  ).map(municipio => {
     return filteredData.find(entry => entry.MunicipioAS === municipio);
   });
-
-  
 
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
@@ -217,8 +217,10 @@ export default function UserReports() {
                 <Icon w='32px' h='32px' as={MdFace3} color={brandColor} />
               }
             />
-          } name='Cantidad de Mujeres'
-          value={selectedMunicipio ? (pyramidDataMunicipio ? pyramidDataMunicipio.find(data => data.municipio === selectedMunicipio)?.mujeres : 'Cargando...') : totalMujeres} />
+          }
+          name='Cantidad de Mujeres'
+          value={selectedMunicipio ? (pyramidDataMunicipio ? pyramidDataMunicipio.find(data => data.municipio === selectedMunicipio)?.mujeres : 'Cargando...') : totalMujeres}
+        />
       </SimpleGrid>
 
       <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px' mb='20px'>
@@ -244,8 +246,10 @@ export default function UserReports() {
         <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap="20px">
           <DailyTraffic
             dataDbPoblacion={dataDbPoblacion}
-            setSelectedMunicipio={setSelectedMunicipio} //Cuando selecciono los municipios, a ratos no se actualiza en las cardrds
-            //además de que Santander De Quilichao genera error y se daña hasta la piramide poblacional por lo de la D mayúscula
+            setSelectedMunicipio={(municipio) => {
+              setSelectedMunicipio(municipio);
+              fetchPoblacionMunicipio(municipio); // Trae los datos de la población del municipio seleccionado
+            }}
           />
           <PieCard data={uniqueFilteredData} />
         </SimpleGrid>
@@ -253,4 +257,3 @@ export default function UserReports() {
     </Box>
   );
 }
-
