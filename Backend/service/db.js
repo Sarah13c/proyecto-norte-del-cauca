@@ -5,8 +5,8 @@ const client = new Client({
   user: 'postgres',
   host: 'localhost',
   database: 'Backup_2',
-  password: '1234',
-  port: 5433,
+  password: 'jean3480',
+  port: 5432,
 });
 // Conectar el cliente una vez al inicio
 client.connect()

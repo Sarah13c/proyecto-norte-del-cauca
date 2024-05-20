@@ -18,9 +18,15 @@ export default function Conversion({ data }) {
         alignItems='center'
         w='100%'
         mb='8px'>
-        <Text color={textColor} fontSize='md' fontWeight='600' mt='4px'>
+              <Text
+          me='auto'
+          color={textColor}
+          fontSize='xl'
+          fontWeight='700'
+          lineHeight='100%'>
           Grafica de Pastel
         </Text>
+
       </Flex>
 
       {data ? (
