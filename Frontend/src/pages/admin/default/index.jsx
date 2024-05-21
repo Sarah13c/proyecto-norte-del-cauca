@@ -140,9 +140,9 @@ export default function UserReports() {
     fetchPoblacionMunicipio(selectedMunicipio);
   };
 
-    const fetchPoblacionMunicipio = (municipio) => {
-      const formattedSelectedMunicipio = municipio.replace("Santander de Quilichao", "Santander De Quilichao");
-      const selectedMunicipioData = dataDb ? dataDb.find(entry => entry.MunicipioAS === formattedSelectedMunicipio) : null;
+  const fetchPoblacionMunicipio = (municipio) => {
+    const formattedSelectedMunicipio = municipio.replace("Santander de Quilichao", "Santander De Quilichao");
+    const selectedMunicipioData = dataDb ? dataDb.find(entry => entry.MunicipioAS === formattedSelectedMunicipio) : null;
     // Actualizar totalPoblacionMunicipio
     if (selectedMunicipioData) {
       setTotalPoblacionMunicipio(selectedMunicipioData.Poblacion_DANE);
@@ -254,7 +254,13 @@ export default function UserReports() {
               fetchPoblacionMunicipio(municipio); // Trae los datos de la población del municipio seleccionado
             }}
           />
-          <PieCard data={uniqueFilteredData} />
+          <PieCard
+            data={uniqueFilteredData}
+            onClick={(municipio) => {
+              setSelectedMunicipio(municipio);
+              fetchPoblacionMunicipio(municipio); // Trae los datos de la población del municipio seleccionado
+            }}
+          />
         </SimpleGrid>
       </SimpleGrid>
     </Box>

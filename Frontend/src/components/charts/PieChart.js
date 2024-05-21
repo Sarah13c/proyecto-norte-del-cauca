@@ -1,3 +1,4 @@
+// Piecharts.js
 import React from 'react';
 import { PieChart as RechartsPieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend as PieLegend } from 'recharts';
 
@@ -16,7 +17,13 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
   );
 };
 
-const PieChart = ({ data }) => {
+const PieChart = ({ data, onClick }) => {
+  const handleClick = (entry, index) => {
+    if (onClick) {
+      onClick(entry.MunicipioAS);
+    }
+  };
+
   return (
     <ResponsiveContainer width="100%" height={300}>
       <RechartsPieChart>
@@ -33,6 +40,7 @@ const PieChart = ({ data }) => {
           paddingAngle={5}
           dataKey="Poblacion_DANE"
           nameKey="MunicipioAS"
+          onClick={handleClick}
         >
           {data.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
