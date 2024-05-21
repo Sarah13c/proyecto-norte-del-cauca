@@ -1,13 +1,10 @@
-// Chakra imports
+// PieCard.js
 import { Flex, Text, useColorModeValue } from "@chakra-ui/react";
-// Custom components
 import Card from "../../../../components/card/Card.js";
 import PieChart from "../../../../components/charts/PieChart.js";
-
 import React from "react";
 
-export default function Conversion({ data }) {
-  // Chakra Color Mode
+export default function Conversion({ data, onClick }) {
   const textColor = useColorModeValue("secondaryGray.900", "white");
 
   return (
@@ -18,13 +15,18 @@ export default function Conversion({ data }) {
         alignItems='center'
         w='100%'
         mb='8px'>
-        <Text color={textColor} fontSize='md' fontWeight='600' mt='4px'>
+        <Text
+          me='auto'
+          color={textColor}
+          fontSize='xl'
+          fontWeight='700'
+          lineHeight='100%'>
           Grafica de Pastel
         </Text>
       </Flex>
 
       {data ? (
-        <PieChart data={data} /> 
+        <PieChart data={data} onClick={onClick} />
       ) : (
         <div>Cargando...</div>
       )}
