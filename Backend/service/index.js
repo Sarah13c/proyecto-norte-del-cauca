@@ -89,7 +89,34 @@ app.get('/piramidePoblacionalTotal', async (req, res, next) => {
 });
 
 
+
+//-----Indicador de Salud-----
+
+app.get('/totalAfiliaciones', async (req, res, next) => {
+  try {
+    const result = await client.query(`
+      SELECT 
+        CASE 
+          WHEN "MunicipioAS" = 'Santander De Quilichao' THEN 'Santander de Quilichao' 
+          ELSE "MunicipioAS" 
+        END AS "MunicipioAS",
+        "Regimen",
+        "Afiliados",
+        EXTRACT(YEAR FROM TO_DATE("Año", 'DD/MM/YYYY')) AS "Año"
+      FROM public.afiliaciones_salud2020_2022
+      WHERE ("MunicipioAS" = 'Guachené' OR "MunicipioAS" = 'Puerto Tejada' OR "MunicipioAS" = 'Santander De Quilichao')
+      AND "Regimen" != 'Poblacion';
+    `);
+
+    res.json(result.rows);
+  } catch (err) {
+    next(err);
+  }
+});
+
+
 //rutas de Salud 
+
 app.get('/discapacidadesSalud', async (req, res, next) => {
   try {
     const result = await client.query(`
@@ -101,6 +128,12 @@ app.get('/discapacidadesSalud', async (req, res, next) => {
     next(error);
   }
 });
+
+
+
+//-----Indicador de Educación-----
+
+
 
 // Ruta de prueba
 app.get('/', (req, res) => {

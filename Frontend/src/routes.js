@@ -4,6 +4,7 @@ import MainDashboard from "./pages/admin/default";
 import Profile from "./pages/admin/profile";
 import Health from "./pages/admin/health";
 
+
 const routes = [
   {
     name: "Inicio",
@@ -35,7 +36,7 @@ const routes = [
         layout: "/admin",
         path: "/health",
         icon: MdHome,
-        component: Profile, // Use the Profile component
+        component: Health,
       },
       {
         name: "Educación",

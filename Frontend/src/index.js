@@ -11,6 +11,7 @@ import Salud from "./pages/health";
 import Security from "./pages/security";
 import Information from "./pages/information";
 import Accessibility from './pages/accessibility';
+import Health from './pages/admin/health';
 
 import AdminLayout from './layouts/admin';
 import Health from './layouts/admin';
@@ -48,10 +49,6 @@ const router = createBrowserRouter([
     element: <Demografia />,
   },
   {
-    path: "/health",
-    element: <Health />,
-  },
-  {
     path: "/security",
     element: <Security />,
   },
@@ -73,8 +70,11 @@ const router = createBrowserRouter([
     element: <AdminLayout />,
    
   },
-  
-
+  {
+    path: "/health",
+    element: <Health />,
+   
+  },
   
 ]);
 
