@@ -120,8 +120,9 @@ app.get('/totalAfiliaciones', async (req, res, next) => {
 app.get('/discapacidadesSalud', async (req, res, next) => {
   try {
     const result = await client.query(`
-    SELECT "año", "municipioDAP", "el movimiento del cuerpo, manos, brazos, piernas", "el sistema cardiorespiratorio y las defensas", "el sistema genital y reproductivo", "el sistema nervioso", "la digestion, el metabolismo, las hormonas", "la piel", "la voz y el habla", "los demas organos de los sentidos (olfato, tacto y gusto)", "los oidos", "los ojos", "totalDAP"
-    FROM public.discapacidad_alteraciones_permanentes
+    SELECT "año", "municipioDAP", "el movimiento del cuerpo, manos, brazos, piernas", "el sistema cardiorespiratorio y las defensas", "el sistema genital y reproductivo", "el sistema nervioso", "la digestion, el metabolismo, las hormonas", "la piel", "la voz y el habla", "los demas organos de los sentidos (olfato, tacto y gusto)", "los oidos", "los ojos"
+FROM public.discapacidad_alteraciones_permanentes
+WHERE "año" = 'Total General';
         `);
     res.status(200).json(result.rows);
   } catch (error) {

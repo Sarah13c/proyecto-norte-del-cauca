@@ -4,11 +4,10 @@ import Card from "../../../../components/card/Card.js";
 import StackedBarChart from "../../../../components/charts/StackedBarChart.js";
 
 export default function TotalDisability({ data, areas, onAreaChange, ...rest }) {
-  const [selectedArea, setSelectedArea] = useState("Total");
+  const [selectedArea, setSelectedArea] = useState("Puerto Tejada");
   const [barChartData, setBarChartData] = useState(data);
   const textColor = useColorModeValue("secondaryGray.900", "white");
-  console.log(data)
-  console.log(areas)
+
   useEffect(() => {
     setBarChartData(data);
   }, [data]);
@@ -27,7 +26,8 @@ export default function TotalDisability({ data, areas, onAreaChange, ...rest }) 
             Discapacidad, alteraciones y permanentes
           </Text>
         </Flex>
-        <Select value={selectedArea} onChange={handleAreaChange}>
+        <Select mb="20px" value={selectedArea} onChange={handleAreaChange}>
+          <option value="all">Todas juntas</option>
           {areas.map(area => (
             <option key={area} value={area}>{area}</option>
           ))}
@@ -35,7 +35,7 @@ export default function TotalDisability({ data, areas, onAreaChange, ...rest }) 
       </Flex>
       <Flex w="100%" flexDirection={{ base: "column", lg: "row" }}>
         <Box minH="260px" minW="100%" mt="auto">
-        {barChartData && <StackedBarChart data={barChartData} selectedMunicipio={selectedArea} />}
+          {barChartData && <StackedBarChart data={barChartData} selectedMunicipio={selectedArea} />}
         </Box>
       </Flex>
     </Card>

@@ -1,37 +1,47 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-const StackedBarChart = ({ data, selectedMunicipio }) => {
-  let keys = [];
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AF19FF', '#FF7C19', '#AB1D17', '#17ABAB', '#7A17AB', '#ABD717'];
 
-  // Filtra los datos por el municipio seleccionado
+const GroupedBarChart = ({ data, selectedMunicipio }) => {
   const filteredData = data.filter(entry => entry.municipioDAP === selectedMunicipio);
-
-  // Verificar si filteredData no está vacío y su primer elemento es un objeto
-  if (filteredData.length > 0 && typeof filteredData[0] === 'object' && filteredData[0] !== null) {
-    keys = Object.keys(filteredData[0]).filter(key => key !== 'año' && key !== 'municipioDAP');
-  }
+  const disabilities = Object.keys(filteredData[0] || {}).filter(key => key !== 'año' && key !== 'municipioDAP' && key !== 'totalDAP');
+  const chartData = filteredData.map(entry => {
+    const entryData = { year: entry.año };
+    disabilities.forEach(disability => {
+      entryData[disability] = entry[disability];
+    });
+    return entryData;
+  });
 
   return (
     <ResponsiveContainer width="100%" height={300}>
-      <BarChart data={filteredData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+      <BarChart data={chartData}>
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="year" />
+        <XAxis dataKey="año" />
         <YAxis />
         <Tooltip />
-        <Legend />
-        {keys.map((key, index) => (
-          <Bar
-            key={index}
-            dataKey={key}
-            stackId="a"
-            fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`}
+        {disabilities.map((disability, index) => (
+          <Bar 
+            key={index} 
+            dataKey={disability} 
+            fill={COLORS[index % COLORS.length]} 
+            name={disability} 
+            legendType="none"
           />
         ))}
+        <Legend 
+          align="center" 
+          verticalAlign="bottom" 
+          wrapperStyle={{ padding: '10px' }}
+          formatter={(value, entry) => {
+            const maxLength = 10; // Definir la longitud máxima de los textos de la leyenda
+            return value.length > maxLength ? `${value.substring(0, maxLength)}...` : value;
+          }}
+        />
       </BarChart>
     </ResponsiveContainer>
   );
 };
 
-
-export default StackedBarChart;
+export default GroupedBarChart;
