@@ -2,6 +2,7 @@ import { MdPerson, MdHome } from "react-icons/md";
 
 import MainDashboard from "./pages/admin/default";
 import Profile from "./pages/admin/profile";
+import Health from "./pages/admin/health";
 
 
 const routes = [
@@ -16,7 +17,7 @@ const routes = [
     name: "Perfil",
     layout: "/admin",
     path: "/profile",
-    icon: MdPerson ,
+    icon: MdPerson,
     component: Profile,
   },
   {
@@ -36,7 +37,7 @@ const routes = [
         layout: "/admin",
         path: "/health",
         icon: MdHome,
-        component: MainDashboard,
+        component: Health,
       },
       {
         name: "Educación",

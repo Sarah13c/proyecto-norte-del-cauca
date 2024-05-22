@@ -11,6 +11,7 @@ import Salud from "./pages/health";
 import Security from "./pages/security";
 import Information from "./pages/information";
 import Accessibility from './pages/accessibility';
+import Health from './pages/admin/health';
 
 import AdminLayout from './layouts/admin';
 import "slick-carousel/slick/slick.css";
@@ -47,10 +48,6 @@ const router = createBrowserRouter([
     element: <Demografia />,
   },
   {
-    path: "/health",
-    element: <Salud />,
-  },
-  {
     path: "/security",
     element: <Security />,
   },
@@ -72,8 +69,11 @@ const router = createBrowserRouter([
     element: <Profile />,
    
   },
-  
-
+  {
+    path: "/health",
+    element: <Health />,
+   
+  },
   
 ]);
 
