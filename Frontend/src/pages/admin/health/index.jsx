@@ -5,6 +5,7 @@ import {
     SimpleGrid,
     useColorModeValue,
     AspectRatio,
+    Select,
 } from "@chakra-ui/react";
 import '../../../assets/css/App.css';
 import MiniStatistics from "../../../components/card/MiniStatistics";
@@ -30,7 +31,10 @@ export default function HeatlhReports() {
     // Discapacidades
     const [dataDiscapacidad, setDataDiscapacidad] = useState([]);
     const [areas, setAreas] = useState([]);
+
+    //Nacimientos
     const [dataNacimientos, setDataNacimientos] = useState([]);
+    const [selectedYearNac, setSelectedYearNac] = useState('2022');
 
     // Constants
     const center = [2.283333, -76.85];
@@ -38,22 +42,28 @@ export default function HeatlhReports() {
     const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
 
     //fetcha data Nacimientos
-    useEffect(() => {
-      const fetchData = async () => {
-          try {
-              const response = await fetch('http://localhost:3001/nacimientos22');
-              if (!response.ok) {
-                  throw new Error("Error al obtener los datos del servidor");
-              }
-              const data = await response.json();
-              setDataNacimientos(data);
-          } catch (error) {
-              console.error("Error al obtener los datos:", error);
+    const fetchData = async (year) => {
+      const url = year === '2022' ? 'http://localhost:3001/nacimientos22' : 'http://localhost:3001/nacimientos21';
+      try {
+          const response = await fetch(url);
+          if (!response.ok) {
+              throw new Error("Error al obtener los datos del servidor");
           }
-      };
+          const data = await response.json();
+          setDataNacimientos(data);
+      } catch (error) {
+          console.error("Error al obtener los datos:", error);
+      }
+  };
 
-      fetchData();
-  }, []);
+  useEffect(() => {
+    fetchData(selectedYearNac);
+}, [selectedYearNac]);
+
+const handleYearChange = (event) => {
+  setSelectedYear(event.target.value);
+};
+
     // Fetch data Dsicapacidades
     useEffect(() => {
         const fetchData = async () => {
@@ -96,8 +106,8 @@ export default function HeatlhReports() {
 
     // Handle Year Change
 
-    const handleYearChange = (event) => {
-        setSelectedYear(event.target.value);
+    const handleYearChangeNac = (event) => {
+        setSelectedYearNac(event.target.value);
     };
 
     return (
@@ -169,7 +179,11 @@ export default function HeatlhReports() {
                     />
                 </AspectRatio>
                 <SimpleGrid columns={{ base: 1, md: 2, xl: 1 }} gap="20px">
-                    <SlopeChart data={dataNacimientos} />
+                <Select mb="20px" value={selectedYearNac} onChange={handleYearChangeNac}>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+            </Select>
+                <SlopeChart data={dataNacimientos} year={selectedYearNac} />
                 </SimpleGrid>
             </SimpleGrid>
         </Box>

@@ -1,27 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
 
-const SlopeChart = ({ data }) => {
+const SlopeChart = ({ data, year }) => {
   const [chartOptions, setChartOptions] = useState({});
   const [chartSeries, setChartSeries] = useState([]);
-  console.log(data)
-
+  
   useEffect(() => {
+    // Determinar sufijo de columnas basado en el año
+    const suffix = year === '2022' ? 'NA22' : 'NA21';
+
     // Transformar los datos para el gráfico
-    const categories = [...new Set(data.map(d => d.municipioNA22))];
+    const categories = [...new Set(data.map(d => d[`municipio${suffix}`]))];
 
     const series = [
       {
         name: 'Hombres',
-        data: data.map(d => ({ x: d.municipioNA22, y: d.hombresNA22 }))
+        data: data.map(d => ({ x: d[`municipio${suffix}`], y: d[`hombres${suffix}`] }))
       },
       {
         name: 'Mujeres',
-        data: data.map(d => ({ x: d.municipioNA22, y: d.mujeresNA22  }))
+        data: data.map(d => ({ x: d[`municipio${suffix}`], y: d[`mujeres${suffix}`] }))
       },
       {
         name: 'Indeterminado',
-        data: data.map(d => ({ x: d.municipioNA22, y: d.indeterminadoNA22  }))
+        data: data.map(d => ({ x: d[`municipio${suffix}`], y: d[`indeterminado${suffix}`] }))
       }
     ];
 
@@ -55,7 +57,7 @@ const SlopeChart = ({ data }) => {
     });
 
     setChartSeries(series);
-  }, [data]);
+  }, [data, year]);
 
   return (
     <Chart
