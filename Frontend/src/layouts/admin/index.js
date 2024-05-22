@@ -9,6 +9,7 @@ import { Routes, Route } from 'react-router-dom'
 import routes from '../../routes.js';
 import Admin from '../../pages/admin/default/index.jsx';
 import Profile from '../../pages/admin/profile/index.jsx';
+import Health from '../../pages/admin/health/index.jsx';
 
 // Custom Chakra theme
 export default function Dashboard(props) {
@@ -139,7 +140,6 @@ export default function Dashboard(props) {
 							<Box>
 								<Navbar
 									onOpen={onOpen}
-									logoText={'Horizon UI Dashboard PRO'}
 									brandText={getActiveRoute(routes)}  // Ruta activa
 									secondary={getActiveNavbar(routes)} // Estado de la barra de navegación
 									message={getActiveNavbarText(routes)} // Texto asociado a la barra de navegación
@@ -156,7 +156,7 @@ export default function Dashboard(props) {
 									<Route path="/default" element={<Admin />} />
 									<Route path="/profile" element={<Profile />} />
 									<Route path="/demography" element={<Admin />} />
-									<Route path="/health" element={<Admin />} />
+									<Route path="/health" element={<Health />} />
 									<Route path="/education" element={<Admin />} />
 								</Routes>
 							</Box>
