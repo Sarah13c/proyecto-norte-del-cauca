@@ -14,6 +14,7 @@ import Accessibility from './pages/accessibility';
 import Health from './pages/admin/health';
 
 import AdminLayout from './layouts/admin';
+import Health from './layouts/admin';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./styles/flexboxgrid.min.css";
@@ -60,13 +61,13 @@ const router = createBrowserRouter([
     element: <Accessibility />,
   },
   {
-    path: "/admin/*",
-    element: <AdminLayout />,
+    path: "/profile",
+    element: <Profile />,
    
   },
   {
-    path: "/profile",
-    element: <Profile />,
+    path: "/admin/*",
+    element: <AdminLayout />,
    
   },
   {

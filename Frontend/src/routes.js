@@ -22,7 +22,6 @@ const routes = [
   },
   {
     name: "Indicadores",
-    layout: "/admin",
     category: true,
     items: [
       {

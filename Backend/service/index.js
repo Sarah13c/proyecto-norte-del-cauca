@@ -89,6 +89,7 @@ app.get('/piramidePoblacionalTotal', async (req, res, next) => {
 });
 
 
+
 //-----Indicador de Salud-----
 
 app.get('/totalAfiliaciones', async (req, res, next) => {
@@ -114,6 +115,8 @@ app.get('/totalAfiliaciones', async (req, res, next) => {
 });
 
 
+//rutas de Salud 
+
 app.get('/discapacidadesSalud', async (req, res, next) => {
   try {
     const result = await client.query(`
@@ -127,7 +130,10 @@ app.get('/discapacidadesSalud', async (req, res, next) => {
 });
 
 
+
 //-----Indicador de Educación-----
+
+
 
 // Ruta de prueba
 app.get('/', (req, res) => {
