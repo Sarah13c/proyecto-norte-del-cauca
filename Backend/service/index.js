@@ -129,6 +129,36 @@ app.get('/discapacidadesSalud', async (req, res, next) => {
   }
 });
 
+app.get('/nacimientos21', async (req, res, next) => {
+  try {
+    const result = await client.query(`
+    SELECT "municipioNA21", "hombresNA21", "mujeresNA21", "indeterminadoNA21", "totalNA21"
+    FROM public.nacimientos2021
+    WHERE "municipioNA21" IN ('Guachené', 'Puerto Tejada', 'Santander de Quilichao');
+    
+        `);
+    res.status(200).json(result.rows);
+  } catch (error) {
+    next(error);
+  }
+});
+
+
+app.get('/nacimientos22', async (req, res, next) => {
+  try {
+    const result = await client.query(`
+    SELECT "municipioNA22", "hombresNA22", "mujeresNA22", "indeterminadoNA22", "totalNA22"
+    FROM public.nacimientos2022
+    WHERE "municipioNA22" IN ('Guachené', 'Puerto Tejada', 'Santander de Quilichao');
+    
+        `);
+    res.status(200).json(result.rows);
+  } catch (error) {
+    next(error);
+  }
+});
+
+
 
 
 //-----Indicador de Educación-----

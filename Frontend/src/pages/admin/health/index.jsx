@@ -17,6 +17,7 @@ import {
 import TotalSpent from "../../admin/health/components/TotalDisability";
 import TotalAfiliaciones from "../../admin/health/components/TotalAfiliaciones";
 import MapComponent from "../../../components/MapComponents/MapComponent";
+import SlopeChart from "../../../components/charts/SlopeChart";
 
 export default function HeatlhReports() {
     //Afiliaciones
@@ -29,13 +30,30 @@ export default function HeatlhReports() {
     // Discapacidades
     const [dataDiscapacidad, setDataDiscapacidad] = useState([]);
     const [areas, setAreas] = useState([]);
+    const [dataNacimientos, setDataNacimientos] = useState([]);
 
     // Constants
     const center = [2.283333, -76.85];
     const brandColor = useColorModeValue("brand.500", "white");
     const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
 
+    //fetcha data Nacimientos
+    useEffect(() => {
+      const fetchData = async () => {
+          try {
+              const response = await fetch('http://localhost:3001/nacimientos22');
+              if (!response.ok) {
+                  throw new Error("Error al obtener los datos del servidor");
+              }
+              const data = await response.json();
+              setDataNacimientos(data);
+          } catch (error) {
+              console.error("Error al obtener los datos:", error);
+          }
+      };
 
+      fetchData();
+  }, []);
     // Fetch data Dsicapacidades
     useEffect(() => {
         const fetchData = async () => {
@@ -151,8 +169,7 @@ export default function HeatlhReports() {
                     />
                 </AspectRatio>
                 <SimpleGrid columns={{ base: 1, md: 2, xl: 1 }} gap="20px">
-                    Holi :D
-                    paicar
+                    <SlopeChart data={dataNacimientos} />
                 </SimpleGrid>
             </SimpleGrid>
         </Box>
