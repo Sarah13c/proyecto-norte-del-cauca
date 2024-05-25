@@ -46,7 +46,7 @@ export default function TotalAfiliaciones({
           </Flex>
         )}
       </Box>
-      <Box h="240px" mt="auto">
+      <Box h="350px" mt="auto">
         {afiliacionesPorMunicipio && (
           <BarGroupChart
             data={afiliacionesPorMunicipio}
