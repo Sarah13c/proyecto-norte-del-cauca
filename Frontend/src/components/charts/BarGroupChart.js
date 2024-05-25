@@ -39,7 +39,7 @@ const BarGroupChart = ({ data, selectedYear }) => {
       <BarChart data={chartData} layout="vertical">
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis type="number" />
-        <YAxis type="category" dataKey="MunicipioAS" />
+        <YAxis type="category" dataKey="MunicipioAS" tick={{ fontSize: 13 }} />
         <Tooltip />
         <Legend />
         <Bar dataKey="Subsidiado" fill="#8884d8" stackId="a" />
