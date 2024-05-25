@@ -6,7 +6,6 @@ const PyramidChart = ({ data, selectedMunicipio }) => {
   const filteredData = selectedMunicipio
     ? data.filter(entry => {
       const match = entry.municipio.toLowerCase() === selectedMunicipio.toLowerCase();
-      console.log(`Comparando: ${entry.municipio.toLowerCase()} con ${selectedMunicipio.toLowerCase()} => ${match}`);
       return match;
     })
     : data;

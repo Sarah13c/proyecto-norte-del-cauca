@@ -27,8 +27,6 @@ const BarChartComponent = ({ data, xAxisDataKey, barDataKey, onClick }) => {
     )
     : [];
 
-  console.log(filteredData);
-
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart data={filteredData}>

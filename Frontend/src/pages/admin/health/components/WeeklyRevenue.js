@@ -16,9 +16,6 @@ export default function WeeklyRevenue({ pyramidData, selectedMunicipio, handleMu
   // Chakra Color Mode
   const textColor = useColorModeValue("secondaryGray.900", "white");
 
-  // Log the selected municipio
-  console.log('Selected Municipio:', selectedMunicipio);
-
   // Convertir "Santander De Quilichao" a "Santander de Quilichao"
   const formattedSelectedMunicipio = selectedMunicipio === "Santander De Quilichao" ? "Santander de Quilichao" : selectedMunicipio;
 
