@@ -9,11 +9,7 @@ import {
 import '../../../assets/css/App.css';
 import MiniStatistics from "../../../components/card/MiniStatistics";
 import IconBox from "../../../components/icons/IconBox";
-import {
-    MdBarChart,
-    MdFace3,
-    MdFace6,
-} from "react-icons/md";
+import { BsGenderMale, BsGenderFemale } from "react-icons/bs";
 import TotalSpent from "../../admin/health/components/TotalDisability";
 import TotalAfiliaciones from "../../admin/health/components/TotalAfiliaciones";
 import TotalNacimientos from "../../admin/health/components/TotalNacimientos";
@@ -33,10 +29,7 @@ export default function HealthReports() {
 
     // Nacimientos
     const [selectedNacimientosYear, setSelectedNacimientosYear] = useState(2021);
-
-
     const [nacimientosData, setNacimientosData] = useState([]);
-
 
     // Constants
     const center = [2.283333, -76.85];
@@ -63,7 +56,6 @@ export default function HealthReports() {
     }, [selectedNacimientosYear]);
 
     console.log("Nacimientos Data", nacimientosData);
-
 
     // Fetch data Discapacidades
     useEffect(() => {
@@ -98,7 +90,6 @@ export default function HealthReports() {
                 console.error("Error al obtener los datos del servidor:", error);
             }
         };
-
         fetchData();
     }, []);
 
@@ -115,7 +106,7 @@ export default function HealthReports() {
     return (
         <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
             <SimpleGrid
-                columns={{ base: 1, md: 2, lg: 3, "2xl": 3 }}
+                columns={{ base: 1, md: 2, lg: 2, "2xl": 2 }}
                 gap='20px'
                 mb='20px'
             >
@@ -126,25 +117,11 @@ export default function HealthReports() {
                             h='56px'
                             bg={boxBg}
                             icon={
-                                <Icon w='32px' h='32px' as={MdBarChart} color={brandColor} />
+                                <Icon w='32px' h='32px' as={BsGenderMale} color={brandColor} />
                             }
                         />
                     }
-                    name='Total Población'
-                    value={200}
-                />
-                <MiniStatistics
-                    startContent={
-                        <IconBox
-                            w='56px'
-                            h='56px'
-                            bg={boxBg}
-                            icon={
-                                <Icon w='32px' h='32px' as={MdFace6} color={brandColor} />
-                            }
-                        />
-                    }
-                    name='Cantidad de Hombres'
+                    name='Nacimientos de Hombres'
                     value={300}
                 />
                 <MiniStatistics
@@ -154,11 +131,11 @@ export default function HealthReports() {
                             h='56px'
                             bg={boxBg}
                             icon={
-                                <Icon w='32px' h='32px' as={MdFace3} color={brandColor} />
+                                <Icon w='32px' h='32px' as={BsGenderFemale} color={brandColor} />
                             }
                         />
                     }
-                    name='Cantidad de Mujeres'
+                    name='Nacimiento de Mujeres'
                     value={100}
                 />
             </SimpleGrid>
