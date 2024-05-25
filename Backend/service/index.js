@@ -129,7 +129,6 @@ WHERE "año" = 'Total General';
     next(error);
   }
 });
-
 app.get('/nacimientos21', async (req, res, next) => {
   try {
     const result = await client.query(`

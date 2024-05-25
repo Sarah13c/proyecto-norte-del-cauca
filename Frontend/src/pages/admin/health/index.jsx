@@ -53,7 +53,6 @@ export default function HealthReports() {
                 console.error("Error al obtener los datos:", error);
             }
         };
-
         fetchData(selectedNacimientosYear);
     }, [selectedNacimientosYear]);
 
