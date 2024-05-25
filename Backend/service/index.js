@@ -120,8 +120,9 @@ app.get('/totalAfiliaciones', async (req, res, next) => {
 app.get('/discapacidadesSalud', async (req, res, next) => {
   try {
     const result = await client.query(`
-    SELECT "año", "municipioDAP", "el movimiento del cuerpo, manos, brazos, piernas", "el sistema cardiorespiratorio y las defensas", "el sistema genital y reproductivo", "el sistema nervioso", "la digestion, el metabolismo, las hormonas", "la piel", "la voz y el habla", "los demas organos de los sentidos (olfato, tacto y gusto)", "los oidos", "los ojos", "totalDAP"
-    FROM public.discapacidad_alteraciones_permanentes
+    SELECT "año", "municipioDAP", "el movimiento del cuerpo, manos, brazos, piernas", "el sistema cardiorespiratorio y las defensas", "el sistema genital y reproductivo", "el sistema nervioso", "la digestion, el metabolismo, las hormonas", "la piel", "la voz y el habla", "los demas organos de los sentidos (olfato, tacto y gusto)", "los oidos", "los ojos"
+FROM public.discapacidad_alteraciones_permanentes
+WHERE "año" = 'Total General';
         `);
     res.status(200).json(result.rows);
   } catch (error) {
@@ -134,7 +135,9 @@ app.get('/nacimientos21', async (req, res, next) => {
     const result = await client.query(`
     SELECT "municipioNA21", "hombresNA21", "mujeresNA21", "indeterminadoNA21", "totalNA21"
     FROM public.nacimientos2021
-    WHERE "municipioNA21" != 'Cauca' and "municipioNA21" != 'Nacional' 
+    WHERE "municipioNA21" IN ('Guachené', 'Puerto Tejada', 'Santander de Quilichao');
+    
+
         `);
     res.status(200).json(result.rows);
   } catch (error) {
@@ -147,15 +150,15 @@ app.get('/nacimientos22', async (req, res, next) => {
     const result = await client.query(`
     SELECT "municipioNA22", "hombresNA22", "mujeresNA22", "indeterminadoNA22", "totalNA22"
     FROM public.nacimientos2022
-    WHERE "municipioNA22" != 'Cauca' and "municipioNA22" != 'Nacional' 
+
+    WHERE "municipioNA22" IN ('Guachené', 'Puerto Tejada', 'Santander de Quilichao');
+
         `);
     res.status(200).json(result.rows);
   } catch (error) {
     next(error);
   }
 });
-
-
 
 
 

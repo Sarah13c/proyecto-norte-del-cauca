@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {
-    Box,
-    Icon,
-    SimpleGrid,
-    useColorModeValue,
-    AspectRatio,
+  Box,
+  Icon,
+  SimpleGrid,
+  useColorModeValue,
+  AspectRatio,
+  Select,
 } from "@chakra-ui/react";
 import '../../../assets/css/App.css';
 import MiniStatistics from "../../../components/card/MiniStatistics";
@@ -14,6 +15,7 @@ import TotalSpent from "../../admin/health/components/TotalDisability";
 import TotalAfiliaciones from "../../admin/health/components/TotalAfiliaciones";
 import TotalNacimientos from "../../admin/health/components/TotalNacimientos";
 import MapComponent from "../../../components/MapComponents/MapComponent";
+import SlopeChart from "../../../components/charts/SlopeChart";
 
 export default function HealthReports() {
     // Afiliaciones
@@ -170,5 +172,4 @@ export default function HealthReports() {
         </Box>
     );
 }
-
 

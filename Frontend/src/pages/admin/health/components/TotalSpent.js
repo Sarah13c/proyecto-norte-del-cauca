@@ -7,8 +7,6 @@ export default function TotalSpent({ data, areas, onAreaChange, ...rest }) {
   const [selectedArea, setSelectedArea] = useState("Total");
   const [barChartData, setBarChartData] = useState(data);
   const textColor = useColorModeValue("secondaryGray.900", "white");
-  console.log(data)
-  console.log(areas)
   useEffect(() => {
     setBarChartData(data);
   }, [data]);
