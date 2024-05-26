@@ -7,9 +7,10 @@ import Login from "./pages/login";
 import { ChakraProvider } from '@chakra-ui/react';
 import Profile from './pages/admin/profile';
 import Accessibility from './pages/accessibility';
-
 import AdminLayout from './layouts/admin';
 import Health from './layouts/admin';
+import Security from  './layouts/admin';
+import Demography from  './layouts/admin';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./styles/flexboxgrid.min.css";
@@ -39,7 +40,14 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
-  
+  {
+    path: "/demography",
+    element: <Demography />,
+  },
+  {
+    path: "/security",
+    element: <Security />,
+  },
   {
     path: "/accessibility",
     element: <Accessibility />,

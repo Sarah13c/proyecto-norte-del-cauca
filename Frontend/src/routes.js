@@ -40,7 +40,7 @@ const routes = [
         component: Health,
       },
       {
-        name: "Seguridad",
+        name: "Security",
         layout: "/admin",
         path: "/security",
         icon: MdSecurity,
@@ -52,7 +52,7 @@ const routes = [
         path: "/education",
         icon: MdBook,
         component: Profile,
-      },
+      }
     ],
   },
 ];

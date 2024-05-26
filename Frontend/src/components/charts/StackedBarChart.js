@@ -37,7 +37,7 @@ const GroupedBarChart = ({ data, selectedMunicipio }) => {
       type: 'bar',
       height: 400,
       toolbar: {
-        show: false
+        show: true
       }
     },
     plotOptions: {

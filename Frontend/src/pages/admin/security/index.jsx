@@ -4,52 +4,81 @@ import {
   Icon,
   SimpleGrid,
   useColorModeValue,
-  AspectRatio
+  AspectRatio,
+  Select,
 } from "@chakra-ui/react";
 import '../../../assets/css/App.css';
 import MiniStatistics from "../../../components/card/MiniStatistics";
 import IconBox from "../../../components/icons/IconBox";
 import { BsGenderMale, BsGenderFemale } from "react-icons/bs";
-import TotalHurtos from "./components/TotalHurtos";
-import TotalLesiones from "./components/TotalLesiones";
+//mapa
 import MapComponent from "../../../components/MapComponents/MapComponent";
+//accesos carnales
+import TotalAccesosCarnales from "../../admin/security/components/TotalAccesosCarnales";
+//homicidios
+import HomicidiosPorMunicipio from "../../admin/security/components/HomicidiosPorMunicipio";
+//Lesiones
+import TotalLesiones from "./components/TotalLesiones";
+//Hurtos
+import TotalHurtos from "./components/TotalHurtos";
+
 
 export default function SecurityReports() {
 
   // Mapa
   const [mousePosition, setMousePosition] = useState(null);
 
+  //acceos carnales
+  const [dataAccesos, setDataAccesos] = useState([]);
+  const [areas, setAreas] = useState([]);
+
   // Hurtos
-    const [dataHurtos, setDataHurtos] = useState([]);
+  const [dataHurtos, setDataHurtos] = useState([]);
+
+  // Hurtos
+  const [dataLesiones, setDataLesiones] = useState([]);
 
 
-    // Hurtos
-    const [dataLesiones, setDataLesiones] = useState([]);
-
+  //homicidios
+  const [dataHomicidios, setDataHomicidios] = useState([]);
   // Constants
   const center = [2.283333, -76.85];
   const brandColor = useColorModeValue("brand.500", "white");
   const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
-  
 
-  // Fetch data Hurtos
+  
   useEffect(() => {
-    const fetchData = async () => {
+    // Fetch data accesos Carnales
+    const fetchDataAccesos = async () => {
       try {
-        const response = await fetch('http://localhost:3001/hurtos1922');
+        const response = await fetch("http://localhost:3001/accesosCarnales");
         if (!response.ok) {
           throw new Error("Error al obtener los datos del servidor");
         }
         const data = await response.json();
-        setDataHurtos(data);
+        setDataAccesos(data);
+        setAreas([...new Set(data.map((d) => d.MUNICIPIO_HECHO_AcceCar))]);
+      } catch (error) {
+        console.error("Error al obtener los datos del servidor:", error);
+      }
+    };
+// Fetch data homicidios
+    const fetchDataHomicidios = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/homicidios1922");
+        if (!response.ok) {
+          throw new Error("Error al obtener los datos del servidor");
+        }
+        const data = await response.json();
+        setDataHomicidios(data);
       } catch (error) {
         console.error("Error al obtener los datos del servidor:", error);
       }
     };
 
-    fetchData();
+    fetchDataAccesos();
+    fetchDataHomicidios();
   }, []);
-
 
   // Fetch data Lesiones
   useEffect(() => {
@@ -69,6 +98,27 @@ export default function SecurityReports() {
     fetchData();
   }, []);
 
+
+   // Fetch data Hurtos
+   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/hurtos1922');
+        if (!response.ok) {
+          throw new Error("Error al obtener los datos del servidor");
+        }
+        const data = await response.json();
+        setDataHurtos(data);
+      } catch (error) {
+        console.error("Error al obtener los datos del servidor:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  
+  
+  
 
 
 
@@ -123,21 +173,23 @@ export default function SecurityReports() {
         />
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px' mb='20px'>
-        <TotalHurtos
-          data={dataHurtos}          
+        <TotalAccesosCarnales
+          data={dataAccesos}
+          areas={areas}
+          onAreaChange={() => { }}
         />
-         <TotalLesiones data={dataLesiones} />
+
+      <TotalLesiones data={dataLesiones} /> 
+       
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap="20px" mb="20px">
         <AspectRatio ratio={16 / 9}>
-          <MapComponent
-            center={center}
-            mousePosition={mousePosition}
-            setMousePosition={setMousePosition}
-          />
+        <TotalHurtos
+          data={dataHurtos}          
+        />
         </AspectRatio>
         <SimpleGrid columns={{ base: 1, md: 2, xl: 1 }} gap="20px">
-          Nacimientos
+          <HomicidiosPorMunicipio data={dataHomicidios} />
         </SimpleGrid>
       </SimpleGrid>
     </Box>
