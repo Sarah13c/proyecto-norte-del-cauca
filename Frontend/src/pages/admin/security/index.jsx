@@ -17,8 +17,11 @@ import MapComponent from "../../../components/MapComponents/MapComponent";
 import TotalAccesosCarnales from "../../admin/security/components/TotalAccesosCarnales";
 //homicidios
 import HomicidiosPorMunicipio from "../../admin/security/components/HomicidiosPorMunicipio";
-//Violecia Intrafamiliar
-import TotalViolenciaIntrafamiliar from "../../admin/security/components/TotalViolenciaIntrafamiliar";
+//Lesiones
+import TotalLesiones from "./components/TotalLesiones";
+//Hurtos
+import TotalHurtos from "./components/TotalHurtos";
+
 
 export default function SecurityReports() {
 
@@ -29,11 +32,15 @@ export default function SecurityReports() {
   const [dataAccesos, setDataAccesos] = useState([]);
   const [areas, setAreas] = useState([]);
 
+  // Hurtos
+  const [dataHurtos, setDataHurtos] = useState([]);
+
+  // Hurtos
+  const [dataLesiones, setDataLesiones] = useState([]);
+
+
   //homicidios
   const [dataHomicidios, setDataHomicidios] = useState([]);
-
-  //Violencia Intrafamiliar
-  const [dataViolenciaIntrafamiliar, setDataViolenciaIntrafamiliar] = useState([]);
   // Constants
   const center = [2.283333, -76.85];
   const brandColor = useColorModeValue("brand.500", "white");
@@ -69,26 +76,46 @@ export default function SecurityReports() {
       }
     };
 
-    //fetch ViolenciaIntrafamiliar;
-    const fetchDataViolencia = async () => {
+    fetchDataAccesos();
+    fetchDataHomicidios();
+  }, []);
+
+  // Fetch data Lesiones
+  useEffect(() => {
+    const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3001/violenciaIntrafamiliar');
+        const response = await fetch('http://localhost:3001/lesionesPersonales');
         if (!response.ok) {
           throw new Error("Error al obtener los datos del servidor");
         }
         const data = await response.json();
-        setDataViolenciaIntrafamiliar(data);
+        setDataLesiones(data);
       } catch (error) {
         console.error("Error al obtener los datos del servidor:", error);
       }
     };
 
-    fetchDataAccesos();
-    fetchDataHomicidios();
-    fetchDataViolencia();
+    fetchData();
   }, []);
 
 
+   // Fetch data Hurtos
+   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/hurtos1922');
+        if (!response.ok) {
+          throw new Error("Error al obtener los datos del servidor");
+        }
+        const data = await response.json();
+        setDataHurtos(data);
+      } catch (error) {
+        console.error("Error al obtener los datos del servidor:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
   
   
   
@@ -98,7 +125,7 @@ export default function SecurityReports() {
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
       <SimpleGrid
-        columns={{ base: 1, md: 2, lg: 2, "2xl": 2 }}
+        columns={{ base: 1, md: 3, lg: 3, "2xl": 3 }}
         gap='20px'
         mb='20px'
       >
@@ -113,8 +140,22 @@ export default function SecurityReports() {
               }
             />
           }
-          name={`Nacimientos de Hombres en `}
-          value={22}
+          name={`oli`}
+          value={2020}
+        />
+        <MiniStatistics
+          startContent={
+            <IconBox
+              w='56px'
+              h='56px'
+              bg={boxBg}
+              icon={
+                <Icon w='32px' h='32px' as={BsGenderMale} color={brandColor} />
+              }
+            />
+          }
+          name={`Nacimientos de Hombres en 2022`}
+          value={20202}
         />
         <MiniStatistics
           startContent={
@@ -127,8 +168,8 @@ export default function SecurityReports() {
               }
             />
           }
-          name={`Nacimientos de Mujeres en 22`}
-          value={22}
+          name={`Nacimientos de Mujeres en 2021`}
+          value={4334}
         />
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px' mb='20px'>
@@ -137,27 +178,19 @@ export default function SecurityReports() {
           areas={areas}
           onAreaChange={() => { }}
         />
+
+      <TotalLesiones data={dataLesiones} /> 
        
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap="20px" mb="20px">
         <AspectRatio ratio={16 / 9}>
-          <MapComponent
-            center={center}
-            mousePosition={mousePosition}
-            setMousePosition={setMousePosition}
-          />
+        <TotalHurtos
+          data={dataHurtos}          
+        />
         </AspectRatio>
         <SimpleGrid columns={{ base: 1, md: 2, xl: 1 }} gap="20px">
           <HomicidiosPorMunicipio data={dataHomicidios} />
         </SimpleGrid>
-      </SimpleGrid>
-      <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px' mb='20px'>
-        <TotalAccesosCarnales
-          data={dataViolenciaIntrafamiliar}
-          areas={areas}
-          onAreaChange={() => { }}
-        />
-        <TotalViolenciaIntrafamiliar data={dataViolenciaIntrafamiliar} />
       </SimpleGrid>
     </Box>
   );

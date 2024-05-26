@@ -209,15 +209,28 @@ GROUP BY
   }
 });
 
-//violenciaIntrafamiliar_2019_2022
-app.get('/violenciaIntrafamiliar', async (req, res, next) => {
+//lesionespersonales2019_2022
+app.get('/lesionesPersonales', async (req, res, next) => {
   try {
     const result = await client.query(`
-    SELECT "MUNICIPIO_HECHO_VioIn", "AÑO_VioIn", "ZONA_VioIn", COUNT(*) AS "CANTIDAD"
-FROM public.violenciasintrafamiliares2019_2022
-WHERE "MUNICIPIO_HECHO_VioIn" IN ('GUACHENÉ', 'PUERTO TEJADA', 'SANTANDER DE QUILICHAO') and "AÑO_VioIn" IN (2020, 2021, 2022) 
+    SELECT 
+    "MUNICIPIO_HECHO_LePe", 
+    "AÑO_LePe", 
+    "ZONA_LePe",
+    COUNT(*) AS total_lesiones
+FROM 
+    public.lesionespersonales2019_2022
+WHERE 
+    "MUNICIPIO_HECHO_LePe" IN ('GUACHENÉ', 'PUERTO TEJADA', 'SANTANDER DE QUILICHAO') 
+    AND "AÑO_LePe" IN (2020, 2021, 2022)
 GROUP BY 
-    "MUNICIPIO_HECHO_VioIn", "AÑO_VioIn", "ZONA_VioIn";
+    "MUNICIPIO_HECHO_LePe", 
+    "AÑO_LePe", 
+    "ZONA_LePe"
+ORDER BY 
+    "MUNICIPIO_HECHO_LePe", 
+    "AÑO_LePe", 
+    "ZONA_LePe"
         `);
     res.status(200).json(result.rows);
   } catch (error) {
@@ -225,11 +238,36 @@ GROUP BY
   }
 });
 
-
-
-
-//lesionespersonales2019_2022
 //hurtos2019_2022
+app.get('/hurtos1922', async (req, res, next) => {
+  try {
+    const result = await client.query(`
+    SELECT 
+    "MUNICIPIO_HECHO_Hurto", 
+    "AÑO_Hurto", 
+    "ZONA_Hurto",
+    COUNT(*) AS total_hurtos
+FROM 
+    public.hurtos2019_2022
+WHERE 
+    "MUNICIPIO_HECHO_Hurto" IN ('SANTANDER DE QUILICHAO', 'GUACHENÉ', 'PUERTO TEJADA')
+    AND "AÑO_Hurto" IN ('2020', '2021', '2022')
+GROUP BY 
+    "MUNICIPIO_HECHO_Hurto", 
+    "AÑO_Hurto",
+    "ZONA_Hurto"
+ORDER BY 
+    "MUNICIPIO_HECHO_Hurto", 
+    "AÑO_Hurto",
+    "ZONA_Hurto";
+
+        `);
+        res.status(200).json(result.rows);
+      } catch (error) {
+        next(error);
+      }
+    });
+    
 
 //violenciasintrafamiliares2019_2022
 
