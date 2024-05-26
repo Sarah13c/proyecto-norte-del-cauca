@@ -17,6 +17,8 @@ import MapComponent from "../../../components/MapComponents/MapComponent";
 import TotalAccesosCarnales from "../../admin/security/components/TotalAccesosCarnales";
 //homicidios
 import HomicidiosPorMunicipio from "../../admin/security/components/HomicidiosPorMunicipio";
+//Violecia Intrafamiliar
+import TotalViolenciaIntrafamiliar from "../../admin/security/components/TotalViolenciaIntrafamiliar";
 
 export default function SecurityReports() {
 
@@ -29,6 +31,9 @@ export default function SecurityReports() {
 
   //homicidios
   const [dataHomicidios, setDataHomicidios] = useState([]);
+
+  //Violencia Intrafamiliar
+  const [dataViolenciaIntrafamiliar, setDataViolenciaIntrafamiliar] = useState([]);
   // Constants
   const center = [2.283333, -76.85];
   const brandColor = useColorModeValue("brand.500", "white");
@@ -64,8 +69,23 @@ export default function SecurityReports() {
       }
     };
 
+    //fetch ViolenciaIntrafamiliar;
+    const fetchDataViolencia = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/violenciaIntrafamiliar');
+        if (!response.ok) {
+          throw new Error("Error al obtener los datos del servidor");
+        }
+        const data = await response.json();
+        setDataViolenciaIntrafamiliar(data);
+      } catch (error) {
+        console.error("Error al obtener los datos del servidor:", error);
+      }
+    };
+
     fetchDataAccesos();
     fetchDataHomicidios();
+    fetchDataViolencia();
   }, []);
 
 
@@ -130,6 +150,14 @@ export default function SecurityReports() {
         <SimpleGrid columns={{ base: 1, md: 2, xl: 1 }} gap="20px">
           <HomicidiosPorMunicipio data={dataHomicidios} />
         </SimpleGrid>
+      </SimpleGrid>
+      <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px' mb='20px'>
+        <TotalAccesosCarnales
+          data={dataViolenciaIntrafamiliar}
+          areas={areas}
+          onAreaChange={() => { }}
+        />
+        <TotalViolenciaIntrafamiliar data={dataViolenciaIntrafamiliar} />
       </SimpleGrid>
     </Box>
   );
