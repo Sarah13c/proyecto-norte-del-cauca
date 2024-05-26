@@ -348,6 +348,23 @@ GROUP BY
   }
 });
 
+//-----Indicador de Violencia-----
+
+//Victimas de desplazamiento forzado 2015-2022
+app.get('/desplazamientoForzado', async (req, res, next) => {
+  try {
+    const result = await client.query(`SELECT "Municipio", "Indicador_VicDes", "Numero_Victimas"
+    FROM public.victimasdesplazamiento2015_2022`);
+res.status(200).json(result.rows);
+} catch (error) {
+next(error);
+}
+});
+
+
+
+
+
 
 
 // Ruta de prueba
