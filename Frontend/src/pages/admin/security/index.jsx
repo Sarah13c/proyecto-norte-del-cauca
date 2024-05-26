@@ -22,6 +22,10 @@ import TotalLesiones from "./components/TotalLesiones";
 //Hurtos
 import TotalHurtos from "./components/TotalHurtos";
 
+//Violecia Intrafamiliar
+import TotalViolenciaIntrafamiliar from "../../admin/security/components/TotalViolenciaIntrafamiliar";
+
+
 
 export default function SecurityReports() {
 
@@ -41,12 +45,16 @@ export default function SecurityReports() {
 
   //homicidios
   const [dataHomicidios, setDataHomicidios] = useState([]);
+
+   //Violencia Intrafamiliar
+   const [dataViolenciaIntrafamiliar, setDataViolenciaIntrafamiliar] = useState([]);
+
   // Constants
   const center = [2.283333, -76.85];
   const brandColor = useColorModeValue("brand.500", "white");
   const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
 
-  
+
   useEffect(() => {
     // Fetch data accesos Carnales
     const fetchDataAccesos = async () => {
@@ -62,7 +70,7 @@ export default function SecurityReports() {
         console.error("Error al obtener los datos del servidor:", error);
       }
     };
-// Fetch data homicidios
+    // Fetch data homicidios
     const fetchDataHomicidios = async () => {
       try {
         const response = await fetch("http://localhost:3001/homicidios1922");
@@ -99,8 +107,8 @@ export default function SecurityReports() {
   }, []);
 
 
-   // Fetch data Hurtos
-   useEffect(() => {
+  // Fetch data Hurtos
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch('http://localhost:3001/hurtos1922');
@@ -116,10 +124,25 @@ export default function SecurityReports() {
 
     fetchData();
   }, []);
-  
-  
-  
 
+
+  useEffect(() => {
+    // Fetch data Violencia Intrafamiliar
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/violenciaIntrafamiliar');
+        if (!response.ok) {
+          throw new Error("Error al obtener los datos del servidor");
+        }
+        const data = await response.json();
+        setDataViolenciaIntrafamiliar(data);
+      } catch (error) {
+        console.error("Error al obtener los datos del servidor:", error);
+      }
+    };
+    fetchData();
+  }, []);
+   
 
 
   return (
@@ -172,6 +195,9 @@ export default function SecurityReports() {
           value={4334}
         />
       </SimpleGrid>
+      <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
+        <HomicidiosPorMunicipio data={dataHomicidios} />
+      </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px' mb='20px'>
         <TotalAccesosCarnales
           data={dataAccesos}
@@ -179,19 +205,22 @@ export default function SecurityReports() {
           onAreaChange={() => { }}
         />
 
-      <TotalLesiones data={dataLesiones} /> 
-       
+        <TotalLesiones data={dataLesiones} />
+
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap="20px" mb="20px">
         <AspectRatio ratio={16 / 9}>
-        <TotalHurtos
-          data={dataHurtos}          
-        />
+          <TotalHurtos
+            data={dataHurtos}
+          />
         </AspectRatio>
         <SimpleGrid columns={{ base: 1, md: 2, xl: 1 }} gap="20px">
-          <HomicidiosPorMunicipio data={dataHomicidios} />
+          <TotalViolenciaIntrafamiliar data={dataViolenciaIntrafamiliar} />
+
         </SimpleGrid>
       </SimpleGrid>
+
+      
     </Box>
   );
 }
