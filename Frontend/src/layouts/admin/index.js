@@ -10,6 +10,7 @@ import routes from '../../routes.js';
 import Admin from '../../pages/admin/default/index.jsx';
 import Profile from '../../pages/admin/profile/index.jsx';
 import Health from '../../pages/admin/health/index.jsx';
+import Security from '../../pages/admin/security/index.jsx';
 
 // Custom Chakra theme
 export default function Dashboard(props) {
@@ -158,6 +159,7 @@ export default function Dashboard(props) {
 									<Route path="/demography" element={<Admin />} />
 									<Route path="/health" element={<Health />} />
 									<Route path="/education" element={<Admin />} />
+									<Route path="/security" element={<Security />} />
 								</Routes>
 							</Box>
 						) : null}

@@ -4,16 +4,13 @@ import './index.css';
 import App from './App';
 import Register from "./pages/register";
 import Login from "./pages/login";
-import Demografia from "./pages/demography";
 import { ChakraProvider } from '@chakra-ui/react';
 import Profile from './pages/admin/profile';
-import Salud from "./pages/health";
-import Security from "./pages/security";
-import Information from "./pages/information";
 import Accessibility from './pages/accessibility';
-
 import AdminLayout from './layouts/admin';
 import Health from './layouts/admin';
+import Security from  './layouts/admin';
+import Demography from  './layouts/admin';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./styles/flexboxgrid.min.css";
@@ -45,15 +42,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/demography",
-    element: <Demografia />,
+    element: <Demography />,
   },
   {
     path: "/security",
     element: <Security />,
-  },
-  {
-    path: "/information",
-    element: <Information />,
   },
   {
     path: "/accessibility",
