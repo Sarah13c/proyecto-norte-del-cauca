@@ -21,20 +21,18 @@ import TotalLesiones from "../security/components/TotalLesiones";
 import TotalHurtos from "../security/components/TotalHurtos";
 
 //Violecia Intrafamiliar
-import TotalViolenciaIntrafamiliar from "../security/components/TotalViolenciaIntrafamiliar";
+import VictimasDesplazamiento from "../violence/components/VictimasDesplazamiento";
 
 
 
 export default function ViolenceReports() {
 
-  // Mapa
-  const [mousePosition, setMousePosition] = useState(null);
+  const [areas, setAreas] = useState([]);
 
   //acceos carnales
   const [dataAccesos, setDataAccesos] = useState([]);
-  const [areas, setAreas] = useState([]);
 
-  // Hurtos
+  // Victimas Desplazamiento
   const [dataHurtos, setDataHurtos] = useState([]);
 
   // Hurtos
@@ -47,6 +45,9 @@ export default function ViolenceReports() {
    //Violencia Intrafamiliar
    const [dataViolenciaIntrafamiliar, setDataViolenciaIntrafamiliar] = useState([]);
 
+   //Violencia Intrafamiliar
+   const [dataDesplazados, setDataDesplazados] = useState([]);
+
   // Constants
   const center = [2.283333, -76.85];
   const brandColor = useColorModeValue("brand.500", "white");
@@ -54,16 +55,15 @@ export default function ViolenceReports() {
 
 
   useEffect(() => {
-    // Fetch data accesos Carnales
-    const fetchDataAccesos = async () => {
+    // Fetch data Desplazamientos forzados
+    const fetchDataDesplazados = async () => {
       try {
-        const response = await fetch("http://localhost:3001/accesosCarnales");
+        const response = await fetch("http://localhost:3001/desplazamientoForzado");
         if (!response.ok) {
           throw new Error("Error al obtener los datos del servidor");
         }
         const data = await response.json();
-        setDataAccesos(data);
-        setAreas([...new Set(data.map((d) => d.MUNICIPIO_HECHO_AcceCar))]);
+        setDataDesplazados(data);
       } catch (error) {
         console.error("Error al obtener los datos del servidor:", error);
       }
@@ -82,7 +82,7 @@ export default function ViolenceReports() {
       }
     };
 
-    fetchDataAccesos();
+    fetchDataDesplazados();
     fetchDataHomicidios();
   }, []);
 
@@ -213,12 +213,9 @@ export default function ViolenceReports() {
           />
         </AspectRatio>
         <SimpleGrid columns={{ base: 1, md: 2, xl: 1 }} gap="20px">
-          <TotalViolenciaIntrafamiliar data={dataViolenciaIntrafamiliar} />
-
+          <VictimasDesplazamiento data={dataDesplazados} />
         </SimpleGrid>
       </SimpleGrid>
-
-      
     </Box>
   );
 }
