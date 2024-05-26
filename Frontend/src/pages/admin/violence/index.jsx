@@ -11,23 +11,21 @@ import '../../../assets/css/App.css';
 import MiniStatistics from "../../../components/card/MiniStatistics";
 import IconBox from "../../../components/icons/IconBox";
 import { BsGenderMale, BsGenderFemale } from "react-icons/bs";
-//mapa
-import MapComponent from "../../../components/MapComponents/MapComponent";
 //accesos carnales
-import TotalAccesosCarnales from "../../admin/security/components/TotalAccesosCarnales";
+import TotalAccesosCarnales from "../security/components/TotalAccesosCarnales";
 //homicidios
-import HomicidiosPorMunicipio from "../../admin/security/components/HomicidiosPorMunicipio";
+import HomicidiosPorMunicipio from "../security/components/HomicidiosPorMunicipio";
 //Lesiones
-import TotalLesiones from "./components/TotalLesiones";
+import TotalLesiones from "../security/components/TotalLesiones";
 //Hurtos
-import TotalHurtos from "./components/TotalHurtos";
+import TotalHurtos from "../security/components/TotalHurtos";
 
 //Violecia Intrafamiliar
-import TotalViolenciaIntrafamiliar from "../../admin/security/components/TotalViolenciaIntrafamiliar";
+import TotalViolenciaIntrafamiliar from "../security/components/TotalViolenciaIntrafamiliar";
 
 
 
-export default function SecurityReports() {
+export default function ViolenceReports() {
 
   // Mapa
   const [mousePosition, setMousePosition] = useState(null);

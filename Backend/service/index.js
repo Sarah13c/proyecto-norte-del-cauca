@@ -332,7 +332,22 @@ ORDER BY
     });
     
 
-//violenciasintrafamiliares2019_2022
+//violenciaIntrafamiliar_2019_2022
+app.get('/violenciaIntrafamiliar', async (req, res, next) => {
+  try {
+    const result = await client.query(`
+    SELECT "MUNICIPIO_HECHO_VioIn", "AÑO_VioIn", "ZONA_VioIn", COUNT(*) AS "CANTIDAD"
+FROM public.violenciasintrafamiliares2019_2022
+WHERE "MUNICIPIO_HECHO_VioIn" IN ('GUACHENÉ', 'PUERTO TEJADA', 'SANTANDER DE QUILICHAO') and "AÑO_VioIn" IN (2020, 2021, 2022) 
+GROUP BY 
+    "MUNICIPIO_HECHO_VioIn", "AÑO_VioIn", "ZONA_VioIn";
+        `);
+    res.status(200).json(result.rows);
+  } catch (error) {
+    next(error);
+  }
+});
+
 
 
 // Ruta de prueba
