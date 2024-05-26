@@ -11,7 +11,7 @@ import '../../../assets/css/App.css';
 import MiniStatistics from "../../../components/card/MiniStatistics";
 import IconBox from "../../../components/icons/IconBox";
 import { BsGenderMale, BsGenderFemale } from "react-icons/bs";
-import TotalSpent from "../../admin/health/components/TotalDisability";
+import TotalDisability from "../../admin/health/components/TotalDisability";
 import TotalAfiliaciones from "../../admin/health/components/TotalAfiliaciones";
 import TotalNacimientos from "../../admin/health/components/TotalNacimientos";
 import MapComponent from "../../../components/MapComponents/MapComponent";
@@ -154,7 +154,7 @@ export default function HealthReports() {
         />
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px' mb='20px'>
-        <TotalSpent
+        <TotalDisability
           data={dataDiscapacidad}
           areas={areas}
           onAreaChange={() => { }}

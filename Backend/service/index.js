@@ -164,6 +164,58 @@ app.get('/nacimientos22', async (req, res, next) => {
 //-----Indicador de Educación-----
 
 
+//-----Indicador de Seguridad-----
+//accesoscarnales_14año
+app.get('/accesosCarnales', async (req, res, next) => {
+  try {
+    const result = await client.query(`
+    SELECT 
+    "MUNICIPIO_HECHO_AcceCar", 
+    "AÑO_AcceCar", 
+    "ZONA_AcceCar",
+    COUNT(*) AS "CANTIDAD"
+FROM 
+    public."accesoscarnales_14años"
+WHERE 
+    "MUNICIPIO_HECHO_AcceCar" IN ('GUACHENÉ', 'PUERTO TEJADA', 'SANTANDER DE QUILICHAO') 
+    AND "AÑO_AcceCar" IN (2020, 2021, 2022)
+GROUP BY 
+    "MUNICIPIO_HECHO_AcceCar", 
+    "AÑO_AcceCar", 
+    "ZONA_AcceCar";
+
+
+        `);
+    res.status(200).json(result.rows);
+  } catch (error) {
+    next(error);
+  }
+});
+//homicidios_2019_2022
+app.get('/homicidios1922', async (req, res, next) => {
+  try {
+    const result = await client.query(`
+    SELECT "MUNICIPIO_Homi1922_HECHO", "AÑO_Homi1922", "ZONA_Homi1922", COUNT(*) AS "CANTIDAD"
+FROM public.homicidios_2019_2022
+WHERE "MUNICIPIO_Homi1922_HECHO" IN ('GUACHENÉ', 'PUERTO TEJADA', 'SANTANDER DE QUILICHAO') and "AÑO_Homi1922" IN (2020, 2021, 2022)
+GROUP BY 
+    "MUNICIPIO_Homi1922_HECHO", 
+    "AÑO_Homi1922", 
+    "ZONA_Homi1922"
+        `);
+    res.status(200).json(result.rows);
+  } catch (error) {
+    next(error);
+  }
+});
+
+
+
+//lesionespersonales2019_2022
+//hurtos2019_2022
+
+//violenciasintrafamiliares2019_2022
+
 
 // Ruta de prueba
 app.get('/', (req, res) => {
