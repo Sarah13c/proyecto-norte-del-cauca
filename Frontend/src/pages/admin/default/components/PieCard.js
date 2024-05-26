@@ -21,7 +21,7 @@ export default function Conversion({ data, onClick }) {
           fontSize='xl'
           fontWeight='700'
           lineHeight='100%'>
-          Grafica de Pastel
+          Población Total
         </Text>
       </Flex>
 

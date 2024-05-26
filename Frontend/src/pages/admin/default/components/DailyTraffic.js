@@ -23,14 +23,7 @@ export default function DailyTraffic({ dataDbPoblacion, setSelectedMunicipio, ..
               fontSize='xl'
               fontWeight='700'
               lineHeight='100%'>
-              Barra de{" "}
-              {dataDbPoblacion && dataDbPoblacion.length > 0
-                ? Object.keys(dataDbPoblacion[0])[1]
-                : "Columna1"}{" "}
-              por{" "}
-              {dataDbPoblacion && dataDbPoblacion.length > 0
-                ? Object.keys(dataDbPoblacion[0])[0]
-                : "Columna2"}
+              Gráfica de Población por Municipio
             </Text>
 
           </Flex>
