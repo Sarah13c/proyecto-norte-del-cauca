@@ -4,12 +4,8 @@ import './index.css';
 import App from './App';
 import Register from "./pages/register";
 import Login from "./pages/login";
-import Demografia from "./pages/demography";
 import { ChakraProvider } from '@chakra-ui/react';
 import Profile from './pages/admin/profile';
-import Salud from "./pages/health";
-import Security from "./pages/security";
-import Information from "./pages/information";
 import Accessibility from './pages/accessibility';
 
 import AdminLayout from './layouts/admin';
@@ -43,18 +39,7 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
-  {
-    path: "/demography",
-    element: <Demografia />,
-  },
-  {
-    path: "/security",
-    element: <Security />,
-  },
-  {
-    path: "/information",
-    element: <Information />,
-  },
+  
   {
     path: "/accessibility",
     element: <Accessibility />,

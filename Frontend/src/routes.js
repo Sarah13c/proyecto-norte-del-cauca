@@ -1,8 +1,9 @@
-import { MdPerson, MdHome } from "react-icons/md";
+import { MdPerson, MdHome, MdSecurity, MdHealthAndSafety, MdBook } from "react-icons/md";
 
 import MainDashboard from "./pages/admin/default";
 import Profile from "./pages/admin/profile";
 import Health from "./pages/admin/health";
+import Security from "./pages/admin/security";
 
 
 const routes = [
@@ -35,14 +36,21 @@ const routes = [
         name: "Salud",
         layout: "/admin",
         path: "/health",
-        icon: MdHome,
+        icon: MdHealthAndSafety,
         component: Health,
+      },
+      {
+        name: "Seguridad",
+        layout: "/admin",
+        path: "/security",
+        icon: MdSecurity,
+        component: Security,
       },
       {
         name: "Educación",
         layout: "/admin",
         path: "/education",
-        icon: MdPerson,
+        icon: MdBook,
         component: Profile,
       },
     ],
