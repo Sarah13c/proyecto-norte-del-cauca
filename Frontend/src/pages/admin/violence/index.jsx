@@ -4,7 +4,8 @@ import {
   Icon,
   SimpleGrid,
   useColorModeValue,
-  AspectRatio
+  AspectRatio,
+  Select,
 } from "@chakra-ui/react";
 import '../../../assets/css/App.css';
 import MiniStatistics from "../../../components/card/MiniStatistics";
@@ -20,9 +21,9 @@ import TotalLesiones from "../security/components/TotalLesiones";
 import TotalHurtos from "../security/components/TotalHurtos";
 
 //Violecia Intrafamiliar
-import TotalViolenciaIntrafamiliar from "../security/components/TotalViolenciaIntrafamiliar";
+import VictimasDesplazamiento from "../violence/components/VictimasDesplazamiento";
 
-//Conflictos Armados
+//Conflictos armados
 import ConflictosArmados from "../violence/components/ConflictosArmados";
 
 
@@ -34,19 +35,21 @@ export default function ViolenceReports() {
   //acceos carnales
   const [dataAccesos, setDataAccesos] = useState([]);
 
-  // Hurtos
+  // Victimas Desplazamiento
   const [dataHurtos, setDataHurtos] = useState([]);
 
   // Hurtos
   const [dataLesiones, setDataLesiones] = useState([]);
 
 
-  //homicidios
-  const [dataHomicidios, setDataHomicidios] = useState([]);
+  //Conflictos Armados
   const [conflictosArmadosData, setConflictosArmadosData] = useState([]);
 
-   //Violencia Intrafamiliar
-   const [dataViolenciaIntrafamiliar, setDataViolenciaIntrafamiliar] = useState([]);
+  //Violencia Intrafamiliar
+  const [dataViolenciaIntrafamiliar, setDataViolenciaIntrafamiliar] = useState([]);
+
+  //Violencia Intrafamiliar
+  const [dataDesplazados, setDataDesplazados] = useState([]);
 
   // Constants
   const center = [2.283333, -76.85];
@@ -55,39 +58,41 @@ export default function ViolenceReports() {
 
 
   useEffect(() => {
-    // Fetch data accesos Carnales
-    const fetchDataAccesos = async () => {
+    // Fetch data Desplazamientos forzados
+    const fetchDataDesplazados = async () => {
       try {
-        const response = await fetch("http://localhost:3001/accesosCarnales");
+        const response = await fetch("http://localhost:3001/desplazamientoForzado");
         if (!response.ok) {
           throw new Error("Error al obtener los datos del servidor");
         }
         const data = await response.json();
-        setDataAccesos(data);
-        setAreas([...new Set(data.map((d) => d.MUNICIPIO_HECHO_AcceCar))]);
+        setDataDesplazados(data);
       } catch (error) {
         console.error("Error al obtener los datos del servidor:", error);
       }
     };
-    // Fetch data homicidios
-    const fetchDataHomicidios = async () => {
-      try {
-        const response = await fetch("http://localhost:3001/homicidios1922");
-        if (!response.ok) {
-          throw new Error("Error al obtener los datos del servidor");
-        }
-        const data = await response.json();
-        setDataHomicidios(data);
-      } catch (error) {
-        console.error("Error al obtener los datos del servidor:", error);
-      }
-    };
-
-    fetchDataAccesos();
-    fetchDataHomicidios();
+    fetchDataDesplazados();
   }, []);
 
   // Fetch data Lesiones
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/lesionesPersonales');
+        if (!response.ok) {
+          throw new Error("Error al obtener los datos del servidor");
+        }
+        const data = await response.json();
+        setDataLesiones(data);
+      } catch (error) {
+        console.error("Error al obtener los datos del servidor:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -104,6 +109,26 @@ export default function ViolenceReports() {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    // Fetch data Violencia Intrafamiliar
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/violenciaIntrafamiliar');
+        if (!response.ok) {
+          throw new Error("Error al obtener los datos del servidor");
+        }
+        const data = await response.json();
+        setDataViolenciaIntrafamiliar(data);
+      } catch (error) {
+        console.error("Error al obtener los datos del servidor:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+
+
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
       <SimpleGrid
@@ -122,7 +147,7 @@ export default function ViolenceReports() {
               }
             />
           }
-          name={`olix2`}
+          name={`oli`}
           value={2020}
         />
         <MiniStatistics
@@ -137,7 +162,7 @@ export default function ViolenceReports() {
             />
           }
           name={`Nacimientos de Hombres en 2022`}
-          value={2020}
+          value={20202}
         />
         <MiniStatistics
           startContent={
@@ -155,7 +180,7 @@ export default function ViolenceReports() {
         />
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
-         <ConflictosArmados data={conflictosArmadosData} />
+        <ConflictosArmados data={conflictosArmadosData} />
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px' mb='20px'>
         <TotalAccesosCarnales
@@ -174,8 +199,7 @@ export default function ViolenceReports() {
           />
         </AspectRatio>
         <SimpleGrid columns={{ base: 1, md: 2, xl: 1 }} gap="20px">
-          <TotalViolenciaIntrafamiliar data={dataViolenciaIntrafamiliar} />
-
+          <VictimasDesplazamiento data={dataDesplazados} />
         </SimpleGrid>
       </SimpleGrid>
     </Box>
