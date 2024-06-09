@@ -3,7 +3,7 @@ import { Box, Flex, Text, useColorModeValue, Select } from "@chakra-ui/react";
 import Card from "../../../../components/card/Card.js";
 import StackedLineChartMV from "../../../../components/charts/violence/StackedLineChartMV.js";
 
-const MuertesViolentas = ({ data, ...rest }) => {
+const MuertesViolentasDescriptivo = ({ data, ...rest }) => {
   // Estado para los años, manera de muerte y causa de muerte seleccionados
   const [selectedManner, setSelectedManner] = useState(null);
   const [selectedCause, setSelectedCause] = useState(null);
@@ -95,4 +95,4 @@ const MuertesViolentas = ({ data, ...rest }) => {
   );
 };
 
-export default MuertesViolentas;    
+export default MuertesViolentasDescriptivo;    
