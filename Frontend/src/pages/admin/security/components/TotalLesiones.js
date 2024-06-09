@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Flex, Select, Text, useColorModeValue } from '@chakra-ui/react';
 import Card from '../../../../components/card/Card.js';
-import MultipleLineChart from '../../../../components/charts/MultipleLineChart.js';
+import MultipleLineChart from '../../../../components/charts/security/MultipleLineChart.js';
 
 export default function TotalLesiones({ data, ...rest }) {
   const textColor = useColorModeValue('secondaryGray.900', 'white');
