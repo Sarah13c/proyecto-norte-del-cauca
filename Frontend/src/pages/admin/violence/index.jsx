@@ -17,7 +17,7 @@ import VictimasDesplazamiento from "../violence/components/VictimasDesplazamient
 
 //Conflictos armados
 import ConflictosArmados from "../violence/components/ConflictosArmados";
-import MuertesViolentas from "./components/MuertesViolentasDescriptivo";
+import MuertesViolentasDescriptivo from "./components/MuertesViolentasDescriptivo";
 
 
 
@@ -148,7 +148,7 @@ export default function ViolenceReports() {
         <ConflictosArmados data={conflictosArmadosData} />
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
-        <MuertesViolentas data={dataMuertesViolentas} />
+        <MuertesViolentasDescriptivo data={dataMuertesViolentas} />
       </SimpleGrid>
 
       <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap="20px" mb="20px">
