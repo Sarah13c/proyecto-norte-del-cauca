@@ -32,16 +32,6 @@ export default function ViolenceReports() {
 
   const [areas, setAreas] = useState([]);
 
-  //acceos carnales
-  const [dataAccesos, setDataAccesos] = useState([]);
-
-  // Victimas Desplazamiento
-  const [dataHurtos, setDataHurtos] = useState([]);
-
-  // Hurtos
-  const [dataLesiones, setDataLesiones] = useState([]);
-
-
   //Conflictos Armados
   const [conflictosArmadosData, setConflictosArmadosData] = useState([]);
 
@@ -182,22 +172,8 @@ export default function ViolenceReports() {
       <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
         <ConflictosArmados data={conflictosArmadosData} />
       </SimpleGrid>
-      <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px' mb='20px'>
-        <TotalAccesosCarnales
-          data={dataAccesos}
-          areas={areas}
-          onAreaChange={() => { }}
-        />
 
-        <TotalLesiones data={dataLesiones} />
-
-      </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap="20px" mb="20px">
-        <AspectRatio ratio={16 / 9}>
-          <TotalHurtos
-            data={dataHurtos}
-          />
-        </AspectRatio>
         <SimpleGrid columns={{ base: 1, md: 2, xl: 1 }} gap="20px">
           <VictimasDesplazamiento data={dataDesplazados} />
         </SimpleGrid>
