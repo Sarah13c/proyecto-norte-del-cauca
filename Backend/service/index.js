@@ -345,6 +345,28 @@ GROUP BY
 
 //-----Indicador de Violencia-----
 
+//conflictosarmados
+app.get('/conflictosArmados', async (req, res, next) => {
+  try {
+    const result = await client.query(`
+    SELECT 
+    "Entidad", 
+    "Subcategoría", 
+    "Indicador_ConArm", 
+    "Dato_Numérico", 
+    "Año", 
+    "Fuente"
+FROM 
+    public.conflictosarmados
+WHERE 
+"Subcategoría" IN('Conflicto armado')  and   "Entidad" IN ('Santander de Quilichao', 'Guachené', 'Puerto Tejada'); 
+        `);
+    res.status(200).json(result.rows);
+  } catch (error) {
+    next(error);
+  }
+});
+
 //Victimas de desplazamiento forzado 2015-2022
 app.get('/desplazamientoForzado', async (req, res, next) => {
   try {
@@ -475,8 +497,6 @@ GROUP BY
     next(error);
   }
 });
-
-
 
 
 
