@@ -8,9 +8,7 @@ const MuertesViolentas = ({ data, ...rest }) => {
   
     const municipalities = [...new Set(data.map((entry) => entry["MUNICIPIO DEL HECHO"]))];
     const years = [...new Set(data.map((entry) => entry.AÑO))].sort((a, b) => a - b);
-  
     const textColor = useColorModeValue("secondaryGray.900", "white");
-  
     const handleMunicipalityChange = (event) => {
       setSelectedMunicipality(event.target.value);
     };

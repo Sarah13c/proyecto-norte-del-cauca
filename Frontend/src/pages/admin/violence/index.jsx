@@ -34,7 +34,7 @@ export default function ViolenceReports() {
   //Violencia Intrafamiliar
   const [dataViolenciaIntrafamiliar, setDataViolenciaIntrafamiliar] = useState([]);
 
-  //Violencia Intrafamiliar
+  //Desplazamientos forzados
   const [dataDesplazados, setDataDesplazados] = useState([]);
 
   // Constants
@@ -157,7 +157,6 @@ console.log(muertesViolentasData);
           <VictimasDesplazamiento data={dataDesplazados} />
         </SimpleGrid>
       </SimpleGrid>
-
       <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
         <MuertesViolentas data={muertesViolentasData} />
       </SimpleGrid>
