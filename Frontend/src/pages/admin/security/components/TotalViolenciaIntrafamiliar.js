@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, Flex, Select, Text, useColorModeValue } from "@chakra-ui/react";
 import Card from "../../../../components/card/Card.js";
-import PieChartAcc from "../../../../components/charts/PieChartAcc.js";
+import PieChartAcc from "../../../../components/charts/security/PieChartAcc.js";
 
 const TotalViolenciaIntrafamiliar = ({ data, ...rest }) => {
 

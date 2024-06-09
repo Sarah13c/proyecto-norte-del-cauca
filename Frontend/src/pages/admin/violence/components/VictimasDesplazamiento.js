@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Flex, Text, useColorModeValue } from "@chakra-ui/react";
 import Card from "../../../../components/card/Card.js";
-import SlopeChart from "../../../../components/charts/SlopeVictimsChart.js";
+import SlopeChart from "../../../../components/charts/violence/SlopeVictimsChart.js";
 
 export default function VictimasDesplazamiento({
     data,

@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Box, Flex, Select, Text, useColorModeValue } from "@chakra-ui/react";
 import Card from "../../../../components/card/Card.js";
-import AreaChartAcc from "../../../../components/charts/AreaChartAcc.js";
+import AreaChartAcc from "../../../../components/charts/security/AreaChartAcc.js";
 
 export default function HomicidiosPorMunicipio({ data, ...rest }) {
   const [selectedZone, setSelectedZone] = useState("");

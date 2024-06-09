@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, Flex, Text, useColorModeValue, Select } from "@chakra-ui/react";
 import Card from "../../../../components/card/Card.js";
-import StackedBarChartAcc from "../../../../components/charts/StackedBarChartAcc.js";
+import StackedBarChartConflicto from "../../../../components/charts/violence/StackedBarChartConflicto.js";
 
 const ConflictosArmados = ({ data, ...rest }) => {
   // Estado para los años y la entidad seleccionados
@@ -110,7 +110,7 @@ const ConflictosArmados = ({ data, ...rest }) => {
         )}
       </Box>
       <Box h="350px" mt="auto">
-        {data && <StackedBarChartAcc data={filteredData} />}
+        {data && <StackedBarChartConflicto data={filteredData} />}
       </Box>
     </Card>
   );

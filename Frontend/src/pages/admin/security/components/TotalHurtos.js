@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Flex, Select, Text, useColorModeValue } from '@chakra-ui/react';
 import Card from '../../../../components/card/Card.js';
-import LineApexChart from '../../../../components/charts/LineApexChart.js';
+import LineApexChart from '../../../../components/charts/security/LineApexChart.js';
 
 export default function TotalHurtos({ data, ...rest }) {
   const textColor = useColorModeValue('secondaryGray.900', 'white');

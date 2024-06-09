@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Box, Flex, Text, useColorModeValue, Select } from "@chakra-ui/react";
 import Card from "../../../../components/card/Card.js";
-import BarGroupChartAcc from "../../../../components/charts/BarGroupChartAcc.js";
+import BarGroupChartAcc from "../../../../components/charts/security/BarGroupChartAcc.js";
 
 export default function TotalAccesosCarnales({ data, areas, onAreaChange, ...rest }) {
   const [selectedYear, setSelectedYear] = useState("");

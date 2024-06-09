@@ -204,9 +204,7 @@ export default function SecurityReports() {
           areas={areas}
           onAreaChange={() => { }}
         />
-
         <TotalLesiones data={dataLesiones} />
-
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap="20px" mb="20px">
         <AspectRatio ratio={16 / 9}>
@@ -216,7 +214,6 @@ export default function SecurityReports() {
         </AspectRatio>
         <SimpleGrid columns={{ base: 1, md: 2, xl: 1 }} gap="20px">
           <TotalViolenciaIntrafamiliar data={dataViolenciaIntrafamiliar} />
-
         </SimpleGrid>
       </SimpleGrid>
 
