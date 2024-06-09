@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Flex, Select, Text, useColorModeValue } from "@chakra-ui/react";
 import Card from "../../../../components/card/Card.js";
-import BarGroupChart from "../../../../components/charts/BarGroupChart.js";
+import BarGroupChart from "../../../../components/charts/common/BarGroupChart.js";
 
 export default function TotalAfiliaciones({
   afiliacionesPorMunicipio,

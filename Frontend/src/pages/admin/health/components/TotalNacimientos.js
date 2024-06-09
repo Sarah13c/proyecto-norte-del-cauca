@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Flex, Select, Text, useColorModeValue } from "@chakra-ui/react";
 import Card from "../../../../components/card/Card.js";
-import SlopeChart from "../../../../components/charts/SlopeChart.js";
+import SlopeChart from "../../../../components/charts/common/SlopeChart.js";
 
 export default function TotalNacimientos({
     nacimientosData,
