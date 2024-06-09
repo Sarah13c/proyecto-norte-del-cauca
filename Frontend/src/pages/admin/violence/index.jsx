@@ -19,7 +19,8 @@ import VictimasDesplazamiento from "../violence/components/VictimasDesplazamient
 import ConflictosArmados from "../violence/components/ConflictosArmados";
 import MuertesViolentasDescriptivo from "./components/MuertesViolentasDescriptivo";
 
-
+//Muertes Violentas
+import MuertesViolentas from "../violence/components/MuertesViolentas";
 
 export default function ViolenceReports() {
 
@@ -29,7 +30,11 @@ export default function ViolenceReports() {
   //Muertes Violentas
   const [muertesViolentasData, setMuertesViolentasData] = useState([]);
 
+
   //Violencia Intrafamiliar
+  const [dataViolenciaIntrafamiliar, setDataViolenciaIntrafamiliar] = useState([]);
+
+  //Desplazamientos forzados
   const [dataDesplazados, setDataDesplazados] = useState([]);
 
   // Constants
@@ -93,6 +98,22 @@ export default function ViolenceReports() {
     fetchDataConflictosArmados();
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/muertesViolentasTotal");
+        if (!response.ok) {
+          throw new Error("Error al obtener los datos del servidor");
+        }
+        const data = await response.json();
+        setMuertesViolentasData(data);
+      } catch (error) {
+        console.error("Error al obtener los datos del servidor:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
@@ -155,6 +176,9 @@ export default function ViolenceReports() {
         <SimpleGrid columns={{ base: 1, md: 2, xl: 1 }} gap="20px">
           <VictimasDesplazamiento data={dataDesplazados} />
         </SimpleGrid>
+      </SimpleGrid>
+      <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
+        <MuertesViolentas data={muertesViolentasData} />
       </SimpleGrid>
     </Box>
   );
