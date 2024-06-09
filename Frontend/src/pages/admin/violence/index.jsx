@@ -23,6 +23,9 @@ import TotalHurtos from "../security/components/TotalHurtos";
 //Violecia Intrafamiliar
 import VictimasDesplazamiento from "../violence/components/VictimasDesplazamiento";
 
+//Conflictos armados
+import ConflictosArmados from "../violence/components/ConflictosArmados";
+
 
 
 export default function ViolenceReports() {
@@ -39,14 +42,14 @@ export default function ViolenceReports() {
   const [dataLesiones, setDataLesiones] = useState([]);
 
 
-  //homicidios
-  const [dataHomicidios, setDataHomicidios] = useState([]);
+  //Conflictos Armados
+  const [conflictosArmadosData, setConflictosArmadosData] = useState([]);
 
-   //Violencia Intrafamiliar
-   const [dataViolenciaIntrafamiliar, setDataViolenciaIntrafamiliar] = useState([]);
+  //Violencia Intrafamiliar
+  const [dataViolenciaIntrafamiliar, setDataViolenciaIntrafamiliar] = useState([]);
 
-   //Violencia Intrafamiliar
-   const [dataDesplazados, setDataDesplazados] = useState([]);
+  //Violencia Intrafamiliar
+  const [dataDesplazados, setDataDesplazados] = useState([]);
 
   // Constants
   const center = [2.283333, -76.85];
@@ -68,22 +71,7 @@ export default function ViolenceReports() {
         console.error("Error al obtener los datos del servidor:", error);
       }
     };
-    // Fetch data homicidios
-    const fetchDataHomicidios = async () => {
-      try {
-        const response = await fetch("http://localhost:3001/homicidios1922");
-        if (!response.ok) {
-          throw new Error("Error al obtener los datos del servidor");
-        }
-        const data = await response.json();
-        setDataHomicidios(data);
-      } catch (error) {
-        console.error("Error al obtener los datos del servidor:", error);
-      }
-    };
-
     fetchDataDesplazados();
-    fetchDataHomicidios();
   }, []);
 
   // Fetch data Lesiones
@@ -105,16 +93,15 @@ export default function ViolenceReports() {
   }, []);
 
 
-  // Fetch data Hurtos
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3001/hurtos1922');
+        const response = await fetch("http://localhost:3001/conflictosArmados");
         if (!response.ok) {
           throw new Error("Error al obtener los datos del servidor");
         }
         const data = await response.json();
-        setDataHurtos(data);
+        setConflictosArmadosData(data);
       } catch (error) {
         console.error("Error al obtener los datos del servidor:", error);
       }
@@ -122,7 +109,6 @@ export default function ViolenceReports() {
 
     fetchData();
   }, []);
-
 
   useEffect(() => {
     // Fetch data Violencia Intrafamiliar
@@ -140,7 +126,7 @@ export default function ViolenceReports() {
     };
     fetchData();
   }, []);
-   
+
 
 
   return (
@@ -194,7 +180,7 @@ export default function ViolenceReports() {
         />
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
-        <HomicidiosPorMunicipio data={dataHomicidios} />
+        <ConflictosArmados data={conflictosArmadosData} />
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px' mb='20px'>
         <TotalAccesosCarnales
