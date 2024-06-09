@@ -17,18 +17,17 @@ import VictimasDesplazamiento from "../violence/components/VictimasDesplazamient
 
 //Conflictos armados
 import ConflictosArmados from "../violence/components/ConflictosArmados";
+import MuertesViolentas from "./components/MuertesViolentasDescriptivo";
 
 
 
 export default function ViolenceReports() {
 
-  const [areas, setAreas] = useState([]);
-
   //Conflictos Armados
   const [conflictosArmadosData, setConflictosArmadosData] = useState([]);
 
-  //Violencia Intrafamiliar
-  const [dataViolenciaIntrafamiliar, setDataViolenciaIntrafamiliar] = useState([]);
+  //Muertes Violentas
+  const [dataMuertesViolentas, setDataMuertesViolentas] = useState([]);
 
   //Violencia Intrafamiliar
   const [dataDesplazados, setDataDesplazados] = useState([]);
@@ -57,9 +56,28 @@ export default function ViolenceReports() {
   }, []);
 
 
+  //Muertes Violentas
+  useEffect(() => {
+
+    const fetchDataMuertesViolentas = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/muertesViolentasTotal");
+        if (!response.ok) {
+          throw new Error("Error al obtener los datos del servidor");
+        }
+        const data = await response.json();
+        setDataMuertesViolentas(data);
+      } catch (error) {
+        console.error("Error al obtener los datos del servidor:", error);
+      }
+    };
+    fetchDataMuertesViolentas();
+  }, []);
+
+
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchDataConflictosArmados = async () => {
       try {
         const response = await fetch("http://localhost:3001/conflictosArmados");
         if (!response.ok) {
@@ -72,10 +90,8 @@ export default function ViolenceReports() {
       }
     };
 
-    fetchData();
+    fetchDataConflictosArmados();
   }, []);
-
-
 
 
   return (
@@ -130,6 +146,9 @@ export default function ViolenceReports() {
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
         <ConflictosArmados data={conflictosArmadosData} />
+      </SimpleGrid>
+      <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
+        <MuertesViolentas data={dataMuertesViolentas} />
       </SimpleGrid>
 
       <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap="20px" mb="20px">
