@@ -18,8 +18,6 @@ import VictimasDesplazamiento from "../violence/components/VictimasDesplazamient
 //Conflictos armados
 import ConflictosArmados from "../violence/components/ConflictosArmados";
 
-
-
 export default function ViolenceReports() {
 
   const [areas, setAreas] = useState([]);
