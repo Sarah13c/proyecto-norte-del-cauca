@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Flex, Text, Select, useColorModeValue } from "@chakra-ui/react";
 import Card from "../../../../components/card/Card.js";
-import LineChartGroup from "../../../../components/charts/LineChartGroup.js";
+import LineChartGroup from "../../../../components/charts/common/LineChartGroup.js";
 
 export default function TotalSpent({ data, areas, onAreaChange, ...rest }) {
   const [selectedArea, setSelectedArea] = useState("Total");

@@ -7,7 +7,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import Card from "../../../../components/card/Card.js";
-import PyramidChart from "../../../../components/charts/PyramidChart.js";
+import PyramidChart from "../../../../components/charts/health/PyramidChart.js";
 
 export default function WeeklyRevenue({ pyramidData, selectedMunicipio, handleMunicipioChange, ...rest }) {
   // Lista de municipios disponibles

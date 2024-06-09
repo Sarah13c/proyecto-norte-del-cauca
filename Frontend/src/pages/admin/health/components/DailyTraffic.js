@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Flex, Text, useColorModeValue } from "@chakra-ui/react";
-import BarChartComponent from "../../../../components/charts/BarChart.js";
+import BarChartComponent from "../../../../components/charts/common/BarChart.js";
 import Card from "../../../../components/card/Card.js";
 
 export default function DailyTraffic({ dataDbPoblacion, setSelectedMunicipio, ...rest }) {

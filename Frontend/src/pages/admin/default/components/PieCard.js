@@ -1,7 +1,7 @@
 // PieCard.js
 import { Flex, Text, useColorModeValue } from "@chakra-ui/react";
 import Card from "../../../../components/card/Card.js";
-import PieChart from "../../../../components/charts/PieChart.js";
+import PieChart from "../../../../components/charts/common/PieChart.js";
 import React from "react";
 
 export default function Conversion({ data, onClick }) {

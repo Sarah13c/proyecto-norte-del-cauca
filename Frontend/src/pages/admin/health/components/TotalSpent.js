@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Flex, Text, Select, useColorModeValue } from "@chakra-ui/react";
 import Card from "../../../../components/card/Card.js";
-import StackedBarChart from "../../../../components/charts/StackedBarChart.js";
+import StackedBarChart from "../../../../components/charts/health/StackedBarChart.js";
 
 export default function TotalSpent({ data, areas, onAreaChange, ...rest }) {
   const [selectedArea, setSelectedArea] = useState("Total");
