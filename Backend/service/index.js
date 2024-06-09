@@ -219,11 +219,6 @@ ORDER BY
 });
 
 
-
-
-
-
-
 //-----Indicador de Educación-----
 
 
@@ -325,12 +320,12 @@ ORDER BY
     "ZONA_Hurto";
 
         `);
-        res.status(200).json(result.rows);
-      } catch (error) {
-        next(error);
-      }
-    });
-    
+    res.status(200).json(result.rows);
+  } catch (error) {
+    next(error);
+  }
+});
+
 
 //violenciaIntrafamiliar_2019_2022
 app.get('/violenciaIntrafamiliar', async (req, res, next) => {
@@ -355,13 +350,131 @@ app.get('/desplazamientoForzado', async (req, res, next) => {
   try {
     const result = await client.query(`SELECT "Municipio", "Indicador_VicDes", "Numero_Victimas"
     FROM public.victimasdesplazamiento2015_2022`);
-res.status(200).json(result.rows);
-} catch (error) {
-next(error);
-}
+    res.status(200).json(result.rows);
+  } catch (error) {
+    next(error);
+  }
 });
 
+//Muertes Violentas 2019-2022
+app.get('/muertesViolentasTotal', async (req, res, next) => {
+  try {
+    const result = await client.query(`SELECT 
+    "MUNICIPIO DEL HECHO", 
+    "MANERA DE MUERTE DEFINITIVA", 
+    "CAUSA DE MUERTE DEFINITIVA",
+    EXTRACT(YEAR FROM TO_DATE("FECHA DE LOS HECHOS", 'YYYY/MM/DD')) AS "AÑO",
+    COUNT(*) AS "CANTIDAD"
+FROM 
+    public.muertesviolentasnortecauca2019_2022
+WHERE 
+    "MUNICIPIO DEL HECHO" IN ('SANTANDER DE QUILICHAO', 'GUACHENÉ', 'PUERTO TEJADA')
+GROUP BY 
+    "MUNICIPIO DEL HECHO", 
+    "MANERA DE MUERTE DEFINITIVA", 
+    "CAUSA DE MUERTE DEFINITIVA",
+    EXTRACT(YEAR FROM TO_DATE("FECHA DE LOS HECHOS", 'YYYY/MM/DD'));`);
+    res.status(200).json(result.rows);
+  } catch (error) {
+    next(error);
+  }
+});
 
+//Muertes Violentas por homicidio 2019-2022
+app.get('/muertesViolentasHomicidio', async (req, res, next) => {
+  try {
+    const result = await client.query(`SELECT 
+    "MUNICIPIO DEL HECHO", 
+    "MANERA DE MUERTE DEFINITIVA", 
+    "CAUSA DE MUERTE DEFINITIVA",
+    EXTRACT(YEAR FROM TO_DATE("FECHA DE LOS HECHOS", 'YYYY/MM/DD')) AS "AÑO",
+    COUNT(*) AS "CANTIDAD"
+FROM 
+    public.muertesviolentasnortecauca2019_2022
+WHERE 
+    "MUNICIPIO DEL HECHO" IN ('SANTANDER DE QUILICHAO', 'GUACHENÉ', 'PUERTO TEJADA') and "MANERA DE MUERTE DEFINITIVA" IN ('VIOLENTA - HOMICIDIO') 
+GROUP BY 
+    "MUNICIPIO DEL HECHO", 
+    "MANERA DE MUERTE DEFINITIVA", 
+    "CAUSA DE MUERTE DEFINITIVA",
+    EXTRACT(YEAR FROM TO_DATE("FECHA DE LOS HECHOS", 'YYYY/MM/DD'));`);
+    res.status(200).json(result.rows);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//Muertes Violentas Accidentales 2019-2022
+app.get('/muertesViolentasAccidentales', async (req, res, next) => {
+  try {
+    const result = await client.query(`SELECT 
+    "MUNICIPIO DEL HECHO", 
+    "MANERA DE MUERTE DEFINITIVA", 
+    "CAUSA DE MUERTE DEFINITIVA",
+    EXTRACT(YEAR FROM TO_DATE("FECHA DE LOS HECHOS", 'YYYY/MM/DD')) AS "AÑO",
+    COUNT(*) AS "CANTIDAD"
+FROM 
+    public.muertesviolentasnortecauca2019_2022
+WHERE 
+    "MUNICIPIO DEL HECHO" IN ('SANTANDER DE QUILICHAO', 'GUACHENÉ', 'PUERTO TEJADA') and "MANERA DE MUERTE DEFINITIVA" IN ('VIOLENTA - ACCIDENTAL') 
+GROUP BY 
+    "MUNICIPIO DEL HECHO", 
+    "MANERA DE MUERTE DEFINITIVA", 
+    "CAUSA DE MUERTE DEFINITIVA",
+    EXTRACT(YEAR FROM TO_DATE("FECHA DE LOS HECHOS", 'YYYY/MM/DD'));`);
+    res.status(200).json(result.rows);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//Muertes Violentas por suicidio 2019-2022
+app.get('/muertesViolentasSuicidio', async (req, res, next) => {
+  try {
+    const result = await client.query(`SELECT 
+    "MUNICIPIO DEL HECHO", 
+    "MANERA DE MUERTE DEFINITIVA", 
+    "CAUSA DE MUERTE DEFINITIVA",
+    EXTRACT(YEAR FROM TO_DATE("FECHA DE LOS HECHOS", 'YYYY/MM/DD')) AS "AÑO",
+    COUNT(*) AS "CANTIDAD"
+FROM 
+    public.muertesviolentasnortecauca2019_2022
+WHERE 
+    "MUNICIPIO DEL HECHO" IN ('SANTANDER DE QUILICHAO', 'GUACHENÉ', 'PUERTO TEJADA') and "MANERA DE MUERTE DEFINITIVA" IN ('VIOLENTA - SUICIDIO') 
+GROUP BY 
+    "MUNICIPIO DEL HECHO", 
+    "MANERA DE MUERTE DEFINITIVA", 
+    "CAUSA DE MUERTE DEFINITIVA",
+    EXTRACT(YEAR FROM TO_DATE("FECHA DE LOS HECHOS", 'YYYY/MM/DD'));`);
+    res.status(200).json(result.rows);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//Muertes Violentas por accidente de transporte 2019-2022
+app.get('/muertesViolentasTransporte  ', async (req, res, next) => {
+  try {
+    const result = await client.query(`SELECT 
+    "MUNICIPIO DEL HECHO", 
+    "MANERA DE MUERTE DEFINITIVA", 
+    "CAUSA DE MUERTE DEFINITIVA",
+    EXTRACT(YEAR FROM TO_DATE("FECHA DE LOS HECHOS", 'YYYY/MM/DD')) AS "AÑO",
+    COUNT(*) AS "CANTIDAD"
+FROM 
+    public.muertesviolentasnortecauca2019_2022
+WHERE 
+    "MUNICIPIO DEL HECHO" IN ('SANTANDER DE QUILICHAO', 'GUACHENÉ', 'PUERTO TEJADA') and "MANERA DE MUERTE DEFINITIVA" IN ('ACCIDENTE DE TRANSPORTE') 
+GROUP BY 
+    "MUNICIPIO DEL HECHO", 
+    "MANERA DE MUERTE DEFINITIVA", 
+    "CAUSA DE MUERTE DEFINITIVA",
+    EXTRACT(YEAR FROM TO_DATE("FECHA DE LOS HECHOS", 'YYYY/MM/DD'));`);
+    res.status(200).json(result.rows);
+  } catch (error) {
+    next(error);
+  }
+});
 
 
 
