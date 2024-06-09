@@ -3,7 +3,8 @@ import {
   Box,
   Icon,
   SimpleGrid,
-  useColorModeValue
+  useColorModeValue,
+  AspectRatio
 } from "@chakra-ui/react";
 import '../../../assets/css/App.css';
 import MiniStatistics from "../../../components/card/MiniStatistics";
@@ -21,6 +22,9 @@ import TotalHurtos from "../security/components/TotalHurtos";
 //Violecia Intrafamiliar
 import TotalViolenciaIntrafamiliar from "../security/components/TotalViolenciaIntrafamiliar";
 
+//Conflictos Armados
+import ConflictosArmados from "../violence/components/ConflictosArmados";
+
 
 
 export default function ViolenceReports() {
@@ -29,7 +33,6 @@ export default function ViolenceReports() {
 
   //acceos carnales
   const [dataAccesos, setDataAccesos] = useState([]);
-  const [areas, setAreas] = useState([]);
 
   // Hurtos
   const [dataHurtos, setDataHurtos] = useState([]);
@@ -40,6 +43,7 @@ export default function ViolenceReports() {
 
   //homicidios
   const [dataHomicidios, setDataHomicidios] = useState([]);
+  const [conflictosArmadosData, setConflictosArmadosData] = useState([]);
 
    //Violencia Intrafamiliar
    const [dataViolenciaIntrafamiliar, setDataViolenciaIntrafamiliar] = useState([]);
@@ -151,7 +155,7 @@ export default function ViolenceReports() {
         />
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
-        <HomicidiosPorMunicipio data={dataHomicidios} />
+         <ConflictosArmados data={conflictosArmadosData} />
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px' mb='20px'>
         <TotalAccesosCarnales
