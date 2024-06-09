@@ -14,10 +14,10 @@ import {
   MdFace3,
   MdFace6,
 } from "react-icons/md";
-import DailyTraffic from "./components/DailyTraffic";
-import PieCard from "./components/PieCard";
-import TotalSpent from "./components/TotalSpent";
-import WeeklyRevenue from "./components/WeeklyRevenue";
+import PoblacionMunicipioBar from "./components/PoblacionMunicipioBar";
+import PoblacionMunicipioPie from "./components/PoblacionMunicipioPie";
+import ProyeccionHogaresLine from "./components/ProyeccionHogaresLine";
+import PyramidPoblacional from "./components/PyramidPoblacional";
 import MapComponent from "../../../components/MapComponents/MapComponent";
 
 
@@ -227,12 +227,12 @@ export default function UserReports() {
       </SimpleGrid>
 
       <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px' mb='20px'>
-        <TotalSpent
+        <ProyeccionHogaresLine
           data={lineChartData}
           areas={areas}
           onAreaChange={handleAreaChange}
         />
-        <WeeklyRevenue
+        <PyramidPoblacional
           pyramidData={pyramidData}
           selectedMunicipio={selectedMunicipio}
           handleMunicipioChange={handleMunicipioChange}
@@ -247,14 +247,14 @@ export default function UserReports() {
           />
         </AspectRatio>
         <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap="20px">
-          <DailyTraffic
+          <PoblacionMunicipioBar
             dataDbPoblacion={dataDbPoblacion}
             setSelectedMunicipio={(municipio) => {
               setSelectedMunicipio(municipio);
               fetchPoblacionMunicipio(municipio); // Trae los datos de la población del municipio seleccionado
             }}
           />
-          <PieCard
+          <PoblacionMunicipioPie
             data={uniqueFilteredData}
             onClick={(municipio) => {
               setSelectedMunicipio(municipio);
