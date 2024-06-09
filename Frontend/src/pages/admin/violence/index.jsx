@@ -11,14 +11,6 @@ import '../../../assets/css/App.css';
 import MiniStatistics from "../../../components/card/MiniStatistics";
 import IconBox from "../../../components/icons/IconBox";
 import { BsGenderMale, BsGenderFemale } from "react-icons/bs";
-//accesos carnales
-import TotalAccesosCarnales from "../security/components/TotalAccesosCarnales";
-//homicidios
-import HomicidiosPorMunicipio from "../security/components/HomicidiosPorMunicipio";
-//Lesiones
-import TotalLesiones from "../security/components/TotalLesiones";
-//Hurtos
-import TotalHurtos from "../security/components/TotalHurtos";
 
 //Violecia Intrafamiliar
 import VictimasDesplazamiento from "../violence/components/VictimasDesplazamiento";
@@ -26,24 +18,18 @@ import VictimasDesplazamiento from "../violence/components/VictimasDesplazamient
 //Conflictos armados
 import ConflictosArmados from "../violence/components/ConflictosArmados";
 
-
+//Muertes Violentas
+import MuertesViolentas from "../violence/components/MuertesViolentas";
 
 export default function ViolenceReports() {
 
   const [areas, setAreas] = useState([]);
 
-  //acceos carnales
-  const [dataAccesos, setDataAccesos] = useState([]);
-
-  // Victimas Desplazamiento
-  const [dataHurtos, setDataHurtos] = useState([]);
-
-  // Hurtos
-  const [dataLesiones, setDataLesiones] = useState([]);
-
-
   //Conflictos Armados
   const [conflictosArmadosData, setConflictosArmadosData] = useState([]);
+
+  //Muertes Violentas
+  const [muertesViolentasData, setMuertesViolentasData] = useState([]);
 
   //Violencia Intrafamiliar
   const [dataViolenciaIntrafamiliar, setDataViolenciaIntrafamiliar] = useState([]);
@@ -74,23 +60,6 @@ export default function ViolenceReports() {
     fetchDataDesplazados();
   }, []);
 
-  // Fetch data Lesiones
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:3001/lesionesPersonales');
-        if (!response.ok) {
-          throw new Error("Error al obtener los datos del servidor");
-        }
-        const data = await response.json();
-        setDataLesiones(data);
-      } catch (error) {
-        console.error("Error al obtener los datos del servidor:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
 
 
   useEffect(() => {
@@ -111,23 +80,23 @@ export default function ViolenceReports() {
   }, []);
 
   useEffect(() => {
-    // Fetch data Violencia Intrafamiliar
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3001/violenciaIntrafamiliar');
+        const response = await fetch("http://localhost:3001/muertesViolentasTotal");
         if (!response.ok) {
           throw new Error("Error al obtener los datos del servidor");
         }
         const data = await response.json();
-        setDataViolenciaIntrafamiliar(data);
+        setMuertesViolentasData(data);
       } catch (error) {
         console.error("Error al obtener los datos del servidor:", error);
       }
     };
+
     fetchData();
   }, []);
 
-
+console.log(muertesViolentasData);
 
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
@@ -182,25 +151,15 @@ export default function ViolenceReports() {
       <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
         <ConflictosArmados data={conflictosArmadosData} />
       </SimpleGrid>
-      <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px' mb='20px'>
-        <TotalAccesosCarnales
-          data={dataAccesos}
-          areas={areas}
-          onAreaChange={() => { }}
-        />
 
-        <TotalLesiones data={dataLesiones} />
-
-      </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap="20px" mb="20px">
-        <AspectRatio ratio={16 / 9}>
-          <TotalHurtos
-            data={dataHurtos}
-          />
-        </AspectRatio>
         <SimpleGrid columns={{ base: 1, md: 2, xl: 1 }} gap="20px">
           <VictimasDesplazamiento data={dataDesplazados} />
         </SimpleGrid>
+      </SimpleGrid>
+
+      <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
+        <MuertesViolentas data={muertesViolentasData} />
       </SimpleGrid>
     </Box>
   );
