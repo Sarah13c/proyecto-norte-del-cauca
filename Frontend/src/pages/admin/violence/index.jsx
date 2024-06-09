@@ -30,10 +30,6 @@ export default function ViolenceReports() {
   //Muertes Violentas
   const [muertesViolentasData, setMuertesViolentasData] = useState([]);
 
-
-  //Violencia Intrafamiliar
-  const [dataViolenciaIntrafamiliar, setDataViolenciaIntrafamiliar] = useState([]);
-
   //Desplazamientos forzados
   const [dataDesplazados, setDataDesplazados] = useState([]);
 
@@ -96,23 +92,6 @@ export default function ViolenceReports() {
     };
 
     fetchDataConflictosArmados();
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://localhost:3001/muertesViolentasTotal");
-        if (!response.ok) {
-          throw new Error("Error al obtener los datos del servidor");
-        }
-        const data = await response.json();
-        setMuertesViolentasData(data);
-      } catch (error) {
-        console.error("Error al obtener los datos del servidor:", error);
-      }
-    };
-
-    fetchData();
   }, []);
 
   return (
