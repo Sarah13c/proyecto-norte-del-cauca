@@ -43,9 +43,6 @@ export default function ViolenceReports() {
 
     fetchData();
   }, []);
-   
-
-
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
       <SimpleGrid
@@ -64,7 +61,7 @@ export default function ViolenceReports() {
               }
             />
           }
-          name={`oli`}
+          name={`olix2`}
           value={2020}
         />
         <MiniStatistics
@@ -79,7 +76,7 @@ export default function ViolenceReports() {
             />
           }
           name={`Nacimientos de Hombres en 2022`}
-          value={20202}
+          value={2020}
         />
         <MiniStatistics
           startContent={
