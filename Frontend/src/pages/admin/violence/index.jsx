@@ -11,14 +11,6 @@ import '../../../assets/css/App.css';
 import MiniStatistics from "../../../components/card/MiniStatistics";
 import IconBox from "../../../components/icons/IconBox";
 import { BsGenderMale, BsGenderFemale } from "react-icons/bs";
-//accesos carnales
-import TotalAccesosCarnales from "../security/components/TotalAccesosCarnales";
-//homicidios
-import HomicidiosPorMunicipio from "../security/components/HomicidiosPorMunicipio";
-//Lesiones
-import TotalLesiones from "../security/components/TotalLesiones";
-//Hurtos
-import TotalHurtos from "../security/components/TotalHurtos";
 
 //Violecia Intrafamiliar
 import VictimasDesplazamiento from "../violence/components/VictimasDesplazamiento";
@@ -64,23 +56,6 @@ export default function ViolenceReports() {
     fetchDataDesplazados();
   }, []);
 
-  // Fetch data Lesiones
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:3001/lesionesPersonales');
-        if (!response.ok) {
-          throw new Error("Error al obtener los datos del servidor");
-        }
-        const data = await response.json();
-        setDataLesiones(data);
-      } catch (error) {
-        console.error("Error al obtener los datos del servidor:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
 
 
   useEffect(() => {
@@ -100,22 +75,6 @@ export default function ViolenceReports() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    // Fetch data Violencia Intrafamiliar
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:3001/violenciaIntrafamiliar');
-        if (!response.ok) {
-          throw new Error("Error al obtener los datos del servidor");
-        }
-        const data = await response.json();
-        setDataViolenciaIntrafamiliar(data);
-      } catch (error) {
-        console.error("Error al obtener los datos del servidor:", error);
-      }
-    };
-    fetchData();
-  }, []);
 
 
 
