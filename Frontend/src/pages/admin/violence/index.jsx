@@ -27,7 +27,7 @@ export default function ViolenceReports() {
   const [conflictosArmadosData, setConflictosArmadosData] = useState([]);
 
   //Muertes Violentas
-  const [dataMuertesViolentas, setDataMuertesViolentas] = useState([]);
+  const [muertesViolentasData, setMuertesViolentasData] = useState([]);
 
   //Violencia Intrafamiliar
   const [dataDesplazados, setDataDesplazados] = useState([]);
@@ -59,19 +59,19 @@ export default function ViolenceReports() {
   //Muertes Violentas
   useEffect(() => {
 
-    const fetchDataMuertesViolentas = async () => {
+    const fetchmuertesViolentasData = async () => {
       try {
         const response = await fetch("http://localhost:3001/muertesViolentasTotal");
         if (!response.ok) {
           throw new Error("Error al obtener los datos del servidor");
         }
         const data = await response.json();
-        setDataMuertesViolentas(data);
+        setMuertesViolentasData(data);
       } catch (error) {
         console.error("Error al obtener los datos del servidor:", error);
       }
     };
-    fetchDataMuertesViolentas();
+    fetchmuertesViolentasData();
   }, []);
 
 
@@ -148,7 +148,7 @@ export default function ViolenceReports() {
         <ConflictosArmados data={conflictosArmadosData} />
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
-        <MuertesViolentasDescriptivo data={dataMuertesViolentas} />
+        <MuertesViolentasDescriptivo data={muertesViolentasData} />
       </SimpleGrid>
 
       <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap="20px" mb="20px">
