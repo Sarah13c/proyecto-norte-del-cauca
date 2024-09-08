@@ -19,6 +19,18 @@ const ApexPieChart = ({ data, onClick }) => {
       chart: {
         type: "pie",
         width: 380,
+        toolbar: {
+          show: true, 
+          tools: {
+            download: true, 
+            selection: false,
+            zoom: false,
+            zoomin: false,
+            zoomout: false,
+            pan: false,
+            reset: false,
+          },
+        },
         events: {
           dataPointSelection: (event, chartContext, config) => {
             const selectedMunicipio = labels[config.dataPointIndex];
@@ -66,7 +78,7 @@ const ApexPieChart = ({ data, onClick }) => {
           options={chartData.options}
           series={chartData.series}
           type="pie"
-          width={320}
+          width={450}
         />
       </div>
     
