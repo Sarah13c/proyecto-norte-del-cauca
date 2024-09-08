@@ -1,7 +1,18 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AF19FF', '#FF7C19', '#AB1D17', '#17ABAB', '#7A17AB', '#ABD717'];
+const COLORS = [
+  '#8884d8', // Púrpura claro
+  '#82ca9d', // Verde menta claro
+  '#ffc658', // Amarillo dorado
+  '#a4a0a8', // Gris lila suave
+  '#4a9ac3', // Azul claro
+  '#f2a5a5', // Rosa suave
+  '#ffab91', // Melocotón
+  '#d0e6f5', // Azul muy claro
+  '#c2c1f0', // Azul lavanda
+  '#f4b9b0'  // Rosa coral
+];
 
 const GroupedBarChart = ({ data, selectedMunicipio }) => {
   let filteredData;

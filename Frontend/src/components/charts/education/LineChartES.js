@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactApexChart from 'react-apexcharts';
 
-const BarGroupChartApex = ({ data, selectedYear }) => {
+const BarChartES = ({ data, selectedMunicipio }) => {
   const [chartData, setChartData] = useState({
     series: [],
     options: {}
@@ -11,38 +11,34 @@ const BarGroupChartApex = ({ data, selectedYear }) => {
     const processData = () => {
       if (!data || data.length === 0) return { series: [], years: [] };
 
-      // Filtrar los datos por el año seleccionado
-      const filteredData = selectedYear
-        ? data.filter(entry => entry.Año === selectedYear)
+      let filteredData = selectedMunicipio && selectedMunicipio !== "Todos los municipios"
+        ? data.filter(entry => entry.municipio === selectedMunicipio)
         : data;
 
-      // Agrupar los datos por MunicipioAS y Regimen
-      const groupedData = filteredData.reduce((acc, curr) => {
-        const { MunicipioAS, Regimen, Afiliados } = curr;
-        if (!acc[MunicipioAS]) {
-          acc[MunicipioAS] = {};
-        }
-        acc[MunicipioAS][Regimen] = Afiliados;
-        return acc;
-      }, {});
+      const years = ['2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020'];
+      const indicators = [...new Set(filteredData.map(entry => entry.indicador))];
 
-      // Convertir los datos agrupados a un formato adecuado para ApexCharts
-      const series = Object.keys(groupedData).map(municipio => {
-        return {
-          name: municipio,
-          data: Object.entries(groupedData[municipio]).map(([regimen, afiliados]) => ({
-            x: regimen,
-            y: afiliados
-          }))
-        };
-      });
+      // Agrupar y sumar datos si se selecciona "Todos los municipios"
+      const aggregateData = (data) => {
+        return indicators.map(indicator => ({
+          name: indicator,
+          data: years.map(year => {
+            return data.reduce((total, entry) => {
+              if (entry.indicador === indicator) {
+                return total + (entry[year] || 0);
+              }
+              return total;
+            }, 0);
+          })
+        }));
+      };
 
-      const categories = Object.keys(groupedData[Object.keys(groupedData)[0]] || {});
+      const series = aggregateData(filteredData);
 
-      return { series, categories };
+      return { series, years };
     };
 
-    const { series, categories } = processData();
+    const { series, years } = processData();
 
     const options = {
       chart: {
@@ -52,7 +48,7 @@ const BarGroupChartApex = ({ data, selectedYear }) => {
       },
       plotOptions: {
         bar: {
-          horizontal: true, // Cambiar a false si deseas barras verticales
+          horizontal: false, // Cambiar a true si deseas barras horizontales
           dataLabels: {
             total: {
               enabled: true,
@@ -69,18 +65,15 @@ const BarGroupChartApex = ({ data, selectedYear }) => {
         width: 1,
         colors: ['#fff']
       },
-      title: {
-        text: 'Afiliados por Municipio y Régimen'
-      },
       xaxis: {
-        categories: categories,
+        categories: years,
         title: {
-          text: 'Número de Afiliados'
+          text: 'Año'
         }
       },
       yaxis: {
         title: {
-          text: 'Regimen'
+          text: 'Número de Estudiantes'
         },
       },
       tooltip: {
@@ -102,11 +95,18 @@ const BarGroupChartApex = ({ data, selectedYear }) => {
         '#8884d8', // Púrpura claro
         '#82ca9d', // Verde menta claro
         '#ffc658', // Amarillo dorado
+        '#a4a0a8', // Gris lila suave
+        '#4a9ac3', // Azul claro
+        '#f2a5a5', // Rosa suave
+        '#ffab91', // Melocotón
+        '#d0e6f5', // Azul muy claro
+        '#c2c1f0', // Azul lavanda
+        '#f4b9b0'  // Rosa coral
       ]
     };
 
     setChartData({ series, options });
-  }, [data, selectedYear]);
+  }, [data, selectedMunicipio]);
 
   if (!data || data.length === 0) {
     return <div>No hay datos disponibles para mostrar</div>;
@@ -119,4 +119,4 @@ const BarGroupChartApex = ({ data, selectedYear }) => {
   );
 };
 
-export default BarGroupChartApex;
+export default BarChartES;

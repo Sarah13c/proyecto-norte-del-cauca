@@ -13,10 +13,13 @@ import MiniStatistics from "../../../components/card/MiniStatistics";
 import IconBox from "../../../components/icons/IconBox";
 import { MdSchool } from "react-icons/md";
 import CalidadEducativaChart from "./components/CalidadEducativaChart";
+import MatriculaEducacionSuperior from "./components/MatriculaEducacionSuperior";
 
 export default function EducationReports() {
+  const [selectedMunicipio, setSelectedMunicipio] = useState(null);
   const [data2021, setData2021] = useState([]);
   const [data2022, setData2022] = useState([]);
+  const [data_matricula_es, setData_matricula_es] = useState([]);
   const [selectedYear, setSelectedYear] = useState("2022");
   const [selectedDepartamento, setSelectedDepartamento] = useState("Todos");
 
@@ -25,10 +28,29 @@ export default function EducationReports() {
   const textColor = useColorModeValue("secondaryGray.900", "white");
 
   useEffect(() => {
+    const fetchDataMatricula = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/matriculas_edu_superior');
+        if (!response.ok) {
+          throw new Error("Error al obtener los datos del servidor");
+        }
+        const data = await response.json();
+        setData_matricula_es(data);
+      } catch (error) {
+        console.error("Error al obtener los datos de la base de datos:", error);
+      }
+    };
+
+    fetchDataMatricula();
+  }, []);
+
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const response2021 = await fetch('http://localhost:3001/calidadEducativa2021');
         const response2022 = await fetch('http://localhost:3001/calidadEducativa2022');
+        
         
         if (!response2021.ok || !response2022.ok) {
           throw new Error("Error al obtener los datos del servidor");
@@ -36,6 +58,7 @@ export default function EducationReports() {
         
         const data2021 = await response2021.json();
         const data2022 = await response2022.json();
+        
         
         setData2021(data2021);
         setData2022(data2022);
@@ -54,6 +77,12 @@ export default function EducationReports() {
   const handleDepartamentoChange = (event) => {
     setSelectedDepartamento(event.target.value);
   };
+
+  const handleMunicipioChange = (event) => {
+    const selectedMunicipio = event.target.value;
+    setSelectedMunicipio(selectedMunicipio);
+  };
+  console.log('data_matricula_es:', data_matricula_es);
 
   const currentData = selectedYear === "2022" ? data2022 : data2021;
   const filteredData = selectedDepartamento === "Todos" 
@@ -135,6 +164,14 @@ export default function EducationReports() {
             </Box>
           </Flex>
         </Card>
+      </SimpleGrid>
+
+      <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
+        <MatriculaEducacionSuperior
+          matriculaData={data_matricula_es}
+          selectedMunicipio={selectedMunicipio}
+          handleMunicipioChange={handleMunicipioChange}
+        />
       </SimpleGrid>
     </Box>
   );
