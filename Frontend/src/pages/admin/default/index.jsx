@@ -3,8 +3,7 @@ import {
   Box,
   Icon,
   SimpleGrid,
-  useColorModeValue,
-  AspectRatio,
+  useColorModeValue ,
   Flex,
   Text,
 } from "@chakra-ui/react";
@@ -17,7 +16,6 @@ import {
   MdFace3,
   MdFace6,
 } from "react-icons/md";
-import PoblacionMunicipioBar from "./components/PoblacionMunicipioBar";
 import PoblacionMunicipioPie from "./components/PoblacionMunicipioPie";
 import ProyeccionHogaresLine from "./components/ProyeccionHogaresLine";
 import PyramidPoblacional from "./components/PyramidPoblacional";
@@ -233,7 +231,7 @@ export default function UserReports() {
         <Card justifyContent="center" align="center" direction="column" w="100%" mb="0px">
           <Flex align="center" w="100%">
             <Text me="auto" fontSize="xl" fontWeight="700" lineHeight="100%">
-              Mapa Demográfico del Mapa
+              Mapa Demográfico del Norte del Cauca
             </Text>
           </Flex>
           <Box minH="260px" minW="100%" mt="auto">

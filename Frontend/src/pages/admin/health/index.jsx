@@ -4,9 +4,11 @@ import {
   Icon,
   SimpleGrid,
   useColorModeValue,
-  AspectRatio,
-  Select,
+  Text,
+  Flex,
+
 } from "@chakra-ui/react";
+import Card from "../../../components/card/Card";
 import '../../../assets/css/App.css';
 import MiniStatistics from "../../../components/card/MiniStatistics";
 import IconBox from "../../../components/icons/IconBox";
@@ -154,6 +156,29 @@ export default function HealthReports() {
         />
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px' mb='20px'>
+        <Card justifyContent="center" align="center" direction="column" w="100%" mb="0px">
+          <Flex align="center" w="100%">
+            <Text me="auto" fontSize="xl" fontWeight="700" lineHeight="100%" mb="4">
+              Mapa Demográfico del Norte del Cauca
+            </Text>
+          </Flex>
+
+          <Box minH="260px" minW="100%">
+            <MapComponent
+              center={center}
+              mousePosition={mousePosition}
+              setMousePosition={setMousePosition}
+            />
+          </Box>
+        </Card>
+        <TotalNacimientos
+          nacimientosData={nacimientosData}
+          selectedYear={selectedNacimientosYear}
+          handleYearChange={handleNacimientosYearChange}
+        />
+
+      </SimpleGrid>
+      <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap="20px" mb="20px">
         <TotalDisability
           data={dataDiscapacidad}
           areas={areas}
@@ -164,22 +189,8 @@ export default function HealthReports() {
           selectedYear={selectedYear}
           handleYearChange={handleYearChange}
         />
-      </SimpleGrid>
-      <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap="20px" mb="20px">
-        <AspectRatio ratio={16 / 9}>
-          <MapComponent
-            center={center}
-            mousePosition={mousePosition}
-            setMousePosition={setMousePosition}
-          />
-        </AspectRatio>
-        <SimpleGrid columns={{ base: 1, md: 2, xl: 1 }} gap="20px">
-          <TotalNacimientos
-            nacimientosData={nacimientosData}
-            selectedYear={selectedNacimientosYear}
-            handleYearChange={handleNacimientosYearChange}
-          />
-        </SimpleGrid>
+
+
       </SimpleGrid>
     </Box>
   );

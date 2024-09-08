@@ -22,7 +22,7 @@ export default function TotalNacimientos({
             <option value="2021">2021</option>
           </Select>
         </Flex>
-        <Box h="350px" mt="auto">
+        <Box h="450px" mt="auto">
           {nacimientosData && <SlopeChart data={nacimientosData} year={selectedYear} />}
         </Box>
       </Card>
