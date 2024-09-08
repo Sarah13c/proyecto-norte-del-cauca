@@ -220,6 +220,7 @@ ORDER BY
 
 
 //-----Indicador de Educación-----
+// Ruta para calidad educativa 2022
 app.get('/calidadEducativa2022', async (req, res, next) => {
   try {
     const query = `
@@ -228,6 +229,7 @@ app.get('/calidadEducativa2022', async (req, res, next) => {
              "Sociales_y_Ciudadanas_caedu22", "Ciencias_Naturales_caedu22", 
              "Ingles_caedu22", "idCalidadEducativa2022"
       FROM public.calidad_educativa_2022
+      WHERE "Departamento_caedu22" IN ('Guachené', 'Puerto Tejada', 'Santander de Quilichao')
     `;
     const result = await client.query(query);
     res.status(200).json(result.rows);
@@ -236,7 +238,7 @@ app.get('/calidadEducativa2022', async (req, res, next) => {
   }
 });
 
-// Nueva ruta para calidad educativa 2021
+// Ruta para calidad educativa 2021
 app.get('/calidadEducativa2021', async (req, res, next) => {
   try {
     const query = `
@@ -245,6 +247,7 @@ app.get('/calidadEducativa2021', async (req, res, next) => {
              sociales_y_ciudadanas_caedu21, ciencias_naturales_caedu21, 
              ingles_caedu21, idcalidadeducativa2021
       FROM public.calidad_educativa_2021
+      WHERE departamento_caedu21 IN ('Guachené', 'Puerto Tejada', 'Santander de Quilichao')
     `;
     const result = await client.query(query);
     res.status(200).json(result.rows);
@@ -252,7 +255,6 @@ app.get('/calidadEducativa2021', async (req, res, next) => {
     next(error);
   }
 });
-
 // Nueva ruta para matriculas educacion
 app.get('/matriculas_edu_superior', async (req, res, next) => {
   try {
