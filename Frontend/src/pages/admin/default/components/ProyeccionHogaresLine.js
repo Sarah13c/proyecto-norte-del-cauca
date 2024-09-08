@@ -57,7 +57,6 @@ export default function ProyeccionHogaresLine({ data, areas, onAreaChange, ...re
         direction="column"
         align="center"
         justify="center"
-        p="20px" // Añade padding alrededor del gráfico
       >
         <Box
           w="100%"
