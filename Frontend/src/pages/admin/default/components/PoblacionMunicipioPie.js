@@ -1,4 +1,3 @@
-// PieCard.js
 import { Flex, Text, useColorModeValue } from "@chakra-ui/react";
 import Card from "../../../../components/card/Card.js";
 import PieChart from "../../../../components/charts/common/PieChart.js";
@@ -25,11 +24,13 @@ export default function PoblacionMunicipioPie({ data, onClick }) {
         </Text>
       </Flex>
 
-      {data ? (
-        <PieChart data={data} onClick={onClick} />
-      ) : (
-        <div>Cargando...</div>
-      )}
+      <Flex justify='center' w='100%' align='center'>
+        {data ? (
+          <PieChart data={data} onClick={onClick} />
+        ) : (
+          <div>Cargando...</div>
+        )}
+      </Flex>
     </Card>
   );
 }
