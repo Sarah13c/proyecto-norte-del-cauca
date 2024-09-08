@@ -1,50 +1,103 @@
-import React from "react";
-import { BarChart, CartesianGrid, Legend, XAxis, YAxis, Tooltip, Bar, ResponsiveContainer } from 'recharts';
+import React, { useEffect, useState } from "react";
+import ReactApexChart from "react-apexcharts";
 
-const municipiosOfInterest = ['Santander de Quilichao', 'Puerto Tejada', 'Guachené'];
+const municipiosOfInterest = ["Santander de Quilichao", "Puerto Tejada", "Guachené"];
 
-const BarChartComponent = ({ data, xAxisDataKey, barDataKey, onClick }) => {
-  const handleClick = (municipio) => {
-    onClick(municipio); // Llama a la función onClick definida en el componente padre
-  };
+const ApexBarChartComponent = ({ data, xAxisDataKey, barDataKey, onClick }) => {
+  const [chartData, setChartData] = useState({
+    series: [],
+    options: {},
+  });
 
+  // Función para eliminar duplicados
   const removeDuplicates = (arr, prop) =>
     arr.filter(
       (obj, index) =>
         arr.map((mapObj) => mapObj[prop]).indexOf(obj[prop]) === index
     );
 
-  const filteredData = data
-    ? removeDuplicates(
-      data.filter((item) => {
-        const matched = municipiosOfInterest.some(municipio =>
-          item.MunicipioAS.toLowerCase().includes(municipio.toLowerCase())
-        );
+  useEffect(() => {
+    // Filtrar los datos por los municipios de interés
+    const filteredData = data
+      ? removeDuplicates(
+          data.filter((item) => {
+            const matched = municipiosOfInterest.some((municipio) =>
+              item.MunicipioAS.toLowerCase().includes(municipio.toLowerCase())
+            );
+            return matched;
+          }),
+          "MunicipioAS"
+        )
+      : [];
 
-        return matched;
-      }),
-      "MunicipioAS"
-    )
-    : [];
+    // Preparar datos para las series de ApexCharts
+    const seriesData = filteredData.map((item) => item[barDataKey]);
+    const categories = filteredData.map((item) => item[xAxisDataKey]);
+
+    const chartOptions = {
+      chart: {
+        type: "bar",
+        height: 350,
+        events: {
+          dataPointSelection: (event, chartContext, config) => {
+            const selectedMunicipio = filteredData[config.dataPointIndex].MunicipioAS;
+            onClick(selectedMunicipio); // Llama la función onClick
+          },
+        },
+      },
+      plotOptions: {
+        bar: {
+          borderRadius: 4,
+          horizontal: false,
+        },
+      },
+      colors: ['#8884d8', '#82ca9d', '#ffc658'],
+      dataLabels: {
+        enabled: false,
+      },
+      xaxis: {
+        categories: categories,
+        title: {
+          text: xAxisDataKey,
+        },
+      },
+      yaxis: {
+        title: {
+          text: barDataKey,
+        },
+      },
+      tooltip: {
+        enabled: true,
+        y: {
+          formatter: (val) => `${val}`,
+        },
+      },
+      legend: {
+        show: true,
+      },
+    };
+
+    setChartData({
+      series: [
+        {
+          name: barDataKey,
+          data: seriesData,
+        },
+      ],
+      options: chartOptions,
+    });
+  }, [data, xAxisDataKey, barDataKey, onClick]);
 
   return (
-    <ResponsiveContainer width="100%" height="100%">
-      <BarChart data={filteredData}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey={xAxisDataKey} />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Bar
-          dataKey={barDataKey}
-          fill="#8884d8"
-          onClick={(data, index) =>
-            handleClick(filteredData[index].MunicipioAS)
-          }
-        />
-      </BarChart>
-    </ResponsiveContainer>
+    <div id="chart">
+      <ReactApexChart
+        options={chartData.options}
+        series={chartData.series}
+        type="bar"
+        height={350}
+      />
+    </div>
   );
 };
 
-export default BarChartComponent;
+export default ApexBarChartComponent;

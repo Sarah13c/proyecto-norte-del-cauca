@@ -53,11 +53,11 @@ export default function PyramidPoblacional({ pyramidData, selectedMunicipio, han
         )}
       </Box>
 
-      <Box h='240px' mt='auto'>
+      
         {pyramidData && (
           <PyramidChart data={pyramidData} selectedMunicipio={selectedMunicipio} />
         )}
-      </Box>
+      
     </Card>
   );
 }

@@ -29,14 +29,14 @@ export default function PoblacionMunicipioBar({ dataDbPoblacion, setSelectedMuni
           </Flex>
         </Flex>
       </Flex>
-      <Box h="240px" mt="auto">
+      
         <BarChartComponent
           data={dataDbPoblacion}
           xAxisDataKey="MunicipioAS"
           barDataKey="Poblacion_DANE"
           onClick={handleBarClick} // Pasa la función de manejo de clics como prop
         />
-      </Box>
+      
     </Card>
   );
 }
