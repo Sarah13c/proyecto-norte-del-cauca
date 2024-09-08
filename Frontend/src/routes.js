@@ -5,6 +5,7 @@ import Profile from "./pages/admin/profile";
 import Health from "./pages/admin/health";
 import Security from "./pages/admin/security";
 import Violence from "./pages/admin/violence";
+import Education from "./pages/admin/education";
 
 
 const routes = [
@@ -59,7 +60,7 @@ const routes = [
         layout: "/admin",
         path: "/education",
         icon: MdBook,
-        component: Profile,
+        component: Education,
       }
     ],
   },
