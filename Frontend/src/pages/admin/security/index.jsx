@@ -5,150 +5,78 @@ import {
   SimpleGrid,
   useColorModeValue,
   AspectRatio,
-  Select,
 } from "@chakra-ui/react";
 import '../../../assets/css/App.css';
 import MiniStatistics from "../../../components/card/MiniStatistics";
 import IconBox from "../../../components/icons/IconBox";
-import { BsGenderMale, BsGenderFemale } from "react-icons/bs";
-//mapa
-import MapComponent from "../../../components/MapComponents/MapComponent";
-//accesos carnales
+import { MdLocalPolice, MdWarning, MdPeople, MdHome, MdDirectionsRun } from "react-icons/md";
 import TotalAccesosCarnales from "../../admin/security/components/TotalAccesosCarnales";
-//homicidios
 import HomicidiosPorMunicipio from "../../admin/security/components/HomicidiosPorMunicipio";
-//Lesiones
 import TotalLesiones from "./components/TotalLesiones";
-//Hurtos
 import TotalHurtos from "./components/TotalHurtos";
-
-//Violecia Intrafamiliar
 import TotalViolenciaIntrafamiliar from "../../admin/security/components/TotalViolenciaIntrafamiliar";
 
-
-
 export default function SecurityReports() {
-
-  // Mapa
-  const [mousePosition, setMousePosition] = useState(null);
-
-  //acceos carnales
   const [dataAccesos, setDataAccesos] = useState([]);
   const [areas, setAreas] = useState([]);
-
-  // Hurtos
   const [dataHurtos, setDataHurtos] = useState([]);
-
-  // Hurtos
   const [dataLesiones, setDataLesiones] = useState([]);
-
-
-  //homicidios
   const [dataHomicidios, setDataHomicidios] = useState([]);
+  const [dataViolenciaIntrafamiliar, setDataViolenciaIntrafamiliar] = useState([]);
 
-   //Violencia Intrafamiliar
-   const [dataViolenciaIntrafamiliar, setDataViolenciaIntrafamiliar] = useState([]);
+  const [totalHomicidios, setTotalHomicidios] = useState(0);
+  const [totalAccesosCarnales, setTotalAccesosCarnales] = useState(0);
+  const [totalLesiones, setTotalLesiones] = useState(0);
+  const [totalHurtos, setTotalHurtos] = useState(0);
+  const [totalViolenciaIntrafamiliar, setTotalViolenciaIntrafamiliar] = useState(0);
 
-  // Constants
-  const center = [2.283333, -76.85];
   const brandColor = useColorModeValue("brand.500", "white");
   const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
 
-
   useEffect(() => {
-    // Fetch data accesos Carnales
-    const fetchDataAccesos = async () => {
+    const fetchAllData = async () => {
       try {
-        const response = await fetch("http://localhost:3001/accesosCarnales");
-        if (!response.ok) {
-          throw new Error("Error al obtener los datos del servidor");
-        }
-        const data = await response.json();
-        setDataAccesos(data);
-        setAreas([...new Set(data.map((d) => d.MUNICIPIO_HECHO_AcceCar))]);
+        const [accesosResponse, homicidiosResponse, lesionesResponse, hurtosResponse, violenciaResponse] = await Promise.all([
+          fetch("http://localhost:3001/accesosCarnales"),
+          fetch("http://localhost:3001/homicidios1922"),
+          fetch("http://localhost:3001/lesionesPersonales"),
+          fetch("http://localhost:3001/hurtos1922"),
+          fetch("http://localhost:3001/violenciaIntrafamiliar")
+        ]);
+
+        const accesosData = await accesosResponse.json();
+        const homicidiosData = await homicidiosResponse.json();
+        const lesionesData = await lesionesResponse.json();
+        const hurtosData = await hurtosResponse.json();
+        const violenciaData = await violenciaResponse.json();
+
+        setDataAccesos(accesosData);
+        setDataHomicidios(homicidiosData);
+        setDataLesiones(lesionesData);
+        setDataHurtos(hurtosData);
+        setDataViolenciaIntrafamiliar(violenciaData);
+
+        setAreas([...new Set(accesosData.map((d) => d.MUNICIPIO_HECHO_AcceCar))]);
+
+        // Calcular totales para KPIs
+        setTotalHomicidios(homicidiosData.reduce((sum, item) => sum + parseInt(item.CANTIDAD), 0));
+        setTotalAccesosCarnales(accesosData.reduce((sum, item) => sum + parseInt(item.CANTIDAD), 0));
+        setTotalLesiones(lesionesData.reduce((sum, item) => sum + parseInt(item.total_lesiones), 0));
+        setTotalHurtos(hurtosData.reduce((sum, item) => sum + parseInt(item.total_hurtos), 0));
+        setTotalViolenciaIntrafamiliar(violenciaData.reduce((sum, item) => sum + parseInt(item.CANTIDAD), 0));
+
       } catch (error) {
-        console.error("Error al obtener los datos del servidor:", error);
-      }
-    };
-    // Fetch data homicidios
-    const fetchDataHomicidios = async () => {
-      try {
-        const response = await fetch("http://localhost:3001/homicidios1922");
-        if (!response.ok) {
-          throw new Error("Error al obtener los datos del servidor");
-        }
-        const data = await response.json();
-        setDataHomicidios(data);
-      } catch (error) {
-        console.error("Error al obtener los datos del servidor:", error);
+        console.error("Error al obtener los datos:", error);
       }
     };
 
-    fetchDataAccesos();
-    fetchDataHomicidios();
+    fetchAllData();
   }, []);
-
-  // Fetch data Lesiones
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:3001/lesionesPersonales');
-        if (!response.ok) {
-          throw new Error("Error al obtener los datos del servidor");
-        }
-        const data = await response.json();
-        setDataLesiones(data);
-      } catch (error) {
-        console.error("Error al obtener los datos del servidor:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-
-  // Fetch data Hurtos
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:3001/hurtos1922');
-        if (!response.ok) {
-          throw new Error("Error al obtener los datos del servidor");
-        }
-        const data = await response.json();
-        setDataHurtos(data);
-      } catch (error) {
-        console.error("Error al obtener los datos del servidor:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-
-  useEffect(() => {
-    // Fetch data Violencia Intrafamiliar
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:3001/violenciaIntrafamiliar');
-        if (!response.ok) {
-          throw new Error("Error al obtener los datos del servidor");
-        }
-        const data = await response.json();
-        setDataViolenciaIntrafamiliar(data);
-      } catch (error) {
-        console.error("Error al obtener los datos del servidor:", error);
-      }
-    };
-    fetchData();
-  }, []);
-   
-
 
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
       <SimpleGrid
-        columns={{ base: 1, md: 3, lg: 3, "2xl": 3 }}
+        columns={{ base: 1, md: 3, lg: 5, "2xl": 5 }}
         gap='20px'
         mb='20px'
       >
@@ -158,13 +86,11 @@ export default function SecurityReports() {
               w='56px'
               h='56px'
               bg={boxBg}
-              icon={
-                <Icon w='32px' h='32px' as={BsGenderMale} color={brandColor} />
-              }
+              icon={<Icon w='32px' h='32px' as={MdLocalPolice} color={brandColor} />}
             />
           }
-          name={`oli`}
-          value={2020}
+          name="Total Homicidios"
+          value={totalHomicidios}
         />
         <MiniStatistics
           startContent={
@@ -172,13 +98,11 @@ export default function SecurityReports() {
               w='56px'
               h='56px'
               bg={boxBg}
-              icon={
-                <Icon w='32px' h='32px' as={BsGenderMale} color={brandColor} />
-              }
+              icon={<Icon w='32px' h='32px' as={MdWarning} color={brandColor} />}
             />
           }
-          name={`Nacimientos de Hombres en 2022`}
-          value={20202}
+          name="Accesos Carnales"
+          value={totalAccesosCarnales}
         />
         <MiniStatistics
           startContent={
@@ -186,13 +110,35 @@ export default function SecurityReports() {
               w='56px'
               h='56px'
               bg={boxBg}
-              icon={
-                <Icon w='32px' h='32px' as={BsGenderFemale} color={brandColor} />
-              }
+              icon={<Icon w='32px' h='32px' as={MdPeople} color={brandColor} />}
             />
           }
-          name={`Nacimientos de Mujeres en 2021`}
-          value={4334}
+          name="Lesiones Personales"
+          value={totalLesiones}
+        />
+        <MiniStatistics
+          startContent={
+            <IconBox
+              w='56px'
+              h='56px'
+              bg={boxBg}
+              icon={<Icon w='32px' h='32px' as={MdDirectionsRun} color={brandColor} />}
+            />
+          }
+          name="Total Hurtos"
+          value={totalHurtos}
+        />
+        <MiniStatistics
+          startContent={
+            <IconBox
+              w='56px'
+              h='56px'
+              bg={boxBg}
+              icon={<Icon w='32px' h='32px' as={MdHome} color={brandColor} />}
+            />
+          }
+          name="Violencia Intrafamiliar"
+          value={totalViolenciaIntrafamiliar}
         />
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">

@@ -8,88 +8,57 @@ import {
 import '../../../assets/css/App.css';
 import MiniStatistics from "../../../components/card/MiniStatistics";
 import IconBox from "../../../components/icons/IconBox";
-import { BsGenderMale, BsGenderFemale } from "react-icons/bs";
+import { MdWarning, MdLocalHospital, MdPeople } from "react-icons/md";
 
-//Violecia Intrafamiliar
 import VictimasDesplazamiento from "../violence/components/VictimasDesplazamiento";
-
-//Conflictos armados
 import ConflictosArmados from "../violence/components/ConflictosArmados";
 import MuertesViolentasDescriptivo from "./components/MuertesViolentasDescriptivo";
-
-//Muertes Violentas
 import MuertesViolentas from "../violence/components/MuertesViolentas";
 
 export default function ViolenceReports() {
-
-  //Conflictos Armados
   const [conflictosArmadosData, setConflictosArmadosData] = useState([]);
-
-  //Muertes Violentas
   const [muertesViolentasData, setMuertesViolentasData] = useState([]);
-
-  //Desplazamientos forzados
   const [dataDesplazados, setDataDesplazados] = useState([]);
 
-  // Constants
-  const center = [2.283333, -76.85];
+  const [totalConflictos, setTotalConflictos] = useState(0);
+  const [totalMuertesViolentas, setTotalMuertesViolentas] = useState(0);
+  const [totalDesplazados, setTotalDesplazados] = useState(0);
+
   const brandColor = useColorModeValue("brand.500", "white");
   const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
 
-
   useEffect(() => {
-    // Fetch data Desplazamientos forzados
-    const fetchDataDesplazados = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:3001/desplazamientoForzado");
-        if (!response.ok) {
-          throw new Error("Error al obtener los datos del servidor");
-        }
-        const data = await response.json();
-        setDataDesplazados(data);
+        const [conflictosResponse, muertesResponse, desplazadosResponse] = await Promise.all([
+          fetch("http://localhost:3001/conflictosArmados"),
+          fetch("http://localhost:3001/muertesViolentasTotal"),
+          fetch("http://localhost:3001/desplazamientoForzado")
+        ]);
+
+        const conflictosData = await conflictosResponse.json();
+        const muertesData = await muertesResponse.json();
+        const desplazadosData = await desplazadosResponse.json();
+
+        setConflictosArmadosData(conflictosData);
+        setMuertesViolentasData(muertesData);
+        setDataDesplazados(desplazadosData);
+
+        // Calcular totales para KPIs
+        const totalConflictos = conflictosData.reduce((sum, item) => sum + parseInt(item.Dato_Numérico), 0);
+        const totalMuertes = muertesData.reduce((sum, item) => sum + parseInt(item.CANTIDAD), 0);
+        const totalDesplazados = desplazadosData.reduce((sum, item) => sum + parseInt(item.Numero_Victimas), 0);
+
+        setTotalConflictos(totalConflictos);
+        setTotalMuertesViolentas(totalMuertes);
+        setTotalDesplazados(totalDesplazados);
+
       } catch (error) {
-        console.error("Error al obtener los datos del servidor:", error);
-      }
-    };
-    fetchDataDesplazados();
-  }, []);
-
-
-  //Muertes Violentas
-  useEffect(() => {
-
-    const fetchmuertesViolentasData = async () => {
-      try {
-        const response = await fetch("http://localhost:3001/muertesViolentasTotal");
-        if (!response.ok) {
-          throw new Error("Error al obtener los datos del servidor");
-        }
-        const data = await response.json();
-        setMuertesViolentasData(data);
-      } catch (error) {
-        console.error("Error al obtener los datos del servidor:", error);
-      }
-    };
-    fetchmuertesViolentasData();
-  }, []);
-
-
-
-  useEffect(() => {
-    const fetchDataConflictosArmados = async () => {
-      try {
-        const response = await fetch("http://localhost:3001/conflictosArmados");
-        if (!response.ok) {
-          throw new Error("Error al obtener los datos del servidor");
-        }
-        const data = await response.json();
-        setConflictosArmadosData(data);
-      } catch (error) {
-        console.error("Error al obtener los datos del servidor:", error);
+        console.error("Error al obtener los datos:", error);
       }
     };
 
-    fetchDataConflictosArmados();
+    fetchData();
   }, []);
 
   return (
@@ -105,13 +74,11 @@ export default function ViolenceReports() {
               w='56px'
               h='56px'
               bg={boxBg}
-              icon={
-                <Icon w='32px' h='32px' as={BsGenderMale} color={brandColor} />
-              }
+              icon={<Icon w='32px' h='32px' as={MdWarning} color={brandColor} />}
             />
           }
-          name={`oli`}
-          value={2020}
+          name="Total Conflictos Armados"
+          value={totalConflictos}
         />
         <MiniStatistics
           startContent={
@@ -119,13 +86,11 @@ export default function ViolenceReports() {
               w='56px'
               h='56px'
               bg={boxBg}
-              icon={
-                <Icon w='32px' h='32px' as={BsGenderMale} color={brandColor} />
-              }
+              icon={<Icon w='32px' h='32px' as={MdLocalHospital} color={brandColor} />}
             />
           }
-          name={`Nacimientos de Hombres en 2022`}
-          value={20202}
+          name="Total Muertes Violentas"
+          value={totalMuertesViolentas}
         />
         <MiniStatistics
           startContent={
@@ -133,13 +98,11 @@ export default function ViolenceReports() {
               w='56px'
               h='56px'
               bg={boxBg}
-              icon={
-                <Icon w='32px' h='32px' as={BsGenderFemale} color={brandColor} />
-              }
+              icon={<Icon w='32px' h='32px' as={MdPeople} color={brandColor} />}
             />
           }
-          name={`Nacimientos de Mujeres en 2021`}
-          value={4334}
+          name="Total Desplazados"
+          value={totalDesplazados}
         />
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">

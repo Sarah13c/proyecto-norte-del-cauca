@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Flex, Text, useColorModeValue } from "@chakra-ui/react";
+import { Flex, Text, useColorModeValue } from "@chakra-ui/react";
 import BarChartComponent from "../../../../components/charts/common/BarChart.js";
 import Card from "../../../../components/card/Card.js";
 
