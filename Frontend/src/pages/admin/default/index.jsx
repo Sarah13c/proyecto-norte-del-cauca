@@ -256,15 +256,6 @@ export default function UserReports() {
           areas={areas}
           onAreaChange={handleAreaChange}
         />
-
-        <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap="20px">
-          <PoblacionMunicipioBar
-            dataDbPoblacion={dataDbPoblacion}
-            setSelectedMunicipio={(municipio) => {
-              setSelectedMunicipio(municipio);
-              fetchPoblacionMunicipio(municipio); // Trae los datos de la población del municipio seleccionado
-            }}
-          />
           <PoblacionMunicipioPie
             data={uniqueFilteredData}
             onClick={(municipio) => {
@@ -273,7 +264,6 @@ export default function UserReports() {
             }}
           />
         </SimpleGrid>
-      </SimpleGrid>
     </Box>
   );
 }
