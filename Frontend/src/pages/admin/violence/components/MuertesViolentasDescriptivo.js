@@ -42,7 +42,7 @@ const MuertesViolentasDescriptivo = ({ data, ...rest }) => {
     <Card align="center" direction="column" w="100%" {...rest}>
       <Flex align="center" w="100%" px="15px" py="10px">
         <Text me="auto" color={textColor} fontSize="xl" fontWeight="700" lineHeight="100%">
-          Muertes Violentas por Municipio y Año
+          Muertes Violentas por Municipio y Año (Manera y Causa de Muerte)
         </Text>
       </Flex>
       <Box mt="20px">
