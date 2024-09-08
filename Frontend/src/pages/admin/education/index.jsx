@@ -96,6 +96,8 @@ export default function EducationReports() {
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
 
+
+      {/* MiniStatistics below the selects */}
       <SimpleGrid columns={{ base: 1, md: 1, lg: 1, "2xl": 1 }} gap='20px' mb='20px'>
         <MiniStatistics
           startContent={
@@ -110,28 +112,55 @@ export default function EducationReports() {
           value={promedioGlobal.toFixed(2)}
         />
       </SimpleGrid>
-      <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap='20px' mb='20px'>
+      <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px' mb='20px'>
+        {/* Card for Year selection */}
         <Card>
-        <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px' mb='20px'>
-        <Select value={selectedYear} onChange={handleYearChange}>
-          <option value="2022">2022</option>
-          <option value="2021">2021</option>
-        </Select>
-        <Select value={selectedDepartamento} onChange={handleDepartamentoChange}>
-          <option value="Todos">Todos los departamentos</option>
-          {departamentos.map(dep => (
-            <option key={dep} value={dep}>{dep}</option>
-          ))}
-        </Select>
-      </SimpleGrid>
           <Flex direction='column'>
-            <Flex justify='space-between' align='center' mb='1rem'>
-              <Text color={textColor} fontSize='lg' fontWeight='700'>
-                Calidad Educativa {selectedYear}
-              </Text>
-            </Flex>
-            <Box minH='300px' mt='auto'>
-              <CalidadEducativaChart data={filteredData} year={selectedYear} />
+            <Text color={textColor} fontSize='lg' fontWeight='700' mb='1rem'>
+              Seleccionar Año
+            </Text>
+            <Select value={selectedYear} onChange={handleYearChange}>
+              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+            </Select>
+          </Flex>
+        </Card>
+        
+        {/* Card for Departamento selection */}
+        <Card>
+          <Flex direction='column'>
+            <Text color={textColor} fontSize='lg' fontWeight='700' mb='1rem'>
+              Seleccionar Municipio
+            </Text>
+            <Select value={selectedDepartamento} onChange={handleDepartamentoChange}>
+              <option value="Todos">Todos los municipios</option>
+              {departamentos.map(dep => (
+                <option key={dep} value={dep}>{dep}</option>
+              ))}
+            </Select>
+          </Flex>
+        </Card>
+      </SimpleGrid>
+
+      {/* Charts */}
+      <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px' mb='20px'>
+        <Card>
+          <Flex direction='column'>
+            <Text color={textColor} fontSize='lg' fontWeight='700' mb='1rem'>
+              Promedio Global por Municipio {selectedYear}
+            </Text>
+            <Box minH='400px' mt='auto'>
+              <CalidadEducativaChart data={filteredData} year={selectedYear} chartType="bar" />
+            </Box>
+          </Flex>
+        </Card>
+        <Card>
+          <Flex direction='column'>
+            <Text color={textColor} fontSize='lg' fontWeight='700' mb='1rem'>
+              Desempeño por Áreas {selectedYear}
+            </Text>
+            <Box minH='400px' mt='auto'>
+              <CalidadEducativaChart data={filteredData} year={selectedYear} chartType="radar" />
             </Box>
           </Flex>
         </Card>
