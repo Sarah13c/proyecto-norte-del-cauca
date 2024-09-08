@@ -1,107 +1,69 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactApexChart from 'react-apexcharts';
 
-const ApexChartGroup = ({ data, selectedArea }) => {
-  const [filteredData, setFilteredData] = useState([]);
-  const [chartData, setChartData] = useState({
-    series: [],
-    options: {}
-  });
+const ApexLineChart = ({ data, selectedArea }) => {
+  const [chartOptions, setChartOptions] = useState({});
+  const [series, setSeries] = useState([]);
 
-  // Filtrar los datos según el área seleccionada
   useEffect(() => {
-    const newData = data.filter(entry => entry.Area === selectedArea);
-    setFilteredData(newData);
-  }, [data, selectedArea]);
-
-  // Actualizar el gráfico cuando cambian los datos filtrados
-  useEffect(() => {
+    const filteredData = data.filter(entry => entry.Area === selectedArea);
     if (filteredData.length === 0) return;
 
     const keys = Object.keys(filteredData[0]).filter(key => key !== 'year' && key !== 'Area');
-    
-    // Preparar los datos de las series para ApexCharts
-    const series = keys.map(key => ({
+    const years = filteredData.map(entry => entry.year);
+
+    const newSeries = keys.map(key => ({
       name: key,
       data: filteredData.map(entry => entry[key])
     }));
 
-    // Obtener las categorías (los años)
-    const categories = filteredData.map(entry => entry.year);
-
-    // Configurar el gráfico de ApexCharts
-    const chartOptions = {
+    const newOptions = {
       chart: {
         height: 350,
         type: 'line',
-        dropShadow: {
-          enabled: true,
-          color: '#000',
-          top: 18,
-          left: 7,
-          blur: 10,
-          opacity: 0.2
-        },
-        zoom: {
-          enabled: false
-        },
-        toolbar: {
-          show: false
-        }
+        zoom: { enabled: false },
       },
-      colors: ['#8884d8', '#82ca9d', '#ffc658', '#ff7f0e'],
-      dataLabels: {
-        enabled: false,
-      },
+      dataLabels: { enabled: false },
       stroke: {
-        curve: 'smooth'
-      },
-      grid: {
-        borderColor: '#e7e7e7',
-        row: {
-          colors: ['#f3f3f3', 'transparent'],
-          opacity: 0.5
-        },
-      },
-      markers: {
-        size: 1
-      },
-      xaxis: {
-        categories: categories,
-        title: {
-          text: 'Año'
-        }
-      },
-      yaxis: {
-        title: {
-          text: 'Valores'
-        }
+        width: 5,
+        curve: 'straight',
       },
       legend: {
-        position: 'top',
-        horizontalAlign: 'right',
-        floating: true,
-        offsetY: -25,
-        offsetX: -5
-      }
+        tooltipHoverFormatter: function(val, opts) {
+          return val + ' - <strong>' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] + '</strong>';
+        }
+      },
+      markers: {
+        size: 0,
+        hover: { sizeOffset: 6 }
+      },
+      xaxis: { categories: years },
+      tooltip: {
+        y: {
+          formatter: function (val) {
+            return val;
+          }
+        }
+      },
+      grid: { borderColor: '#f1f1f1' }
     };
 
-    setChartData({
-      series: series,
-      options: chartOptions
-    });
-  }, [filteredData]);
+    setChartOptions(newOptions);
+    setSeries(newSeries);
+  }, [data, selectedArea]);
 
-  // Si no hay datos, no renderizar el gráfico
-  if (!filteredData || filteredData.length === 0) {
+  if (series.length === 0) {
     return null;
   }
 
   return (
-    <div>
-      <ReactApexChart options={chartData.options} series={chartData.series} type="line" height={350} />
-    </div>
+    <ReactApexChart 
+      options={chartOptions} 
+      series={series} 
+      type="line" 
+      height={350} 
+    />
   );
 };
 
-export default ApexChartGroup;
+export default ApexLineChart;

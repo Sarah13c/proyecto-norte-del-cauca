@@ -5,7 +5,10 @@ import {
   SimpleGrid,
   useColorModeValue,
   AspectRatio,
+  Flex,
+  Text,
 } from "@chakra-ui/react";
+import Card from "../../../components/card/Card";
 import '../../../assets/css/App.css';
 import MiniStatistics from "../../../components/card/MiniStatistics";
 import IconBox from "../../../components/icons/IconBox";
@@ -227,11 +230,20 @@ export default function UserReports() {
       </SimpleGrid>
 
       <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px' mb='20px'>
-        <ProyeccionHogaresLine
-          data={lineChartData}
-          areas={areas}
-          onAreaChange={handleAreaChange}
-        />
+        <Card justifyContent="center" align="center" direction="column" w="100%" mb="0px">
+          <Flex align="center" w="100%">
+            <Text me="auto" fontSize="xl" fontWeight="700" lineHeight="100%">
+              Mapa Demográfico del Mapa
+            </Text>
+          </Flex>
+          <Box minH="260px" minW="100%" mt="auto">
+            <MapComponent
+              center={center} 
+              mousePosition={mousePosition}
+              setMousePosition={setMousePosition}
+            />
+          </Box>
+        </Card>
         <PyramidPoblacional
           pyramidData={pyramidData}
           selectedMunicipio={selectedMunicipio}
@@ -239,13 +251,12 @@ export default function UserReports() {
         />
       </SimpleGrid>
       <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap="20px" mb="20px">
-        <AspectRatio ratio={16 / 9}>
-          <MapComponent
-            center={center}
-            mousePosition={mousePosition}
-            setMousePosition={setMousePosition}
-          />
-        </AspectRatio>
+        <ProyeccionHogaresLine
+          data={lineChartData}
+          areas={areas}
+          onAreaChange={handleAreaChange}
+        />
+
         <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap="20px">
           <PoblacionMunicipioBar
             dataDbPoblacion={dataDbPoblacion}
