@@ -20,17 +20,27 @@ const PieChartAcc = ({ data }) => {
     );
   };
 
-  // Crear los datos para la gráfica de pastel (una sección para cada zona)
   const urbanSeriesData = getCasesByMunicipality(urbanData);
   const ruralSeriesData = getCasesByMunicipality(ruralData);
 
-  // Crear las etiquetas de la gráfica
   const labels = [...new Set(data.map((entry) => entry.MUNICIPIO_HECHO_VioIn))];
 
   const options = {
     chart: {
       type: "pie",
       height: 300,
+      toolbar: {
+        show: true, 
+        tools: {
+          download: true, 
+          selection: false,
+          zoom: false,
+          zoomin: false,
+          zoomout: false,
+          pan: false,
+          reset: false,
+        },
+      },
     },
     labels: labels,
     colors: ["#0088FE", "#00C49F", "#FFBB28"],
@@ -39,6 +49,7 @@ const PieChartAcc = ({ data }) => {
       position: "bottom",
     },
   };
+  
 
   return (
     <div>
