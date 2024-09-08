@@ -220,6 +220,52 @@ ORDER BY
 
 
 //-----Indicador de Educación-----
+app.get('/calidadEducativa2022', async (req, res, next) => {
+  try {
+    const query = `
+      SELECT "Departamento_caedu22", "Promedio_del_puntaje_global_caedu22", 
+             "Lectura_Critica_caedu22", "Matematicas_caedu22", 
+             "Sociales_y_Ciudadanas_caedu22", "Ciencias_Naturales_caedu22", 
+             "Ingles_caedu22", "idCalidadEducativa2022"
+      FROM public.calidad_educativa_2022
+    `;
+    const result = await client.query(query);
+    res.status(200).json(result.rows);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Nueva ruta para calidad educativa 2021
+app.get('/calidadEducativa2021', async (req, res, next) => {
+  try {
+    const query = `
+      SELECT departamento_caedu21, promedio_del_puntaje_global_caedu21, 
+             lectura_critica_caedu21, matematicas_caedu21, 
+             sociales_y_ciudadanas_caedu21, ciencias_naturales_caedu21, 
+             ingles_caedu21, idcalidadeducativa2021
+      FROM public.calidad_educativa_2021
+    `;
+    const result = await client.query(query);
+    res.status(200).json(result.rows);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Nueva ruta para matriculas educacion
+app.get('/matriculas_edu_superior', async (req, res, next) => {
+  try {
+    const result = await client.query(`
+        SELECT "municipio_matriES20" as "municipio", indicador, "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"
+	FROM public.matricula_es_2020
+`);
+    res.status(200).json(result.rows);
+  } catch (error) {
+    next(error);
+  }
+});
+
 
 
 //-----Indicador de Seguridad-----

@@ -44,6 +44,7 @@
     "leaflet": "^1.9.4",
     "mapbox-gl": "^3.2.0",
     "mdb-react-ui-kit": "^7.2.0",
+    "next": "^14.2.8",
     "particles.js": "^2.0.0",
     "path": "^0.12.7",
     "pg": "^8.11.5",
