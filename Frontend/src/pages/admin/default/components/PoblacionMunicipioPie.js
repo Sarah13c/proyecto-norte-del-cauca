@@ -20,7 +20,7 @@ export default function PoblacionMunicipioPie({ data, onClick }) {
           fontSize='xl'
           fontWeight='700'
           lineHeight='100%'>
-          Población Total
+          Distribición de Población Total del Norte del Cauca
         </Text>
       </Flex>
 
