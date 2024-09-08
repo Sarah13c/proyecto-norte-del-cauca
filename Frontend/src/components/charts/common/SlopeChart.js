@@ -47,11 +47,11 @@ const SlopeChart = ({ data, year }) => {
       },
       tooltip: {
         shared: true,
-        intersect: false
+        intersect: false,
       },
       legend: {
-        position: 'top',
-        horizontalAlign: 'left'
+        position: 'bottom',
+        horizontalAlign: 'center'
       }
     });
 
