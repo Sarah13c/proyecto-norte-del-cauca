@@ -13,6 +13,7 @@ import Health from '../../pages/dashboard/salud/index.jsx';
 import Security from '../../pages/dashboard/seguridad/index.jsx';
 import Violence from '../../pages/dashboard/violencia/index.jsx';
 import Education from '../../pages/dashboard/educacion/index.jsx';
+import Modelo from '../../pages/dashboard/modelo/index.jsx';
 
 // Custom Chakra theme
 export default function Dashboard(props) {
@@ -163,6 +164,7 @@ export default function Dashboard(props) {
 									<Route path="/educacion" element={<Education />} />
 									<Route path="/seguridad" element={<Security />} />
 									<Route path="/violencia" element={<Violence />} />
+									<Route path="/modelo" element={<Modelo />} />
 									
 								</Routes>
 							</Box>

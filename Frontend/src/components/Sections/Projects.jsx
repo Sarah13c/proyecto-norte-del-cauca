@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import CarouselPhotos from "../Elements/CarouselPhotos";
 // Components
 import ProjectBox from "../Elements/ProjectBox";
 import FullButton from "../Buttons/FullButton";
@@ -80,26 +79,7 @@ export default function Projects() {
       </div>
 
 
-      {/** ------- sub seccion-----*/}
-      <div className="lightBg">
-        <div className="container">
-          <Advertising className="flexSpaceCenter">
-            <AddLeft>
-              <AddLeftInner>
-                
-                  <CarouselPhotos />
-              </AddLeftInner>
-            </AddLeft>
-
-            <AddRight>
-              <h2 className="font40 extraBold">Destacados</h2>
-              <p className="font12">
-              Informes, eventos, estadísticas, encuestas y documentos con información de cada uno de los once municipios de Sabana Centro que pueden ser de tu interés
-              </p>
-            </AddRight>
-          </Advertising>
-        </div>
-      </div>
+      
     </Wrapper>
   );
 }
@@ -114,52 +94,4 @@ const HeaderInfo = styled.div`
   }
 `;
 
-const Advertising = styled.div`
-  padding: 100px 0;
-  margin: 100px 0;
-  position: relative;
-  @media (max-width: 1160px) {
-    padding: 60px 0 40px 0;
-  }
-  @media (max-width: 860px) {
-    flex-direction: column;
-    padding: 0 0 30px 0;
-    margin: 80px 0 0px 0;
-  }
-`;
-
-const AddLeft = styled.div`
-  position: relative;
-  width: 50%;
-  p {
-    max-width: 475px;
-  }
-  @media (max-width: 860px) {
-    width: 80%;
-    order: 2;
-    text-align: center;
-    h2 {
-      line-height: 3rem;
-      margin: 15px 0;
-    }
-    p {
-      margin: 0 auto;
-    }
-  }
-`;
-const AddRight = styled.div`
-  width: 50%;
-  @media (max-width: 860px) {
-    width: 80%;
-    order: 2;
-  }
-`;
-const AddLeftInner = styled.div`
-  width: 50%; 
-  margin-right: 20px; 
-  @media (max-width: 860px) {
-    width: 100%; 
-    margin-right: 0; 
-  }
-`;
 

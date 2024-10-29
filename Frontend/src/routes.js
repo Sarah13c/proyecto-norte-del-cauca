@@ -1,7 +1,7 @@
 import { MdPerson, MdHome, MdSecurity, MdHealthAndSafety, MdBook, MdWarning } from "react-icons/md";
-
+import { FaChartLine} from 'react-icons/fa';
 import MainDashboard from "./pages/dashboard/inicio";
-import Profile from "./pages/dashboard/inicio";
+import Profile from "./pages/dashboard/demografia";
 import Health from "./pages/dashboard/salud";
 import Security from "./pages/dashboard/seguridad";
 import Violence from "./pages/dashboard/violencia";
@@ -54,7 +54,12 @@ const routes = [
         path: "/educacion",
         icon: MdBook,
         component: Education,
-      }
+      },
+      {
+        name: "Modelo Predictivo",
+        icon: FaChartLine, 
+        external: "http://93.127.213.95:5003",
+      },
     ],
   },
 ];

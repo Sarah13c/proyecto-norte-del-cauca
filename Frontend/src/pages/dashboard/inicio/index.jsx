@@ -188,25 +188,25 @@ const PrincipalDashboard = () => {
             title="Demografía"
             icon={FaUserFriends}
             description="Predice tendencias demográficas y migratorias."
-            linkTo="/modelos/demografia"
+            linkTo="https://predicciones-norte-cauca.onrender.com/poblacion"
           />
           <FeatureBox
             title="Accesos Carnales"
             icon={FaUserInjured}
             description="Modelo para predicción de incidentes relacionados con accesos carnales."
-            linkTo="/modelos/accesos-carnales"
+            linkTo="https://predicciones-norte-cauca.onrender.com/accesos"
           />
           <FeatureBox
             title="Desplazamiento Forzado"
             icon={FaShieldAlt}
             description="Proyecta desplazamientos forzados en el tiempo."
-            linkTo="/modelos/desplazamiento-forzado"
+            linkTo="https://predicciones-norte-cauca.onrender.com/desplazamiento"
           />
           <FeatureBox
             title="Homicidios"
             icon={FaSkull}
             description="Modelo predictivo de tasas de homicidio basado en datos históricos."
-            linkTo="/modelos/homicidios"
+            linkTo="https://predicciones-norte-cauca.onrender.com/homicidios"
           />
         </SimpleGrid>
 
@@ -260,7 +260,7 @@ const PrincipalDashboard = () => {
             textOverflow="ellipsis"
             whiteSpace="nowrap"
             overflow="hidden"
-            onClick={() => navigate('/start')}
+            onClick={() => navigate('/dashboard/demografia')}
           >
             Comenzar Exploración
           </Button>
