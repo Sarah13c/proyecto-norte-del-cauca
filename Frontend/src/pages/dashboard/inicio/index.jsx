@@ -21,7 +21,7 @@ import {
   ModalCloseButton,
   useDisclosure,
 } from '@chakra-ui/react';
-import { FaMapMarkerAlt, FaChartBar, FaChartLine, FaHospital, FaShieldAlt, FaUserGraduate, FaChild, FaChartPie, FaDatabase, FaInfoCircle, FaUserFriends, FaMicroscope } from 'react-icons/fa';
+import { FaUserInjured,FaMapMarkerAlt, FaChartBar, FaChartLine, FaHospital, FaShieldAlt, FaUserGraduate, FaChild, FaChartPie, FaDatabase, FaInfoCircle, FaUserFriends, FaSkull } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
@@ -192,7 +192,7 @@ const PrincipalDashboard = () => {
           />
           <FeatureBox
             title="Accesos Carnales"
-            icon={FaMicroscope}
+            icon={FaUserInjured}
             description="Modelo para predicción de incidentes relacionados con accesos carnales."
             linkTo="/modelos/accesos-carnales"
           />
@@ -204,7 +204,7 @@ const PrincipalDashboard = () => {
           />
           <FeatureBox
             title="Homicidios"
-            icon={FaHospital}
+            icon={FaSkull}
             description="Modelo predictivo de tasas de homicidio basado en datos históricos."
             linkTo="/modelos/homicidios"
           />
