@@ -19,68 +19,45 @@ export default function TopNavbar() {
     };
   }, [y]);
 
-
   return (
     <>
       <Sidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
       {sidebarOpen && <Backdrop toggleSidebar={toggleSidebar} />}
       <Wrapper className="flexCenter animate whiteBg" style={y > 100 ? { height: "60px" } : { height: "80px" }}>
-        <NavInner className="container flexSpaceCenter">
-          
+        <NavInner className="container flexSpaceBetween">
+          <LeftSection>
             <LogoIcon />
             <a href="/" style={{ marginLeft: "12px" }} className="font20 extraBold">
               Norte Del Cauca <span style={{ color: "#0E77C8" }}>Como</span> Vamos
             </a>
-          
-          <BurderWrapper className="pointer" onClick={() => toggleSidebar(!sidebarOpen)}>
-            <BurgerIcon />
-          </BurderWrapper>
-          <UlWrapper className="flexNullCenter">
-            <li className="semiBold font15 pointer">
-              <Link activeClass="active" style={{ padding: "10px 15px" }} to="home" spy={true} smooth={true} offset={-80}>
-                Inicio
-              </Link>
-            </li>
-            <li className="semiBold font15 pointer">
-              <Link activeClass="active" style={{ padding: "10px 15px" }} to="services" spy={true} smooth={true} offset={-80}>
-                Servicios
-              </Link>
-            </li>
-            <li className="semiBold font15 pointer">
-              <Link activeClass="active" style={{ padding: "10px 15px" }} to="projects" spy={true} smooth={true} offset={-80}>
-                Indicadores
-              </Link>
-            </li>
-            <li className="semiBold font15 pointer">
-              <Link activeClass="active" style={{ padding: "10px 15px" }} to="blog" spy={true} smooth={true} offset={-80}>
-                Encuestas
-              </Link>
-            </li>
-            {/* 
-            <li className="semiBold font15 pointer">
-              <Link activeClass="active" style={{ padding: "10px 15px" }} to="pricing" spy={true} smooth={true} offset={-80}>
-                Pricing
-              </Link>
-            </li>
-            */}
-            <li className="semiBold font15 pointer">
-              <Link activeClass="active" style={{ padding: "10px 15px" }} to="contact" spy={true} smooth={true} offset={-80}>
-                Suscríbete
-              </Link>
-            </li>
-          </UlWrapper>
-          <UlWrapperRight className="flexNullCenter">
-            <li className="semiBold font15 pointer">
-              <a href="/login" style={{ padding: "10px 30px 10px 0" }}>
-                Inicio de sesión
-              </a>
-            </li>
-            <li className="semiBold font15 pointer flexCenter">
-              <a href="/demography" className="radius8 lightBg" style={{ padding: "10px 15px" }}>
-                Empezar sin cuenta
-              </a>
-            </li>
-          </UlWrapperRight>
+          </LeftSection>
+          <RightSection>
+            <UlWrapper className="flexNullCenter">
+              <li className="semiBold font15 pointer">
+                <Link activeClass="active" style={{ padding: "10px 15px" }} to="home" spy={true} smooth={true} offset={-80}>
+                  Inicio
+                </Link>
+              </li>
+              <li className="semiBold font15 pointer">
+                <Link activeClass="active" style={{ padding: "10px 15px" }} to="services" spy={true} smooth={true} offset={-80}>
+                  Servicios
+                </Link>
+              </li>
+              <li className="semiBold font15 pointer">
+                <Link activeClass="active" style={{ padding: "10px 15px" }} to="projects" spy={true} smooth={true} offset={-80}>
+                  Indicadores
+                </Link>
+              </li>
+              <li className="semiBold font15 pointer">
+                <Link activeClass="active" style={{ padding: "10px 15px" }} to="blog" spy={true} smooth={true} offset={-80}>
+                  Encuestas
+                </Link>
+              </li>
+            </UlWrapper>
+            <BurderWrapper className="pointer" onClick={() => toggleSidebar(!sidebarOpen)}>
+              <BurgerIcon />
+            </BurderWrapper>
+          </RightSection>
         </NavInner>
       </Wrapper>
     </>
@@ -95,9 +72,20 @@ const Wrapper = styled.nav`
   z-index: 999;
 `;
 const NavInner = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   position: relative;
   height: 100%;
-`
+`;
+const LeftSection = styled.div`
+  display: flex;
+  align-items: center;
+`;
+const RightSection = styled.div`
+  display: flex;
+  align-items: center;
+`;
 const BurderWrapper = styled.button`
   outline: none;
   border: 0px;
@@ -115,10 +103,3 @@ const UlWrapper = styled.ul`
     display: none;
   }
 `;
-const UlWrapperRight = styled.ul`
-  @media (max-width: 760px) {
-    display: none;
-  }
-`;
-
-

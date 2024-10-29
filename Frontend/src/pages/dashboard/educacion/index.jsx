@@ -9,11 +9,11 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import Card from "../../../components/card/Card.js";
-import MiniStatistics from "../../../components/card/MiniStatistics";
-import IconBox from "../../../components/icons/IconBox";
+import MiniStatistics from "../../../components/card/MiniStatistics.js";
+import IconBox from "../../../components/icons/IconBox.js";
 import { MdSchool } from "react-icons/md";
-import CalidadEducativaChart from "./components/CalidadEducativaChart";
-import MatriculaEducacionSuperior from "./components/MatriculaEducacionSuperior";
+import CalidadEducativaChart from "./components/CalidadEducativaChart.js";
+import MatriculaEducacionSuperior from "./components/MatriculaEducacionSuperior.js";
 
 export default function EducationReports() {
   const [selectedMunicipio, setSelectedMunicipio] = useState(null);

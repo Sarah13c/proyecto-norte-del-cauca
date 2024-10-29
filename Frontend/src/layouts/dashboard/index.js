@@ -7,12 +7,12 @@ import { SidebarContext } from '../../contexts/SidebarContext.js';
 import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom'
 import routes from '../../routes.js';
-import Admin from '../../pages/admin/default/index.jsx';
-import Profile from '../../pages/admin/profile/index.jsx';
-import Health from '../../pages/admin/health/index.jsx';
-import Security from '../../pages/admin/security/index.jsx';
-import Violence from '../../pages/admin/violence/index.jsx';
-import Education from '../../pages/admin/education/index.jsx';
+import Admin from '../../pages/dashboard/demografia/index.jsx';
+import Profile from '../../pages/dashboard/inicio/index.jsx';
+import Health from '../../pages/dashboard/salud/index.jsx';
+import Security from '../../pages/dashboard/seguridad/index.jsx';
+import Violence from '../../pages/dashboard/violencia/index.jsx';
+import Education from '../../pages/dashboard/educacion/index.jsx';
 
 // Custom Chakra theme
 export default function Dashboard(props) {
@@ -22,7 +22,7 @@ export default function Dashboard(props) {
 	const [toggleSidebar, setToggleSidebar] = useState(false);
 	// functions for changing the states from components
 	const getRoute = () => {
-		return window.location.pathname !== '/admin/full-screen-maps';
+		return window.location.pathname !== '/dashboard/full-screen-maps';
 	};
 	const getActiveRoute = (routes) => {
 		let activeRoute = 'Default Brand Text';
@@ -89,7 +89,7 @@ export default function Dashboard(props) {
 	};
 	const getRoutes = (routes) => {
 		return routes.map((prop, key) => {
-			if (prop.layout === '/admin') {
+			if (prop.layout === '/dashboard') {
 				if (prop.component) {
 					return (
 						<Route
@@ -156,13 +156,13 @@ export default function Dashboard(props) {
 							<Box mx='auto' p={{ base: '20px', md: '30px' }} pe='20px' minH='100vh' pt='50px'>
 								<Routes>
 									{getRoutes(routes)}
-									<Route path="/default" element={<Admin />} />
-									<Route path="/profile" element={<Profile />} />
-									<Route path="/demography" element={<Admin />} />
-									<Route path="/health" element={<Health />} />
-									<Route path="/education" element={<Education />} />
-									<Route path="/security" element={<Security />} />
-									<Route path="/violence" element={<Violence />} />
+									
+									<Route path="/inicio" element={<Profile />} />
+									<Route path="/demografia" element={<Admin />} />
+									<Route path="/salud" element={<Health />} />
+									<Route path="/educacion" element={<Education />} />
+									<Route path="/seguridad" element={<Security />} />
+									<Route path="/violencia" element={<Violence />} />
 									
 								</Routes>
 							</Box>

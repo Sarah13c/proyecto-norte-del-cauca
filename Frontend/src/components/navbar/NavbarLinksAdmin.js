@@ -85,45 +85,7 @@ export default function HeaderLinks(props) {
 
 
 
-			<Menu>
-				<MenuButton p="0px">
-					<Avatar
-						_hover={{ cursor: 'pointer' }}
-						color="white"
-						name="Adela Parkson"
-						bg="#11047A"
-						size="sm"
-						w="40px"
-						h="40px"
-					/>
-				</MenuButton>
-				<MenuList boxShadow={shadow} p="0px" mt="10px" borderRadius="20px" bg={menuBg} border="none">
-					<Flex w="100%" mb="0px">
-						<Text
-							ps="20px"
-							pt="16px"
-							pb="10px"
-							w="100%"
-							borderBottom="1px solid"
-							borderColor={borderColor}
-							fontSize="sm"
-							fontWeight="700"
-							color={textColor}>
-							👋&nbsp; Hola, timbiquí
-						</Text>
-					</Flex>
-					<Flex flexDirection="column" p="10px">
-						<MenuItem
-							_hover={{ bg: 'none' }}
-							_focus={{ bg: 'none' }}
-							color="red.400"
-							borderRadius="8px"
-							px="14px">
-							<Text fontSize="sm">Cerrar sesión</Text>
-						</MenuItem>
-					</Flex>
-				</MenuList>
-			</Menu>
+			
 		</Flex>
 	);
 }

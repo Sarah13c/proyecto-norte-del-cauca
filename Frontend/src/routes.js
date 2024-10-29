@@ -1,27 +1,20 @@
 import { MdPerson, MdHome, MdSecurity, MdHealthAndSafety, MdBook, MdWarning } from "react-icons/md";
 
-import MainDashboard from "./pages/admin/default";
-import Profile from "./pages/admin/profile";
-import Health from "./pages/admin/health";
-import Security from "./pages/admin/security";
-import Violence from "./pages/admin/violence";
-import Education from "./pages/admin/education";
+import MainDashboard from "./pages/dashboard/inicio";
+import Profile from "./pages/dashboard/inicio";
+import Health from "./pages/dashboard/salud";
+import Security from "./pages/dashboard/seguridad";
+import Violence from "./pages/dashboard/violencia";
+import Education from "./pages/dashboard/educacion";
 
 
 const routes = [
   {
     name: "Inicio",
-    layout: "/admin",
-    path: "/default",
+    layout: "/dashboard",
+    path: "/inicio",
     icon: MdHome,
     component: MainDashboard,
-  },
-  {
-    name: "Perfil",
-    layout: "/admin",
-    path: "/profile",
-    icon: MdPerson,
-    component: Profile,
   },
   {
     name: "Indicadores",
@@ -29,36 +22,36 @@ const routes = [
     items: [
       {
         name: "Demografía",
-        layout: "/admin",
-        path: "/demography",
+        layout: "/dashboard",
+        path: "/demografia",
         icon: MdPerson,
         component: Profile,
       },
       {
         name: "Salud",
-        layout: "/admin",
-        path: "/health",
+        layout: "/dashboard",
+        path: "/salud",
         icon: MdHealthAndSafety,
         component: Health,
       },
       {
         name: "Seguridad",
-        layout: "/admin",
-        path: "/security",
+        layout: "/dashboard",
+        path: "/seguridad",
         icon: MdSecurity,
         component: Security,
       },
       {
         name: "Violencia",
-        layout: "/admin",
-        path: "/violence",
+        layout: "/dashboard",
+        path: "/violencia",
         icon: MdWarning,
         component: Violence,
       },
       {
         name: "Educación",
-        layout: "/admin",
-        path: "/education",
+        layout: "/dashboard",
+        path: "/educacion",
         icon: MdBook,
         component: Education,
       }

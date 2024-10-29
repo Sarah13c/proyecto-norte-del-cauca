@@ -48,70 +48,11 @@ export default function HeaderLinks(props) {
 			borderRadius="30px"
 			boxShadow={shadow}>
 			
-			<Flex
-				bg={ethBg}
-				display={secondary ? 'flex' : 'none'}
-				borderRadius="30px"
-				ms="auto"
-				p="6px"
-				align="center"
-				me="6px">
-				<Flex align="center" justify="center" bg={ethBox} h="29px" w="29px" borderRadius="30px" me="7px">
-					<Icon color={ethColor} w="9px" h="14px" as={FaEthereum} />
-				</Flex>
-				<Text w="max-content" color={ethColor} fontSize="sm" fontWeight="700" me="6px">
-					1,924
-					<Text as="span" display={{ base: 'none', md: 'unset' }}>
-						{' '}
-						ETH
-					</Text>
-				</Text>
-			</Flex>
-			<SidebarResponsive routes={routes} />
+			
 			<Menu>
-				<MenuList
-					boxShadow={shadow}
-					p="20px"
-					borderRadius="20px"
-					bg={menuBg}
-					border="none"
-					mt="22px"
-					me={{ base: '30px', md: 'unset' }}
-					minW={{ base: 'unset', md: '400px', xl: '450px' }}
-					maxW={{ base: '360px', md: 'unset' }}>
-					
-				</MenuList>
-			</Menu>
-
-
-
-			<Menu>
-				<MenuButton p="0px">
-					<Avatar
-						_hover={{ cursor: 'pointer' }}
-						color="white"
-						name="Adela Parkson"
-						bg="#11047A"
-						size="sm"
-						w="40px"
-						h="40px"
-					/>
-				</MenuButton>
+				
 				<MenuList boxShadow={shadow} p="0px" mt="10px" borderRadius="20px" bg={menuBg} border="none">
-					<Flex w="100%" mb="0px">
-						<Text
-							ps="20px"
-							pt="16px"
-							pb="10px"
-							w="100%"
-							borderBottom="1px solid"
-							borderColor={borderColor}
-							fontSize="sm"
-							fontWeight="700"
-							color={textColor}>
-							👋&nbsp; Hola, timbiquí
-						</Text>
-					</Flex>
+					
 					<Flex flexDirection="column" p="10px">
 						<MenuItem
 							_hover={{ bg: 'none' }}

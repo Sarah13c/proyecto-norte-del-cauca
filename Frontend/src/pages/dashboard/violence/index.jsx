@@ -10,10 +10,10 @@ import MiniStatistics from "../../../components/card/MiniStatistics";
 import IconBox from "../../../components/icons/IconBox";
 import { MdWarning, MdLocalHospital, MdPeople } from "react-icons/md";
 
-import VictimasDesplazamiento from "../violence/components/VictimasDesplazamiento";
-import ConflictosArmados from "../violence/components/ConflictosArmados";
+import VictimasDesplazamiento from "./components/VictimasDesplazamiento";
+import ConflictosArmados from "./components/ConflictosArmados";
 import MuertesViolentasDescriptivo from "./components/MuertesViolentasDescriptivo";
-import MuertesViolentas from "../violence/components/MuertesViolentas";
+import MuertesViolentas from "./components/MuertesViolentas";
 
 export default function ViolenceReports() {
   const [conflictosArmadosData, setConflictosArmadosData] = useState([]);

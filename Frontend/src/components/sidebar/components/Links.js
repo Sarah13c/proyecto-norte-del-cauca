@@ -38,7 +38,7 @@ export function SidebarLinks(props) {
             {createLinks(route.items)}
           </React.Fragment>
         );
-      } else if (route.layout === "/admin" || route.layout === "/auth") {
+      } else if (route.layout === "/dashboard" || route.layout === "/auth") {
         return (
           <NavLink key={index} to={route.layout + route.path}>
             <Box>

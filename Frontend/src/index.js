@@ -5,12 +5,12 @@ import App from './App';
 import Register from "./pages/register";
 import Login from "./pages/login";
 import { ChakraProvider } from '@chakra-ui/react';
-import Profile from './pages/admin/profile';
+import Profile from './pages/dashboard/inicio';
 import Accessibility from './pages/accessibility';
-import AdminLayout from './layouts/admin';
-import Health from './layouts/admin';
-import Security from  './layouts/admin';
-import Demography from  './layouts/admin';
+import AdminLayout from './layouts/dashboard';
+import Health from './layouts/dashboard';
+import Security from  './layouts/dashboard';
+import Demography from  './layouts/dashboard';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./styles/flexboxgrid.min.css";
@@ -58,7 +58,7 @@ const router = createBrowserRouter([
    
   },
   {
-    path: "/admin/*",
+    path: "/dashboard/*",
     element: <AdminLayout />,
    
   },

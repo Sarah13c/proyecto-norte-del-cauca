@@ -18,7 +18,7 @@ export default function Header() {
             Norte del Cauca Cómo Vamos te abre las puertas a un mundo de información estadística sobre la calidad de vida en los municipios de Santander de Quilichao, Puerto Tejada y Guachené.
           </HeaderP>
           <BtnWrapper>
-          <FullButton title="EMPECEMOS!" to="/admin/default" />
+          <FullButton title="EMPECEMOS!" to="/dashboard/inicio" />
           </BtnWrapper>
         </div>
       </LeftSide>

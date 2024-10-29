@@ -10,11 +10,11 @@ import '../../../assets/css/App.css';
 import MiniStatistics from "../../../components/card/MiniStatistics";
 import IconBox from "../../../components/icons/IconBox";
 import { MdLocalPolice, MdWarning, MdPeople, MdHome, MdDirectionsRun } from "react-icons/md";
-import TotalAccesosCarnales from "../../admin/security/components/TotalAccesosCarnales";
-import HomicidiosPorMunicipio from "../../admin/security/components/HomicidiosPorMunicipio";
+import TotalAccesosCarnales from "../../dashboard/seguridad/components/TotalAccesosCarnales";
+import HomicidiosPorMunicipio from "../../dashboard/seguridad/components/HomicidiosPorMunicipio";
 import TotalLesiones from "./components/TotalLesiones";
 import TotalHurtos from "./components/TotalHurtos";
-import TotalViolenciaIntrafamiliar from "../../admin/security/components/TotalViolenciaIntrafamiliar";
+import TotalViolenciaIntrafamiliar from "../../dashboard/seguridad/components/TotalViolenciaIntrafamiliar";
 
 export default function SecurityReports() {
   const [dataAccesos, setDataAccesos] = useState([]);

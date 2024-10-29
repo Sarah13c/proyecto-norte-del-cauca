@@ -13,9 +13,9 @@ import '../../../assets/css/App.css';
 import MiniStatistics from "../../../components/card/MiniStatistics";
 import IconBox from "../../../components/icons/IconBox";
 import { BsGenderMale, BsGenderFemale } from "react-icons/bs";
-import TotalDisability from "../../admin/health/components/TotalDisability";
-import TotalAfiliaciones from "../../admin/health/components/TotalAfiliaciones";
-import TotalNacimientos from "../../admin/health/components/TotalNacimientos";
+import TotalDisability from "../../dashboard/salud/components/TotalDisability";
+import TotalAfiliaciones from "../../dashboard/salud/components/TotalAfiliaciones";
+import TotalNacimientos from "../../dashboard/salud/components/TotalNacimientos";
 import MapComponent from "../../../components/MapComponents/MapComponent";
 
 export default function HealthReports() {
