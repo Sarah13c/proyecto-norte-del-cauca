@@ -38,7 +38,44 @@ export function SidebarLinks(props) {
             {createLinks(route.items)}
           </React.Fragment>
         );
-      } else if (route.layout === "/dashboard" || route.layout === "/auth") {
+      } else if (route.external) {
+        // Enlace externo
+        return (
+          <Box
+            key={index}
+            onClick={() => window.open(route.external, '_blank')}
+            _hover={{ cursor: 'pointer' }}
+          >
+            <HStack
+              spacing={activeRoute(route.path ? route.path.toLowerCase() : '') ? "22px" : "26px"}
+              py='5px'
+              ps='10px'
+            >
+              <Flex w='100%' alignItems='center' justifyContent='center'>
+                <Box
+                  color={activeRoute(route.path ? route.path.toLowerCase() : '') ? activeIcon : textColor}
+                  me='18px'
+                >
+                  {route.icon && <route.icon />}
+                </Box>
+                <Text
+                  me='auto'
+                  color={activeRoute(route.path ? route.path.toLowerCase() : '') ? activeColor : textColor}
+                  fontWeight={activeRoute(route.path ? route.path.toLowerCase() : '') ? "bold" : "normal"}
+                >
+                  {route.name}
+                </Text>
+              </Flex>
+              <Box
+                h='36px'
+                w='4px'
+                bg={activeRoute(route.path ? route.path.toLowerCase() : '') ? brandColor : "transparent"}
+                borderRadius='5px'
+              />
+            </HStack>
+          </Box>
+        );
+      } else if (route.layout === "/dashboard") {
         return (
           <NavLink key={index} to={route.layout + route.path}>
             <Box>

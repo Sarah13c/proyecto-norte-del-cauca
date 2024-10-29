@@ -57,8 +57,9 @@ const routes = [
       },
       {
         name: "Modelo Predictivo",
+        layout: "/dashboard",
         icon: FaChartLine, 
-        external: "http://93.127.213.95:5003",
+        external: "https://predicciones-norte-cauca.onrender.com/",
       },
     ],
   },
