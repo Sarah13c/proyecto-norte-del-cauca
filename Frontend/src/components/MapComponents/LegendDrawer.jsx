@@ -22,7 +22,7 @@ const LegendDrawer = () => {
   useEffect(() => {
     const fetchLegendData = async () => {
       try {
-        const response = await fetch('http://localhost:3001/datos2022Poblacion');
+        const response = await fetch('https://backend-norte-cauca-prod-rbud.onrender.com/datos2022Poblacion');
         if (!response.ok) {
           throw new Error('Error al obtener los datos de la leyenda del servidor');
         }

@@ -46,7 +46,7 @@ export default function UserReports() {
   useEffect(() => {
     const fetchDataPoblacion = async () => {
       try {
-        const response = await fetch('http://localhost:3001/datos2022Poblacion');
+        const response = await fetch('https://backend-norte-cauca-prod-rbud.onrender.com/datos2022Poblacion');
         if (!response.ok) {
           throw new Error("Error al obtener los datos del servidor");
         }
@@ -65,7 +65,7 @@ export default function UserReports() {
     const fetchData = async () => {
       try {
         // Fetch data for Total Spent
-        const responseSpent = await fetch('http://localhost:3001/proyeccionHogares');
+        const responseSpent = await fetch('https://backend-norte-cauca-prod-rbud.onrender.com/proyeccionHogares');
         if (!responseSpent.ok) {
           throw new Error("Error al obtener los datos del servidor");
         }
@@ -75,7 +75,7 @@ export default function UserReports() {
         transformData(dataSpent, "Total");
 
         // Fetch data for Pyramid Data
-        const responsePyramid = await fetch('http://localhost:3001/piramidePoblacional');
+        const responsePyramid = await fetch('https://backend-norte-cauca-prod-rbud.onrender.com/piramidePoblacional');
         if (!responsePyramid.ok) {
           throw new Error("Error al obtener los datos del servidor");
         }
@@ -83,7 +83,7 @@ export default function UserReports() {
         setPyramidData(dataPyramid);
 
         // Fetch data for Total Poblacion
-        const responseTotalPoblacion = await fetch('http://localhost:3001/total2022Poblacion');
+        const responseTotalPoblacion = await fetch('https://backend-norte-cauca-prod-rbud.onrender.com/total2022Poblacion');
         if (!responseTotalPoblacion.ok) {
           throw new Error('Error al obtener los datos del servidor');
         }
@@ -91,7 +91,7 @@ export default function UserReports() {
         setTotalPoblacion(dataTotalPoblacion);
 
         // Fetch data for Data Db
-        const responseDataDb = await fetch('http://localhost:3001/datos2022Poblacion');
+        const responseDataDb = await fetch('https://backend-norte-cauca-prod-rbud.onrender.com/datos2022Poblacion');
         if (!responseDataDb.ok) {
           throw new Error("Error al obtener los datos del servidor");
         }
@@ -99,7 +99,7 @@ export default function UserReports() {
         setDataDb(dataDbResponse);
 
         // Fetch data for Total Pyramid Data
-        const responseTotalPyramidData = await fetch('http://localhost:3001/piramidePoblacionalTotal');
+        const responseTotalPyramidData = await fetch('https://backend-norte-cauca-prod-rbud.onrender.com/piramidePoblacionalTotal');
         if (!responseTotalPyramidData.ok) {
           throw new Error("Error al obtener los datos del servidor");
         }

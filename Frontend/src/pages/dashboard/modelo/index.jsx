@@ -14,7 +14,7 @@ const Modelo = () => {
       pt="50px"
     >
       <iframe
-        src="http://93.127.213.95:5003"
+        src="https://predicciones-norte-cauca.onrender.com"
         style={{ width: '100%', height: '100%', border: 'none', margin: 0, padding: 0 }}
         title="Modelo Predictivo"
       />

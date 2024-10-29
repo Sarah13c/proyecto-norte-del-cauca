@@ -31,9 +31,9 @@ export default function ViolenceReports() {
     const fetchData = async () => {
       try {
         const [conflictosResponse, muertesResponse, desplazadosResponse] = await Promise.all([
-          fetch("http://localhost:3001/conflictosArmados"),
-          fetch("http://localhost:3001/muertesViolentasTotal"),
-          fetch("http://localhost:3001/desplazamientoForzado")
+          fetch("https://backend-norte-cauca-prod-rbud.onrender.com/conflictosArmados"),
+          fetch("https://backend-norte-cauca-prod-rbud.onrender.com/muertesViolentasTotal"),
+          fetch("https://backend-norte-cauca-prod-rbud.onrender.com/desplazamientoForzado")
         ]);
 
         const conflictosData = await conflictosResponse.json();

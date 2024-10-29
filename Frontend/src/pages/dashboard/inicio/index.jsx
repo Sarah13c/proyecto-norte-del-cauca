@@ -185,7 +185,7 @@ const PrincipalDashboard = () => {
         </Text>
         <SimpleGrid columns={{ base: 1, md: 4 }} spacing={10} mb={16}>
           <FeatureBox
-            title="Demografía"
+            title="Piramide Poblacional"
             icon={FaUserFriends}
             description="Predice tendencias demográficas y migratorias."
             linkTo="https://predicciones-norte-cauca.onrender.com/poblacion"

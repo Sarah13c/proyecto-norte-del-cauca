@@ -30,7 +30,7 @@ export default function EducationReports() {
   useEffect(() => {
     const fetchDataMatricula = async () => {
       try {
-        const response = await fetch('http://localhost:3001/matriculas_edu_superior');
+        const response = await fetch('https://backend-norte-cauca-prod-rbud.onrender.com/matriculas_edu_superior');
         if (!response.ok) {
           throw new Error("Error al obtener los datos del servidor");
         }
@@ -48,8 +48,8 @@ export default function EducationReports() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response2021 = await fetch('http://localhost:3001/calidadEducativa2021');
-        const response2022 = await fetch('http://localhost:3001/calidadEducativa2022');
+        const response2021 = await fetch('https://backend-norte-cauca-prod-rbud.onrender.com/calidadEducativa2021');
+        const response2022 = await fetch('https://backend-norte-cauca-prod-rbud.onrender.com/calidadEducativa2022');
         
         
         if (!response2021.ok || !response2022.ok) {

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Polygon, Popup, Marker, CircleMarker } from 'react-leaflet'; // Importa CircleMarker
+import { Polygon, Popup, CircleMarker } from 'react-leaflet'; // Importa CircleMarker
 import '../../styles/PopupStyles.css';
-import { Icon } from 'leaflet';
 
 const PolygonComponent = ({ state, mousePosition, setMousePosition }) => {
   const coordinates = state.geometry.coordinates[0].map((item) => [item[1], item[0]]);
@@ -12,7 +11,7 @@ const PolygonComponent = ({ state, mousePosition, setMousePosition }) => {
   useEffect(() => {
     const fetchTotalPoblacion = async () => {
       try {
-        const response = await fetch('http://localhost:3001/datos2022Poblacion');
+        const response = await fetch('https://backend-norte-cauca-prod-rbud.onrender.com/datos2022Poblacion');
         if (!response.ok) {
           throw new Error('Error al obtener los datos del servidor');
         }

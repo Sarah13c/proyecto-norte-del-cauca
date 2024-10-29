@@ -37,11 +37,11 @@ export default function SecurityReports() {
     const fetchAllData = async () => {
       try {
         const [accesosResponse, homicidiosResponse, lesionesResponse, hurtosResponse, violenciaResponse] = await Promise.all([
-          fetch("http://localhost:3001/accesosCarnales"),
-          fetch("http://localhost:3001/homicidios1922"),
-          fetch("http://localhost:3001/lesionesPersonales"),
-          fetch("http://localhost:3001/hurtos1922"),
-          fetch("http://localhost:3001/violenciaIntrafamiliar")
+          fetch("https://backend-norte-cauca-prod-rbud.onrender.com/accesosCarnales"),
+          fetch("https://backend-norte-cauca-prod-rbud.onrender.com/homicidios1922"),
+          fetch("https://backend-norte-cauca-prod-rbud.onrender.com/lesionesPersonales"),
+          fetch("https://backend-norte-cauca-prod-rbud.onrender.com/hurtos1922"),
+          fetch("https://backend-norte-cauca-prod-rbud.onrender.com/violenciaIntrafamiliar")
         ]);
 
         const accesosData = await accesosResponse.json();

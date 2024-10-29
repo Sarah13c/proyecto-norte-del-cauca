@@ -44,7 +44,7 @@ export default function HealthReports() {
   // Fetch data Nacimientos
   useEffect(() => {
     const fetchData = async (year) => {
-      const url = year === "2022" ? "http://localhost:3001/nacimientos22" : "http://localhost:3001/nacimientos21";
+      const url = year === "2022" ? "https://backend-norte-cauca-prod-rbud.onrender.com/nacimientos22" : "https://backend-norte-cauca-prod-rbud.onrender.com/nacimientos21";
       try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -76,7 +76,7 @@ export default function HealthReports() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3001/discapacidadesSalud');
+        const response = await fetch('https://backend-norte-cauca-prod-rbud.onrender.com/discapacidadesSalud');
         if (!response.ok) {
           throw new Error("Error al obtener los datos del servidor");
         }
@@ -95,7 +95,7 @@ export default function HealthReports() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const responseAfiliados = await fetch('http://localhost:3001/totalAfiliaciones');
+        const responseAfiliados = await fetch('https://backend-norte-cauca-prod-rbud.onrender.com//totalAfiliaciones');
         if (!responseAfiliados.ok) {
           throw new Error("Error al obtener los datos del servidor");
         }
