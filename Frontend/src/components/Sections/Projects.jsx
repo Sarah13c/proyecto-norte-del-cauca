@@ -31,7 +31,7 @@ export default function Projects() {
               </div>
               <ProjectBox
                 title="#1"
-                text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor."
+                text="Video Descriptivo del programa Norte Del Cauca Como Vamos."
 
               />
             </div>
@@ -48,7 +48,7 @@ export default function Projects() {
               </div>
               <ProjectBox
                 title="#2"
-                text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor."
+                text="Video Descriptivo del programa Norte Del Cauca Como Vamos."
 
               />
             </div>
@@ -65,7 +65,7 @@ export default function Projects() {
               </div>
               <ProjectBox
                 title="#3"
-                text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor."
+                text="Video Descriptivo del programa Norte Del Cauca Como Vamos."
 
               />
             </div>

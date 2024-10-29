@@ -68,9 +68,6 @@ export default function Services() {
                   <div style={{ width: "190px" }}>
                     <FullButton title="EMPECEMOS!" action={() => alert("clicked")} />
                   </div>
-                  <div style={{ width: "190px", marginLeft: "15px" }}>
-                    <FullButton title="SUSCRÍBETE" action={() => alert("clicked")} border />
-                  </div>
                 </ButtonsRow>
               </AddLeft>
               <AddRight>
